@@ -389,14 +389,14 @@ def costac_2(vol , n_cables , react1_bi , react2_bi ,react3_bi ,react4_bi ,react
     c_curr = 0
     for i in range(4):
         if curr[i] > 1.1:
-            c_curr = c_curr + abs(V[i] - 1) * 1e3
+            c_curr = c_curr + abs(curr[i] - 1) * 1e3
 
     #  print("overcurrent =", c_curr)
 
     # we want reactive power delivered to the grid to be as close as possible to 0
     c_react = 0
     if q_wslack[nbus-1] != 0:
-            c_react = abs(q_wslack[nbus-1]) * 1e1
+            c_react = abs(q_wslack[nbus-1]) * 1e3
 
     #print("reactivetogrid =", c_react)
 
