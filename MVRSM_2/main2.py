@@ -85,7 +85,7 @@ if __name__ == '__main__':
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0, vmax=max_evals-1))
     plt.colorbar(sm, label='Point index')
     # plt.ylim(0, 50)
-    plt.xlim(0, 50)
+    # plt.xlim(0, 50)
     # plt.scatter(yp[:,0], yp[:,1])
     plt.show()
 
