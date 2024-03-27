@@ -315,7 +315,7 @@ print("i4 =", i_54 )
 #  We compute the AC power losses
 
 p_lossac = Sbase * (p_owf + p_wslack[5]) * 1e-6  # MW
-
+print (p_wslack[5])
 print ("ac_losses =", p_lossac,"MW")
 
 #  NOW WE CREATE THE COST FUNCTION THAT WILL ALLOWAS TO IMPLEMENT THE MVRSM ALGORITHM

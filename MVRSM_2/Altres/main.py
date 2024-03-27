@@ -39,7 +39,7 @@ if __name__ == '__main__':
 	
     rand_evals = 100 # Number of random iterations, same as initN above (24)
     n_itrs = 500
-    n_trials = 10
+    n_trials = 1
     max_evals = n_itrs+rand_evals # Maximum number of MVRSM iterations, the first <rand_evals> are random
 	
 	
@@ -62,7 +62,7 @@ if __name__ == '__main__':
         print(solY)
         print()
 
-        #mvrsm.plot_results(logfile)
+        mvrsm.plot_results(logfile)
         return solX, solY
 
     fobj_vec = []

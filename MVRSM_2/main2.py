@@ -1,5 +1,6 @@
 import numpy as np
 import costac_2
+import Altres.mvrsm
 import MVRSM_mo_scaled
 import matplotlib.pyplot as plt
 
@@ -7,11 +8,10 @@ import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
 
-    #  ff = synth_functions.dim3constrRosenbrock  #dim2constrRosenbrock 
     ff = costac_2.costac_2
     d = 13 # Total number of variables
     lb = np.array([1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 450e6])  # Lower bound
-    ub = np.array([3, 3, 1, 1, 1, 1, 1, 0.8, 0.8, 0.8, 0.8, 0.8, 2000e6])  # Upper bound
+    ub = np.array([3, 3, 1, 1, 1, 1, 1, 0.8, 0.8, 0.8, 0.8, 0.8, 750e6])  # Upper bound
     #lb = np.array([-1.5, -0.5]) # Lower bound
     #ub = np.array([1.5, 2.5])
     #lb = np.array([-1.5, -1.5]) # Lower bound
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     x0[0:num_int] = np.round(np.random.rand(num_int)*(ub[0:num_int]-lb[0:num_int]) + lb[0:num_int]) # Random initial guess (integer)
     x0[num_int:d] = np.random.rand(d-num_int)*(ub[num_int:d]-lb[num_int:d]) + lb[num_int:d] # Random initial guess (continuous)
 	
-    rand_evals = 200 # Number of random iterations, same as initN above (24)
+    rand_evals = 200 # Number of random iterations
     n_itrs = 200
     n_trials = 1
     max_evals = n_itrs+rand_evals # Maximum number of MVRSM iterations, the first <rand_evals> are random
@@ -61,7 +61,7 @@ if __name__ == '__main__':
         #print(solY)
         print()
 
-        #  mvrsm.plot_results(logfile)
+        # mvrsm.plot_results(logfile)
         return xsol, ysol, xpop, ypop, fpop
 
 
@@ -80,30 +80,16 @@ if __name__ == '__main__':
     # plt.show()
     cmap = plt.get_cmap('viridis', max_evals)
     for i in range(max_evals):
+    #    plt.subplot(1,2,2)
         plt.scatter(yp[i, 0], yp[i, 1], color=cmap(i))
+    #for i in range(len(ys)):
+        #plt.subplot(1,2,1)
+        #plt.scatter(ys[i, 0], ys[i, 1], color=cmap(i))
+        
 
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0, vmax=max_evals-1))
     plt.colorbar(sm, label='Point index')
-    # plt.ylim(0, 50)
+    #plt.ylim(0, 1)
     # plt.xlim(0, 50)
     # plt.scatter(yp[:,0], yp[:,1])
     plt.show()
-
-    """
-    sorted_y_, sorted_x_, y_population_ = MVRSM_new.MVRSM_minimize(obj_MVRSM,
-                                                               x0=x0,
-                                                               lb=lb,
-                                                               ub=ub,
-                                                               num_int=num_int,
-                                                               max_evals=400,
-                                                               rand_evals=100,
-                                                               args=())
-
-    print("Best solutions:")
-    print(sorted_y_)
-    print(sorted_x_)
-
-    plt.scatter(sorted_y_[:, 0], sorted_y_[:, 1], 1, )
-    plt.plot(y_population_[:, 0])
-    plt.show()
-    """

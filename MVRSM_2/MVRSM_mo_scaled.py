@@ -492,7 +492,6 @@ def MVRSM_mo_scaled(obj_func,
     """
 
     d = len(x0)  # number of decision variables
-
     model = SurrogateModel.init(d, lb, ub, num_int)
     next_x = np.array(x0, dtype=float)  # candidate solution
 

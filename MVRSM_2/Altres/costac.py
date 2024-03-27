@@ -1,6 +1,7 @@
 import numpy as np
 import cmath
 import random
+import matplotlib.pyplot as plt
 
 def costac(vol , n_cables , react_bi , react_val , S_rtr):
 
@@ -312,21 +313,21 @@ def costac(vol , n_cables , react_bi , react_val , S_rtr):
     #  We compute the AC power losses
 
     p_lossac = Sbase * (p_owf + p_wslack[5]) * 1e-6  # MW
-
+    #print(p_wslack[5])
     #print ("ac_losses =", p_lossac,"MW")
 
     #  NOW WE CREATE THE COST FUNCTION THAT WILL ALLOWAS TO IMPLEMENT THE MVRSM ALGORITHM
 
     #  Cable cost
 
-    c_cab = ((A + B * np.exp(C * (np.sqrt(3) * u_i * I_rated) * 1e-8) + D) * (9 * n_cables + 1) * l) / (10 * E)  #  to get  A,B,C,D and I max parameters we will use
+    c_cab = ((A + B * np.exp(C * (np.sqrt(3) * u_i * I_rated) * 1e-6) + D) * (9 * n_cables + 1) * l) / (10 * E)  #  to get  A,B,C,D and I max parameters we will use
                                                                                             #  manufacturer data (110,150,220) S_rcb in MVA
 
     #  Cost switchgears
     c_gis = (0.0017 * u_i * 1e-3 + 0.0231)  # u_i in kV
 
     # Cost susbstation
-    c_ss = 2.534 + 0.0887 * p_owf * 100  # p-owf in MW
+    c_ss = 2534 + 88.7 * p_owf * 100 * 100  # p-owf in MW
 
     # Cost power losses
     t_owf = 30  # lie time in years
@@ -343,15 +344,37 @@ def costac(vol , n_cables , react_bi , react_val , S_rtr):
     p_on = 0.8312
     p_mid = 1.244
     p_off = 1.244
+    c_reac = 0
+   
+    if react_bi[0] == 1:
+        c_r1 = k_off * (abs(Y_l1) * (u_i*1e-3)**2) + p_off
+    else:
+        c_r1 = 0
 
-    c_r1 = k_off * (abs(Y_l1) * (u_i*1e-3)**2) + p_off
-    c_r2 = k_off * (abs(Y_l2) *(u_i*1e-3)**2) + p_off
-    c_r3 = k_mid * (abs(Y_l3) * (u_i*1e-3)**2) + p_mid
-    c_r4 = k_on * (abs(Y_l4) * (u_i*1e-3)**2) + p_on
-    c_r5 = k_on * (abs(Y_l5) * (u_i*1e-3)**2) + p_on
+    if react_bi[1] == 1:
+        c_r2 = k_off * (abs(Y_l2) * (u_i*1e-3)**2) + p_off
+    else:
+        c_r2 = 0
+
+    if react_bi[2] == 1:
+        c_r3 = k_mid * (abs(Y_l3) * (u_i*1e-3)**2) + p_mid
+    else:
+        c_r3 = 0
+
+    if react_bi[3] == 1:
+        c_r4 = k_on * (abs(Y_l4) * (u_i*1e-3)**2) + p_on
+    else:
+        c_r4 = 0
+    
+    if react_bi[4] == 1:
+        c_r5 = k_on * (abs(Y_l5) * (u_i*1e-3)**2) + p_on
+    else:
+        c_r5 = 0
+    
+            
     c_reac = c_r1 + c_r2 + c_r3 + c_r4 + c_r5 #Total cost
 
-    c_total = c_cab + c_gis + c_ss + c_losses + c_tr + c_reac
+    c_total = c_cab + c_gis + c_ss + c_tr + c_reac
     #print("total cost =", c_total)
 
     #  We have to include here the penalizations of voltages, current and reactive power
@@ -361,39 +384,46 @@ def costac(vol , n_cables , react_bi , react_val , S_rtr):
     c_vol = 0
     for i in range(nbus-1):
         if V[i] > 1.1 or V[i] < 0.9:
-            c_vol = c_vol + abs(V[i] - 1) *1e3
+            c_vol = c_vol + abs(V[i] - 1) *1
 
     #  print("overvoltage =", c_vol)
 
     #overcurrents
     c_curr = 0
     for i in range(4):
-        if curr[i] > 1.1:
-            c_curr = c_curr + abs(V[i] - 1) * 1e3
+        if curr[i] > 1.1 * n_cables:
+            c_curr = c_curr + abs(curr[i] - 1) * 1
 
     #  print("overcurrent =", c_curr)
 
     # we want reactive power delivered to the grid to be as close as possible to 0
     c_react = 0
     if q_wslack[nbus-1] != 0:
-            c_react = abs(q_wslack[nbus-1]) * 1e2
+            c_react = abs(q_wslack[nbus-1]) 
 
     #print("reactivetogrid =", c_react)
 
-    costs = np.array([c_total * 1e-8, c_vol, c_curr, c_react])
+    costs = np.array([c_losses, c_cab, c_ss, c_vol , c_curr, c_react])
+    total = np.array([(c_total), c_losses + c_vol + c_curr + c_react])
     #print("costs =", costs)
 
-    return costs
+    return costs, total
+
+trials = 100
+vol = np.zeros((trials))
+for i in range(trials):
+    vol[i] = random.randint(1,3)  # Corresponds to 220 kV
+
+n_cables = np.zeros((trials))
+for i in range(trials):
+    n_cables[i] = random.randint(1,3)
+
+react_bi = np.zeros((trials,5))
+for i in range(trials):
+    react_bi[i,:] = random.randint(0,1)
 
 
 
-vol = 3  # Corresponds to 220 kV
-n_cables = 1
-react_bi = np.array([1, 0, 1, 0, 1])
-#  react_val = np.array([0, 0.1615, 0.323, 0.1615, 0])
-
-
-trials = 30
 s_rtr = np.zeros(trials)
 for i in range(trials):
     s_rtr[i] = random.uniform(450e6,700e6)
@@ -401,20 +431,33 @@ for i in range(trials):
 
 react_val = np.zeros((trials,5))
 for i in range(trials):
-    react_val[i,:] = random.uniform(0,0.5)
+    react_val[i,:] = random.uniform(0,1)
 # print("react =", react_val)
 
-results = np.zeros((trials, 4))
+results = np.zeros((trials, 6))
+fin = np.zeros((trials, 2))
 for i in range(trials):
     pow_tr = s_rtr[i]
     react_valpres = react_val[i]
-    y = costac( vol , n_cables , react_bi , react_valpres , pow_tr)
+    react_bipres = react_bi[i]
+    volpres = vol[i]
+    # print(volpres)
+    n_cablespres = n_cables[i]
+    y, total = costac( volpres , n_cablespres , react_bipres , react_valpres , pow_tr)
     results[i,:] = y
+    fin[i,:] = total
 
-total = results.sum(axis = 1)
+#total = results.sum(axis = 1)
 
-print(results)
-print ("sum =", total)
+print("costs =", results)
+#print(fin)
+for i in range(trials):
+    plt.scatter(fin[i, 0], fin[i, 1])
+
+
+plt.show()
+
+#print ("sum =", total)
 
 #  Now we should study how we normalized the economic costs and technical deviations
 #  to be able to asses correctly the optimization
