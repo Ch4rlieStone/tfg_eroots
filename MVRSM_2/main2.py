@@ -10,17 +10,12 @@ if __name__ == '__main__':
 
     ff = costac_2.costac_2
     d = 13 # Total number of variables
-    lb = np.array([1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 450e6])  # Lower bound
+    # lb = np.array([1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 450e6])  # Lower bound
+    # ub = np.array([3, 3, 1, 1, 1, 1, 1, 0.8, 0.8, 0.8, 0.8, 0.8, 750e6])  # Upper bound
+    lb = np.array([1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 450e6])  # Lower bound
     ub = np.array([3, 3, 1, 1, 1, 1, 1, 0.8, 0.8, 0.8, 0.8, 0.8, 750e6])  # Upper bound
-    #lb = np.array([-1.5, -0.5]) # Lower bound
-    #ub = np.array([1.5, 2.5])
-    #lb = np.array([-1.5, -1.5]) # Lower bound
-    #ub = np.array([1.5, 1.5])
-    #lb = np.array([0, -1.5, -1.5]) #Lower bound
-    #ub = np.array([1, 1.5, 1.5])
+
     num_int = 7 # number of integer variables
-    #lb[0:num_int] = 0
-    #ub[0:num_int] = num_int+1
 	
     x0 = np.zeros(d) # Initial guess
     x0[0:num_int] = np.round(np.random.rand(num_int)*(ub[0:num_int]-lb[0:num_int]) + lb[0:num_int]) # Random initial guess (integer)
@@ -89,7 +84,7 @@ if __name__ == '__main__':
 
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0, vmax=max_evals-1))
     plt.colorbar(sm, label='Point index')
-    #plt.ylim(0, 1)
-    # plt.xlim(0, 50)
+    plt.ylim(0, 5e3)
+    plt.xlim(5, 20)
     # plt.scatter(yp[:,0], yp[:,1])
     plt.show()

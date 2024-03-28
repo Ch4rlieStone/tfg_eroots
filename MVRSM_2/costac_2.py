@@ -2,7 +2,7 @@ import numpy as np
 import cmath
 import random
 
-def costac_2(vol , n_cables , react1_bi , react2_bi ,react3_bi ,react4_bi ,react5_bi, react1_val ,react2_val ,react3_val ,react4_val ,react5_val , S_rtr):
+def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val,react4_val, react5_val, S_rtr):
 
     # 1. Define grid
 
@@ -332,22 +332,22 @@ def costac_2(vol , n_cables , react1_bi , react2_bi ,react3_bi ,react4_bi ,react
     order_mg = 1
     #  Cable cost
    
-    c_cab = (((A + B * np.exp(C * (n_cables * np.sqrt(3) * u_i * I_rated) * 1e-6) + D) * (9 * n_cables + 1) * l) / (10 * E)) * order_mg #  to get  A,B,C,D and I max parameters we will use
+    c_cab = (((A + B * np.exp(C * (n_cables * np.sqrt(3) * u_i * I_rated) * 1e-6) + D) * (9 * n_cables + 1) * l) / (10 * E)) * 1e-6  #  to get  A,B,C,D and I max parameters we will use
                                                                                             #  manufacturer data (110,150,220) S_rcb in MVA
 
     #  Cost switchgears
-    c_gis = (0.0017 * u_i * 1e-3 + 0.0231) * order_mg # u_i in kV
+    c_gis = (0.0017 * u_i * 1e-3 + 0.0231)  # u_i in kV
 
     # Cost susbstation
-    c_ss = (2.534 + 0.0887 * p_owf * 100) * order_mg  # p-owf in MW
+    c_ss = (2.534 + 0.0887 * p_owf * 100)  # p-owf in MW
 
     # Cost power losses
     t_owf = 25  # lie time in years
     c_ey = 100  # eu/MWh, cost of energy lost 
-    c_losses = (8760 * t_owf * c_ey * p_lossac * 10e-3) * order_mg # losses in MW , 8760 since 1 year is 8760 h
+    c_losses = (8760 * t_owf * c_ey * p_lossac) / 1e6 # losses in MW , 8760 since 1 year is 8760 h
 
     # Cost transformers
-    c_tr = (0.0427 * (S_rtr * 1e-6)**0.7513) * order_mg  # S_rtr in MVA
+    c_tr = (0.0427 * (S_rtr * 1e-6)**0.7513)  # S_rtr in MVA
 
     # Cost reactors
     k_on = 0.01049
@@ -358,30 +358,35 @@ def costac_2(vol , n_cables , react1_bi , react2_bi ,react3_bi ,react4_bi ,react
     p_off = 1.244
 
     if react1_bi == 1:
-        c_r1 = k_off * (abs(Y_l1) * (u_i*1e-3)**2) + p_off
+        c_r1 = k_off * (abs(Y_l1) * (1)**2) + p_off
     else:
         c_r1 = 0
+
     if react2_bi == 1:
-        c_r2 = k_off * (abs(Y_l2) * (u_i*1e-3)**2) + p_off
+        c_r2 = k_off * (abs(Y_l2) * (1)**2) + p_off
     else:
         c_r2 = 0
+
     if react3_bi == 1:
-        c_r3 = k_mid * (abs(Y_l3) * (u_i*1e-3)**2) + p_mid
+        c_r3 = k_mid * (abs(Y_l3) * (1)**2) + p_mid
     else:
         c_r3 = 0
+
     if react4_bi == 1:
-        c_r4 = k_on * (abs(Y_l4) * (u_i*1e-3)**2) + p_on
+        c_r4 = k_on * (abs(Y_l4) * (1)**2) + p_on
     else:
         c_r4 = 0
+
     if react5_bi == 1:
-        c_r5 = k_on * (abs(Y_l5) * (u_i*1e-3)**2) + p_on
+        c_r5 = k_on * (abs(Y_l5) * (1)**2) + p_on
     else:
         c_r5 = 0
     
-    c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * order_mg 
+    c_reac = c_r1 + c_r2 + c_r3 + c_r4 + c_r5
     
     #Total cost
-    c_total = c_cab + c_gis + c_ss + c_tr + c_reac + c_losses
+    # c_total = c_cab + c_gis + c_ss + c_tr + c_reac
+    c_total = c_cab + c_gis + c_tr + c_reac
     #print("total cost =", c_total)
 
     #  We have to include here the penalizations of voltages, current and reactive power
@@ -390,8 +395,10 @@ def costac_2(vol , n_cables , react1_bi , react2_bi ,react3_bi ,react4_bi ,react
     # over or below voltages
     c_vol = 0
     for i in range(nbus-1):
-        if V[i] > 1.1 or V[i] < 0.9:
-            c_vol = c_vol + abs(V[i] - 1) *1
+        if V[i] > 1.1:
+            c_vol += (V[i] - 1.1) * 10000000
+        elif V[i] < 0.9:
+            c_vol += (0.9 - V[i]) * 10000000
 
     #  print("overvoltage =", c_vol)
 
@@ -399,14 +406,14 @@ def costac_2(vol , n_cables , react1_bi , react2_bi ,react3_bi ,react4_bi ,react
     c_curr = 0
     for i in range(4):
         if curr[i] > 1.1 * n_cables:
-            c_curr = c_curr + abs(curr[i] - 1) * 1
+            c_curr = c_curr + abs(curr[i] - 1.1 * n_cables) * 100000
 
     #  print("overcurrent =", c_curr)
 
     # we want reactive power delivered to the grid to be as close as possible to 0
     c_react = 0
     if q_wslack[nbus-1] != 0:
-            c_react = abs(q_wslack[nbus-1]) * 1
+            c_react = abs(q_wslack[nbus-1]) * 1000
 
     #print("reactivetogrid =", c_react)
 
@@ -415,8 +422,19 @@ def costac_2(vol , n_cables , react1_bi , react2_bi ,react3_bi ,react4_bi ,react
     total = costs.sum()
     # print(c_total * 1e-8, c_vol + c_curr + c_react)
     #cost_invest = c_total * 1e-7
-    cost_invest = c_total * 1e-7
-    cost_tech = (c_vol + c_curr + c_react) * 1
+    cost_invest = c_total
+    # cost_tech = (c_vol + c_curr + c_react + c_losses) * 1
+    cost_tech = (c_vol + c_curr + c_losses) * 1
+    # cost_tech = c_losses
+
+    if c_losses < 100:
+        print(V)
+        print(p_lossac)
+        print('-------------')
+
+    if cost_tech > 1e6 or cost_tech < 1e-6:
+        cost_tech = 1e20
+        cost_invest = 1e20
 
     return np.array([cost_invest, cost_tech])
 
