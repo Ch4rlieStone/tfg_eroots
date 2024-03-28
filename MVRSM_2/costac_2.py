@@ -8,10 +8,10 @@ def costac_2(vol , n_cables , react1_bi , react2_bi ,react3_bi ,react4_bi ,react
 
     # 1.1 Global grid
     Sbase = 100e6  # VA
-    V_ref = 220e3  # V
-    I_ref = Sbase / (np.sqrt(3) * V_ref)
+    # V_ref = 220e3  # V
+    # I_ref = Sbase / (np.sqrt(3) * V_ref)
     f = 50  # Hz
-    Y_ref = Sbase / V_ref**2  # 1 / ohm
+    # Y_ref = Sbase / V_ref**2  # 1 / ohm
 
     # WPPT TO EVALUATE parameters
 
@@ -33,8 +33,10 @@ def costac_2(vol , n_cables , react1_bi , react2_bi ,react3_bi ,react4_bi ,react
         D = 17e4
         E = 8.98
         I_rated = 540  # how we get this value? 
+        Y_ref = Sbase / u_i**2  # 1 / ohm
+        V_ref = u_i
 
-    if vol == 2:
+    elif vol == 2:
         u_i = 150e3
         R = 0.0067  # ohm/km
         Cap = 0.19e-6  # F/km
@@ -45,8 +47,11 @@ def costac_2(vol , n_cables , react1_bi , react2_bi ,react3_bi ,react4_bi ,react
         D = 17e4
         E = 8.98
         I_rated = 500
+        Y_ref = Sbase / u_i**2  # 1 / ohm
+        V_ref = u_i
 
-    if vol == 1:
+
+    elif vol == 1:
         u_i = 110e3
         R = 0.0067  # ohm/km
         Cap = 0.24e-6  # F/km
@@ -57,6 +62,9 @@ def costac_2(vol , n_cables , react1_bi , react2_bi ,react3_bi ,react4_bi ,react
         D = 17e4
         E = 8.98
         I_rated= 470
+        Y_ref = Sbase / u_i**2  # 1 / ohm
+        V_ref = u_i
+
 
     # 1.2 Trafo
 
