@@ -313,6 +313,7 @@ def costac(vol , n_cables , react_bi , react_val , S_rtr):
     #  We compute the AC power losses
 
     p_lossac = Sbase * (p_owf + p_wslack[5]) * 1e-6  # MW
+
     #print(p_wslack[5])
     #print ("ac_losses =", p_lossac,"MW")
 
@@ -397,14 +398,14 @@ def costac(vol , n_cables , react_bi , react_val , S_rtr):
     #  print("overcurrent =", c_curr)
 
     # we want reactive power delivered to the grid to be as close as possible to 0
-    c_react = 0
+    c_reacg = 0
     if q_wslack[nbus-1] != 0:
-            c_react = abs(q_wslack[nbus-1]) 
+            c_reacg = abs(q_wslack[nbus-1]) 
 
     #print("reactivetogrid =", c_react)
 
-    costs = np.array([c_losses, c_cab, c_ss, c_vol , c_curr, c_react])
-    total = np.array([(c_total), c_losses + c_vol + c_curr + c_react])
+    costs = np.array([c_losses, c_cab, c_ss, c_reac, c_vol , c_curr, c_reacg  ])
+    total = np.array([(c_total), c_losses + c_vol + c_curr + c_reacg])
     #print("costs =", costs)
 
     return costs, total
@@ -434,7 +435,7 @@ for i in range(trials):
     react_val[i,:] = random.uniform(0,1)
 # print("react =", react_val)
 
-results = np.zeros((trials, 6))
+results = np.zeros((trials, 7))
 fin = np.zeros((trials, 2))
 for i in range(trials):
     pow_tr = s_rtr[i]
