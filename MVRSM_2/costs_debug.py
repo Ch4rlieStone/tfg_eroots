@@ -2,7 +2,25 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def c_cabs(n_cables):
+def c_cabs1(n_cables):
+    # ref 12 
+    # Cable costs
+    # :param n_cables: number of cables
+    # return: cost in M€
+    ll = 100  # km
+    u_i = 110e3
+    R = 0.0067  # ohm/km
+    Cap = 0.24e-6  # F/km
+    L = 0.36e-3   # H/km
+    A = 1.3295
+    B = 0.417
+    C = 0.01855
+    D = 17e4
+    E = 8.98
+    I_rated= 470
+    return (((A + B * np.exp(C * (np.sqrt(3) * u_i * I_rated) * 1e-6) + D) * (9 * n_cables + 1) * ll) / (10 * E)) / 1e6
+
+def c_cabs2(n_cables):
     # ref 12 
     # Cable costs
     # :param n_cables: number of cables
@@ -18,8 +36,27 @@ def c_cabs(n_cables):
     D = 17e4
     E = 8.98
     I_rated = 500
-    # return (((A + B * np.exp(C * (n_cables * np.sqrt(3) * u_i * I_rated) * 1e-6) + D) * (9 * n_cables + 1) * l) / (10 * E))
     return (((A + B * np.exp(C * (np.sqrt(3) * u_i * I_rated) * 1e-6) + D) * (9 * n_cables + 1) * ll) / (10 * E)) / 1e6
+
+def c_cabs3(n_cables):
+    # ref 12 
+    # Cable costs
+    # :param n_cables: number of cables
+    # return: cost in M€
+    ll = 100  # km
+    u_i = 220e3
+    R = 0.0067  # ohm/km
+    Cap = 0.17e-6  # F/km
+    L = 0.40e-3   # H/km
+    A = 3.181
+    B = 0.11
+    C = 0.0116
+    D = 17e4
+    E = 8.98
+    I_rated = 540  # how we get this value? 
+    return (((A + B * np.exp(C * (np.sqrt(3) * u_i * I_rated) * 1e-6) + D) * (9 * n_cables + 1) * ll) / (10 * E)) / 1e6
+
+
 
 def c_sw(v_nom):
     # ref 15
@@ -58,21 +95,25 @@ def c_loss(P_loss):
     return (8760 * 25 * 100 * P_loss) / 1e6
 
 if __name__ == "__main__":
-    n_cab = 2
+    n_cab = 3
     v_nom = 220
     s_tra = 750
     q_ac = 80
     p_ow = 500
     p_loss = 2
 
-    c_cab = c_cabs(n_cab)
+    c_cab1 = c_cabs1(n_cab)
+    c_cab2 = c_cabs2(n_cab)
+    c_cab3 = c_cabs3(n_cab)
     c_swi = c_sw(v_nom)
     c_tra = c_tr(s_tra)
     c_qac = c_qq(q_ac)
     c_sub = c_ss(p_ow)
     c_los = c_loss(p_loss)
 
-    print(f"Cost of cables: {c_cab} M€", sep="\n")
+    print(f"Cost of cables: {c_cab1} M€", sep="\n")
+    print(f"Cost of cables: {c_cab2} M€", sep="\n")
+    print(f"Cost of cables: {c_cab3} M€", sep="\n")
     print(f"Cost of switchgear: {c_swi} M€", sep="\n")
     print(f"Cost of transformer: {c_tra} M€", sep="\n")
     print(f"Cost of reactive power compensation: {c_qac} M€", sep="\n")

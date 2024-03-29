@@ -10,10 +10,11 @@ if __name__ == '__main__':
 
     ff = costac_2.costac_2
     d = 13 # Total number of variables
-    # lb = np.array([1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 450e6])  # Lower bound
+    lb = np.array([1, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 800e6])  # Lower bound
+    ub = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
+    # ub = np.array([3, 3, 1, 1, 1, 1, 1, 0.5, 0.5, 0.5, 0.5, 0.5, 800e6])  # Upper bound
+    # lb = np.array([1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 450e6])  # Lower bound
     # ub = np.array([3, 3, 1, 1, 1, 1, 1, 0.8, 0.8, 0.8, 0.8, 0.8, 750e6])  # Upper bound
-    lb = np.array([1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 450e6])  # Lower bound
-    ub = np.array([3, 3, 1, 1, 1, 1, 1, 0.8, 0.8, 0.8, 0.8, 0.8, 750e6])  # Upper bound
 
     num_int = 7 # number of integer variables
 	
@@ -22,7 +23,7 @@ if __name__ == '__main__':
     x0[num_int:d] = np.random.rand(d-num_int)*(ub[num_int:d]-lb[num_int:d]) + lb[num_int:d] # Random initial guess (continuous)
 	
     rand_evals = 200 # Number of random iterations
-    n_itrs = 200
+    n_itrs = 500
     n_trials = 1
     max_evals = n_itrs+rand_evals # Maximum number of MVRSM iterations, the first <rand_evals> are random
 	
@@ -75,16 +76,18 @@ if __name__ == '__main__':
     # plt.show()
     cmap = plt.get_cmap('viridis', max_evals)
     for i in range(max_evals):
-    #    plt.subplot(1,2,2)
+    #     plt.subplot(1,2,2)
         plt.scatter(yp[i, 0], yp[i, 1], color=cmap(i))
-    #for i in range(len(ys)):
-        #plt.subplot(1,2,1)
-        #plt.scatter(ys[i, 0], ys[i, 1], color=cmap(i))
+    # for i in range(len(ys)):
+    #     plt.subplot(1,2,1)
+        # plt.scatter(ys[i, 0], ys[i, 1], color=cmap(i))
         
 
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0, vmax=max_evals-1))
     plt.colorbar(sm, label='Point index')
-    plt.ylim(0, 5e3)
-    plt.xlim(5, 20)
+    plt.ylim(0, 20e3)
+    plt.xlim(0, 20)
     # plt.scatter(yp[:,0], yp[:,1])
     plt.show()
+    print(xs)
+    print(ys)
