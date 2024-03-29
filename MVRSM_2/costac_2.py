@@ -9,10 +9,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
 
     # 1.1 Global grid
     Sbase = 100e6  # VA
-    # V_ref = 220e3  # V
-    # I_ref = Sbase / (np.sqrt(3) * V_ref)
     f = 50  # Hz
-    # Y_ref = Sbase / V_ref**2  # 1 / ohm
 
     # WPPT TO EVALUATE parameters
 
@@ -21,51 +18,41 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
     q_owf = 0 # p.u  We assume no reactive power is generated at plant
 
     #  Integer
-#  vol = 3
-#  transmission voltage (110 [1],150 [2],220 [3]) kV
-    if vol == 3:
-        u_i = 220e3
-        R = 0.0067  # ohm/km
-        Cap = 0.17e-6  # F/km
-        L = 0.40e-3   # H/km
-        A = 3.181
-        B = 0.11
-        C = 0.0116
-        D = 17e4
-        E = 8.98
-        I_rated = 540  # how we get this value? 
-        Y_ref = Sbase / u_i**2  # 1 / ohm
-        V_ref = u_i
-
-    elif vol == 2:
-        u_i = 150e3
-        R = 0.0067  # ohm/km
-        Cap = 0.19e-6  # F/km
-        L = 0.38e-3   # H/km
-        A = 1.971
-        B = 0.209
-        C = 0.0166
-        D = 17e4
-        E = 8.98
-        I_rated = 500
-        Y_ref = Sbase / u_i**2  # 1 / ohm
-        V_ref = u_i
-
-
-    elif vol == 1:
-        u_i = 110e3
+    #  vol = 3
+    #  transmission voltage (110 [1],150 [2],220 [3]) kV
+    #  voltages: 66, 132, 220 kV (1, 2, 3)
+    if vol == 1:
+        u_i = 66e3  # V
         R = 0.0067  # ohm/km
         Cap = 0.24e-6  # F/km
         L = 0.36e-3   # H/km
-        A = 1.3295
-        B = 0.417
-        C = 0.01855
-        D = 17e4
-        E = 8.98
-        I_rated= 470
-        Y_ref = Sbase / u_i**2  # 1 / ohm
-        V_ref = u_i
+        A = 0.688e6
+        B = 0.625e6
+        C = 2.05
+        I_rated= 470  # A
 
+    if vol == 2:
+        u_i = 132e3  # V
+        R = 0.0067  # ohm/km
+        Cap = 0.19e-6  # F/km
+        L = 0.38e-3   # H/km
+        A = 1.971e6
+        B = 0.209e6
+        C = 1.66
+        I_rated = 500  # A
+
+    if vol == 3:
+        u_i = 220e3  # V
+        R = 0.0067  # ohm/km
+        Cap = 0.17e-6  # F/km
+        L = 0.40e-3   # H/km
+        A = 3.181e6
+        B = 0.11e6
+        C = 1.16
+        I_rated = 540  # A
+
+    Y_ref = Sbase / u_i**2  # 1 / ohm
+    V_ref = u_i
 
     # 1.2 Trafo
 
@@ -283,6 +270,10 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         print("NO SOLUTION !!!")
         cost_invest = 1e20
         cost_tech = 1e20
+        cost_tech1 = 1e20 
+        cost_tech2 = 1e20
+        cost_tech3 = 1e20
+        cost_tech4 = 1e20
 
     else:
         Iinj = Y_bus @ (V_wslack * np.exp(1j * angle_wslack))
@@ -342,8 +333,11 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         order_mg = 1
         #  Cable cost
     
-        c_cab = (((A + B * np.exp(C * (n_cables * np.sqrt(3) * u_i * I_rated) * 1e-6) + D) * (9 * n_cables + 1) * l) / (10 * E)) * 1e-6  #  to get  A,B,C,D and I max parameters we will use
-                                                                                                #  manufacturer data (110,150,220) S_rcb in MVA
+        # c_cab = (((A + B * np.exp(C * (n_cables * np.sqrt(3) * u_i * I_rated) * 1e-6) + D) * (9 * n_cables + 1) * l) / (10 * E)) * 1e-6  
+
+        Sncab = np.sqrt(3) * u_i * I_rated
+        eur_sek = 0.087  # 0.087 eur = 1 sek
+        c_cab = n_cables * (A + B * np.exp(C * Sncab / 1e8)) * l * eur_sek / 1e6
 
         #  Cost switchgears
         c_gis = (0.0017 * u_i * 1e-3 + 0.0231)  # u_i in kV
@@ -393,41 +387,47 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             c_r5 = 0
         
         c_reac = c_r1 + c_r2 + c_r3 + c_r4 + c_r5
-        
-        #Total cost
-        # c_total = c_cab + c_gis + c_ss + c_tr + c_reac
-        c_total = c_cab + c_gis + c_tr + c_reac
 
+        # we want reactive power delivered to the grid to be as close as possible to 0
+        c_react = 0
+        if q_wslack[nbus-1] != 0:
+                c_react = abs(q_wslack[nbus-1]) * 100
+        
         #  We have to include here the penalizations of voltages, current and reactive power
         #  deviations since the are the inequality constraints. 
 
         # over or below voltages
         c_vol = 0
         for i in range(nbus-1):
-            if V[i] > 1.1:
-                c_vol += (V[i] - 1.1) * 10000
-            elif V[i] < 0.9:
-                c_vol += (0.9 - V[i]) * 10000
+            c_vol += (abs(V[i] - 1) * 100)
+            # if V[i] > 1.1:
+            #     c_vol += (V[i] - 1.1) * 100
+            # elif V[i] < 0.9:
+            #     c_vol += (0.9 - V[i]) * 100
 
         #overcurrents
         c_curr = 0
         for i in range(4):
-            if curr[i] > 1.1 * n_cables:
-                c_curr = c_curr + abs(curr[i] - 1.1 * n_cables) * 10000
+            c_curr += (max(curr[i] - 1.1 * n_cables, 0)) * 100
+            # if curr[i] > 1.1 * n_cables:
+            #     c_curr = c_curr + abs(curr[i] - 1.1 * n_cables) * 100
 
-        # we want reactive power delivered to the grid to be as close as possible to 0
-        c_react = 0
-        if q_wslack[nbus-1] != 0:
-                c_react = abs(q_wslack[nbus-1]) * 5000
-
-        cost_invest = c_total
-        cost_tech = (c_vol + c_curr + c_react + c_losses) * 1
+        cost_invest = c_cab + c_gis + c_tr + c_reac
+        cost_tech = c_vol + c_curr + c_react + c_losses
+        # cost_tech = c_vol + c_curr
+        # cost_tech = c_react + c_losses
+        cost_tech1 = c_vol
+        cost_tech2 = c_curr
+        cost_tech3 = c_react
+        cost_tech4 = c_losses
 
         cost_full = np.array([[c_vol, c_curr, c_losses, c_react, cost_tech, c_cab, c_gis, c_tr, c_reac, cost_invest]])
         column_names = ['V', 'I', 'Pl', 'Q', 'Tech', 'Cab', 'Gis', 'Tr', 'Reac', 'Inv']
         dfc = pd.DataFrame(cost_full, columns=column_names)
         print(dfc)
-    return np.array([cost_invest, cost_tech])
+
+    # return np.array([cost_invest, cost_tech])
+    return np.array([cost_invest, cost_tech1, cost_tech2, cost_tech3, cost_tech4])
 
 
 """
