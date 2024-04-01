@@ -12,12 +12,8 @@ if __name__ == '__main__':
     d = 13 # Total number of variables
     lb = np.array([1, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Lower bound
     ub = np.array([3, 3, 1, 1, 1, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 800e6])  # Upper bound
-    # ub = np.array([3, 3, 1, 1, 1, 1, 1, 0.5, 0.5, 0.5, 0.5, 0.5, 800e6])  # Upper bound
-    # lb = np.array([1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 450e6])  # Lower bound
-    # ub = np.array([3, 3, 1, 1, 1, 1, 1, 0.8, 0.8, 0.8, 0.8, 0.8, 750e6])  # Upper bound
 
     num_int = 7 # number of integer variables
-	
     x0 = np.zeros(d) # Initial guess
     x0[0:num_int] = np.round(np.random.rand(num_int)*(ub[0:num_int]-lb[0:num_int]) + lb[0:num_int]) # Random initial guess (integer)
     x0[num_int:d] = np.random.rand(d-num_int)*(ub[num_int:d]-lb[num_int:d]) + lb[num_int:d] # Random initial guess (continuous)
@@ -32,6 +28,8 @@ if __name__ == '__main__':
 	## MVRSM ##
 	###########
 
+    # try original mvrsm if that does not work fine
+
     def obj_MVRSM_ori(x):
         #print(x[0:num_int])
         h = np.copy(x[0:num_int]).astype(int)
@@ -45,16 +43,15 @@ if __name__ == '__main__':
         return cost_inv, cost_tech
 
     def obj_MVRSM_josep(x):
-        #print(x[0:num_int])
         h = np.copy(x[0:num_int]).astype(int)
-        cost_inv, cost_t1, cost_t2, cost_t3, cost_t4 = ff(h[0],h[1],h[2],h[3],h[4],h[5],h[6],x[7],x[8],x[9],x[10],x[11],x[12])
-        return cost_inv, cost_t1, cost_t2, cost_t3, cost_t4
+        cost_inv, cost_tech = ff(*h, *x[num_int:])
+        return cost_inv, cost_tech
     
     # cmap = plt.get_cmap()
     def run_MVRSM():
         # solX, solY, model, logfile = MVRSM_mo_scaled.MVRSM_mo_scaled(obj_MVRSM, x0, lb, ub, num_int, max_evals, rand_evals, args=(), n_objectives=2)	
         # ysol, xsol, ypop, xpop, fpop = MVRSM_mo_scaled.MVRSM_mo_scaled(obj_MVRSM, x0, lb, ub, num_int, max_evals, rand_evals, args=(), n_objectives=2)
-        ysol, xsol, ypop, xpop, fpop = MVRSM_mo_scaled.MVRSM_mo_scaled(obj_MVRSM_josep, x0, lb, ub, num_int, max_evals, rand_evals, args=(), n_objectives=5)
+        ysol, xsol, ypop, xpop, fpop = MVRSM_mo_scaled.MVRSM_mo_scaled(obj_MVRSM_josep, x0, lb, ub, num_int, max_evals, rand_evals, args=(), n_objectives=2)
         
         
         print("Solution found: ")
@@ -66,7 +63,6 @@ if __name__ == '__main__':
 
         # mvrsm.plot_results(logfile)
         return xsol, ysol, xpop, ypop, fpop
-
 
     fobj_vec = []
     x_vec = []
@@ -84,7 +80,7 @@ if __name__ == '__main__':
     cmap = plt.get_cmap('viridis', max_evals)
     for i in range(max_evals):
     #     plt.subplot(1,2,2)
-        plt.scatter(yp[i, 0], yp[i, 1] + yp[i, 2] + yp[i, 3], + yp[i, 4], color=cmap(i))
+        plt.scatter(yp[i, 0], yp[i, 1], color=cmap(i))
     # for i in range(len(ys)):
     #     plt.subplot(1,2,1)
         # plt.scatter(ys[i, 0], ys[i, 1], color=cmap(i))
@@ -92,8 +88,8 @@ if __name__ == '__main__':
 
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0, vmax=max_evals-1))
     plt.colorbar(sm, label='Point index')
-    plt.ylim(0, 600)
-    plt.xlim(0, 200)
+    plt.ylim(0, 1500)
+    plt.xlim(0, 500)
     # plt.scatter(yp[:,0], yp[:,1])
     plt.show()
     print(xs)
