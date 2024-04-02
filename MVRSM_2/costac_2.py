@@ -37,6 +37,8 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         #  vol = 3
         #  transmission voltage (110 [1],150 [2],220 [3]) kV
         #  voltages: 66, 132, 220 kV (1, 2, 3)
+       
+
         if vol == 1:
             u_i = 66e3  # V
             R = 0.0067  # ohm/km
@@ -66,6 +68,16 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             B = 0.11e6
             C = 1.16
             I_rated = 540  # A
+
+        if vol == 4:
+            u_i = 400e3  # V
+            R = 0.0067  # ohm/km
+            Cap = 0.16e-6  # F/km
+            L = 0.42e-3   # H/km
+            A = 5.8038e6
+            B = 0.044525e6
+            C = 0.72
+            I_rated= 600  # A
 
         Y_ref = Sbase / u_i**2  # 1 / ohm
         V_ref = u_i
@@ -410,7 +422,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
                 c_r5 = 0
             
             # c_reac = c_r1 + c_r2 + c_r3 + c_r4 + c_r5
-            c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * 100
+            c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * 1
 
             # we want reactive power delivered to the grid to be as close as possible to 0
             c_react = 0
