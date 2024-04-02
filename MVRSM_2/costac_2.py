@@ -286,7 +286,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         solution_found = False
         p_wslack = np.zeros(nbus)
         q_wslack = np.zeros(nbus)
-        curr_inj = np.zeros(nbus)
+        curr_inj = np.zeros((nbus),dtype = "complex")
         curr = np.zeros(nbus - 2)
         if k < max_iter:
             solution_found = True
