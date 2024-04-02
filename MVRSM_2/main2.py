@@ -10,9 +10,9 @@ if __name__ == '__main__':
 
     ff = costac_2.costac_2
     d = 13 # Total number of variables
-    lb = np.array([1, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Lower bound
+    lb = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Lower bound
     ub = np.array([3, 3, 1, 1, 1, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 800e6])  # Upper bound
-    # lb = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Lower bound
+    # lb = np.array([1, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Lower bound
     # ub = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
 
     num_int = 7 # number of integer variables
@@ -83,6 +83,7 @@ if __name__ == '__main__':
     for i in range(max_evals):
     #     plt.subplot(1,2,2)
         plt.scatter(yp[i, 0], yp[i, 1], color=cmap(i))
+        # plt.scatter(ys[i, 0], ys[i, 1], color=cmap(i))
     # for i in range(len(ys)):
     #     plt.subplot(1,2,1)
         # plt.scatter(ys[i, 0], ys[i, 1], color=cmap(i))

@@ -409,7 +409,8 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             else:
                 c_r5 = 0
             
-            c_reac = c_r1 + c_r2 + c_r3 + c_r4 + c_r5
+            # c_reac = c_r1 + c_r2 + c_r3 + c_r4 + c_r5
+            c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * 100
 
             # we want reactive power delivered to the grid to be as close as possible to 0
             c_react = 0
@@ -438,7 +439,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             cost_tech4 = c_losses
 
             cost_full = [c_vol, c_curr, c_losses, c_react, cost_tech, c_cab, c_gis, c_tr, c_reac, cost_invest]
-            pprint(cost_full)
+            # pprint(cost_full)
 
         # return np.array([cost_invest, cost_tech1, cost_tech2, cost_tech3, cost_tech4])
         
