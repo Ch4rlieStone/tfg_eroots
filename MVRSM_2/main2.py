@@ -13,7 +13,7 @@ if __name__ == '__main__':
     # lb = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Lower bound
     # ub = np.array([3, 3, 1, 1, 1, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 800e6])  # Upper bound
     lb = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Lower bound
-    ub = np.array([4, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
+    ub = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
 
     num_int = 7 # number of integer variables
     x0 = np.zeros(d) # Initial guess

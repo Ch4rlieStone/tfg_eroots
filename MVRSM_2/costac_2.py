@@ -443,7 +443,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             for i in [1, 2]:  # check only the cable for now
                 c_curr += (max(curr[i] - 1.1 * n_cables, 0)) * 100
 
-            cost_invest = c_cab + c_gis + c_tr + c_reac
+            cost_invest = c_cab + c_gis + c_tr + c_reac + c_ss
             cost_tech = c_vol + c_curr + c_react + c_losses
             cost_tech1 = c_vol
             cost_tech2 = c_curr
