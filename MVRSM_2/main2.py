@@ -10,10 +10,10 @@ if __name__ == '__main__':
 
     ff = costac_2.costac_2
     d = 13 # Total number of variables
-    # lb = np.array([1, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Lower bound
-    # ub = np.array([3, 3, 1, 1, 1, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 800e6])  # Upper bound
-    lb = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Lower bound
-    ub = np.array([3, 3, 1, 0, 0, 0, 0, 1.0, 0.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
+    lb = np.array([1, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6])  # Lower bound
+    ub = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
+    # lb = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Lower bound
+    # ub = np.array([3, 3, 1, 1, 1, 1, 1, 0.0, 0.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
 
     num_int = 7 # number of integer variables
     x0 = np.zeros(d) # Initial guess
@@ -23,9 +23,7 @@ if __name__ == '__main__':
     rand_evals = 500 # Number of random iterations
     n_itrs = 500
     n_trials = 1
-    max_evals = n_itrs+rand_evals # Maximum number of MVRSM iterations, the first <rand_evals> are random
-	
-	
+    max_evals = n_itrs+rand_evals # Maximum number of MVRSM iterations, the first <rand_evals> are random     
 	###########
 	## MVRSM ##
 	###########

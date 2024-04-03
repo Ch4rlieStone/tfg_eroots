@@ -142,7 +142,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             Y_l5 = 0
 
         # 1.5 Grid connection
-        scr = 5
+        scr = 50
         xrr = 10
         zgridm = V_ref**2 / (scr * p_owf * Sbase)
         rgrid = np.sqrt(zgridm**2 / (xrr**2 + 1))
@@ -288,7 +288,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         q_wslack = np.zeros(nbus)
         curr_inj = np.zeros((nbus),dtype = "complex")
         curr = np.zeros(nbus - 2)
-        if k < max_iter:
+        if k + 1 < max_iter:
             solution_found = True
 
             Iinj = Y_bus @ (V_wslack * np.exp(1j * angle_wslack))
@@ -320,6 +320,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             curr = np.array([i_21, i_32, i_43, i_54])
 
         else:
+            print("No solution found")
             pass
 
         return V_wslack, angle_wslack, curr, p_wslack, q_wslack, solution_found
@@ -396,6 +397,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             p_mid = 1.244
             p_off = 1.244
 
+        
             if react1_bi == 1:
                 c_r1 = k_off * (abs(Y_l1) * (V[0])**2) + p_off
             else:
@@ -468,7 +470,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
     Sbase = 100e6  # VA
     f = 50  # Hz
     l = 100  #  distance to shore in km
-    p_owf = 5  # p.u, equivalent to 500 MW owf
+    p_owf = 2  # p.u, equivalent to 500 MW owf
     q_owf = 0 # p.u, we assume no reactive power is generated at plant
 
     Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, y_trserie, y_piserie = build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val, react4_val, react5_val)
