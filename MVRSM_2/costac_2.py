@@ -169,7 +169,10 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
                max_iter: int=20,
                eps: float=1e-6,
                y_trserie: float=0.0,
-               y_piserie: float=0.0,):
+               y_piserie: float=0.0,
+               S_rtr = S_rtr,
+               n_cables = n_cables,
+               vol = vol):
 
         """
         Run the power flow algorithm to find the voltages and angles of the nodes in the grid.
