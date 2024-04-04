@@ -427,7 +427,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
                 c_r5 = 0
             
             # c_reac = c_r1 + c_r2 + c_r3 + c_r4 + c_r5
-            c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * 1
+            c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * 10
 
             # we want reactive power delivered to the grid to be as close as possible to 0
             c_react = 0
