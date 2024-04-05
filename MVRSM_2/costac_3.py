@@ -293,7 +293,7 @@ def costac_3(n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, re
 
         
     def compute_costs(p_owf: float=0.0, p_wslack: float=0.0, q_wslack: float=0.0, V: np.ndarray=None,
-                      curr: np.ndarray=None, nbus: int=1, n_cables: int=1, u_i: float=220, I_rated: float=1.0,
+                      curr: np.ndarray=None, nbus: int=1, n_cables: int=1, u_i: float=220,
                       S_rtr: float=500, react1_bi: bool=False, react2_bi: bool=False, react3_bi: bool=False,
                       react4_bi: bool=False, react5_bi: bool=False, Y_l1: float=0.0, Y_l2: float=0.0, Y_l3: float=0.0,
                       Y_l4: bool=False, Y_l5: bool=False, solution_found: bool=False):
@@ -444,6 +444,7 @@ def costac_3(n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, re
 
     V_wslack, angle_wslack, curr, p_wslack, q_wslack, solution_found = run_pf(p_owf, q_owf, Y_bus, nbus, vslack, dslack, max_iter, epss, y_trserie, y_piserie)
 
-    cost_output = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, vol, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, solution_found) 
+    cost_output = compute_costs (p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, vol, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, solution_found) 
 
     return cost_output
+

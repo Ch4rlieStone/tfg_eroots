@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 # This is the main file to run the MVRSM algorithm on the HVAC cost function
 
 if __name__ == '__main__':
-
+    
     ff = costac_2.costac_2
     d = 13 # Total number of variables
     #lb = np.array([2, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6])  # Lower bound
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     d = 13 # Total number of variables
     #lb = np.array([2, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6])  # Lower bound
     #ub = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
-    lb = np.array([1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6, 200e3])  # Lower bound
+    lb = np.array([1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6, 132e3])  # Lower bound
     ub = np.array([3, 1, 0, 0, 0, 0, 1.0, 0.0, 0.0, 0.0, 0.0, 800e6, 300e3])  # Upper bound
 
     num_int = 6 # number of integer variables
@@ -78,7 +78,7 @@ if __name__ == '__main__':
         # solX, solY, model, logfile = MVRSM_mo_scaled.MVRSM_mo_scaled(obj_MVRSM, x0, lb, ub, num_int, max_evals, rand_evals, args=(), n_objectives=2)	
         # ysol, xsol, ypop, xpop, fpop = MVRSM_mo_scaled.MVRSM_mo_scaled(obj_MVRSM, x0, lb, ub, num_int, max_evals, rand_evals, args=(), n_objectives=2)
         ysol, xsol, ypop, xpop, fpop = MVRSM_mo_scaled.MVRSM_mo_scaled(obj_MVRSM_josep, x0, lb, ub, num_int, max_evals, rand_evals, args=(), n_objectives=2)
-        # ysol, xsol, ypop, xpop, fpop = MVRSM_mo_scaled.MVRSM_mo_scaled(obj_MVRSM_josep_con, x0, lb, ub, num_int, max_evals, rand_evals, args=(), n_objectives=2)
+        #ysol, xsol, ypop, xpop, fpop = MVRSM_mo_scaled.MVRSM_mo_scaled(obj_MVRSM_josep_con, x0, lb, ub, num_int, max_evals, rand_evals, args=(), n_objectives=2)
         print("Solution found: ")
         print(f"solution = {xsol}")
         print(f"f(x,y) = {ysol}")
