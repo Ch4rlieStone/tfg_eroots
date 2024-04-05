@@ -4,7 +4,8 @@ import cmath
 import random
 from pprint import pprint
 
-def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val,react4_val, react5_val, S_rtr):
+
+def costac_3(n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val,react4_val, react5_val, S_rtr, vol):
 
 
 
@@ -38,53 +39,15 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         #  transmission voltage (110 [1],150 [2],220 [3]) kV
         #  voltages: 66, 132, 220 kV (1, 2, 3)
        
-
-        if vol == 1:
-            u_i = 66e3  # V
-            R = 0.0067  # ohm/km
-            Cap = 0.24e-6  # F/km
-            L = 0.36e-3   # H/km
-            A = 0.688e6
-            B = 0.625e6
-            C = 2.05
-            I_rated= 470  # A
-
-        elif vol == 2:
-            u_i = 132e3  # V
-            R = 0.0067  # ohm/km
-            Cap = 0.19e-6  # F/km
-            L = 0.38e-3   # H/km
-            A = 1.971e6
-            B = 0.209e6
-            C = 1.66
-            I_rated = 500  # A
-
-        elif vol == 3:
-            u_i = 220e3  # V
-            R = 0.0067  # ohm/km
-            Cap = 0.17e-6  # F/km
-            L = 0.40e-3   # H/km
-            A = 3.181e6
-            B = 0.11e6
-            C = 1.16
-            I_rated = 540  # A
-
-        if vol == 4:
-            u_i = 400e3  # V
-            R = 0.0067  # ohm/km
-            Cap = 0.16e-6  # F/km
-            L = 0.42e-3   # H/km
-            A = 5.8038e6
-            B = 0.044525e6
-            C = 0.72
-            I_rated= 600  # A
-
-        Y_ref = Sbase / u_i**2  # 1 / ohm
-        V_ref = u_i
+        A = 0.688e6
+        B = 0.625e6
+        C = 2.05
+        Y_ref = Sbase / vol**2  # 1 / ohm
+        V_ref = vol
 
         # 1.2 Trafo
         # Trafo parameters
-        U_rtr = u_i  # V
+        U_rtr = vol  # V
         P_Cu = 60e3  # W
         P_Fe = 40e3  # W
         u_k = 0.18  # p.u.
@@ -157,7 +120,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
                     [0, 0, 0, -Y_trserie, Y_trserie + Y_tr + Y_l5 + Y_g, -Y_g],
                     [0, 0, 0, 0, -Y_g, Y_g]])
         
-        return Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, Y_trserie, Y_piserie
+        return Y_bus, p_owf, q_owf, n_cables, vol, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, Y_trserie, Y_piserie
 
 
     def run_pf(p_owf: float=0.0,
@@ -374,7 +337,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             p_lossac = Sbase * (p_owf + p_wslack[5]) * 1e-6  # MW
 
             #  Cable cost
-            Sncab = np.sqrt(3) * u_i * I_rated
+            Sncab = np.sqrt(3) * vol * 500
             eur_sek = 0.087  # 0.087 eur = 1 sek
             c_cab = n_cables * (A + B * np.exp(C * Sncab / 1e8)) * l * eur_sek / 1e6
 
@@ -462,9 +425,9 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         
         return np.array([cost_invest, cost_tech])
     
-    
 
-    # Main data
+
+     # Main data
     nbus = 6
     vslack = 1.0
     dslack = 0.0
@@ -477,10 +440,10 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
     p_owf = 2  # p.u, equivalent to 500 MW owf
     q_owf = 0 # p.u, we assume no reactive power is generated at plant
 
-    Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, y_trserie, y_piserie = build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val, react4_val, react5_val)
+    Y_bus, p_owf, q_owf, n_cables, vol, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, y_trserie, y_piserie = build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val, react4_val, react5_val)
 
     V_wslack, angle_wslack, curr, p_wslack, q_wslack, solution_found = run_pf(p_owf, q_owf, Y_bus, nbus, vslack, dslack, max_iter, epss, y_trserie, y_piserie)
 
-    cost_output = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, solution_found) 
+    cost_output = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, vol, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, solution_found) 
 
     return cost_output

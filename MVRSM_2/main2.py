@@ -1,10 +1,12 @@
 import numpy as np
 import costac_2
+import costac_3
 import Altres.mvrsm
 import MVRSM_mo_scaled
 import matplotlib.pyplot as plt
 
 
+# This is the main file to run the MVRSM algorithm on the HVAC cost function
 
 if __name__ == '__main__':
 
@@ -19,7 +21,25 @@ if __name__ == '__main__':
     x0 = np.zeros(d) # Initial guess
     x0[0:num_int] = np.round(np.random.rand(num_int)*(ub[0:num_int]-lb[0:num_int]) + lb[0:num_int]) # Random initial guess (integer)
     x0[num_int:d] = np.random.rand(d-num_int)*(ub[num_int:d]-lb[num_int:d]) + lb[num_int:d] # Random initial guess (continuous)
-	
+
+
+    """
+    ###  WE WILL TRY WITH CONTINOUS VOLTAGE LEVEL
+
+    ffcon = costac_3.costac_3
+    d = 13 # Total number of variables
+    #lb = np.array([2, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6])  # Lower bound
+    #ub = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
+    lb = np.array([1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6, 200e3])  # Lower bound
+    ub = np.array([3, 1, 0, 0, 0, 0, 1.0, 0.0, 0.0, 0.0, 0.0, 800e6, 300e3])  # Upper bound
+
+    num_int = 6 # number of integer variables
+    x0 = np.zeros(d) # Initial guess
+    x0[0:num_int] = np.round(np.random.rand(num_int)*(ub[0:num_int]-lb[0:num_int]) + lb[0:num_int]) # Random initial guess (integer)
+    x0[num_int:d] = np.random.rand(d-num_int)*(ub[num_int:d]-lb[num_int:d]) + lb[num_int:d] # Random initial guess (continuous)
+    """
+
+
     rand_evals = 500 # Number of random iterations
     n_itrs = 500
     n_trials = 1
@@ -46,20 +66,26 @@ if __name__ == '__main__':
         h = np.copy(x[0:num_int]).astype(int)
         cost_inv, cost_tech = ff(*h, *x[num_int:])
         return cost_inv, cost_tech
+    """
+    def obj_MVRSM_josep_con(x):
+        h = np.copy(x[0:num_int]).astype(int)
+        cost_inv, cost_tech = ffcon(*h, *x[num_int:])
+        return cost_inv, cost_tech
+    """
     
     # cmap = plt.get_cmap()
     def run_MVRSM():
         # solX, solY, model, logfile = MVRSM_mo_scaled.MVRSM_mo_scaled(obj_MVRSM, x0, lb, ub, num_int, max_evals, rand_evals, args=(), n_objectives=2)	
         # ysol, xsol, ypop, xpop, fpop = MVRSM_mo_scaled.MVRSM_mo_scaled(obj_MVRSM, x0, lb, ub, num_int, max_evals, rand_evals, args=(), n_objectives=2)
         ysol, xsol, ypop, xpop, fpop = MVRSM_mo_scaled.MVRSM_mo_scaled(obj_MVRSM_josep, x0, lb, ub, num_int, max_evals, rand_evals, args=(), n_objectives=2)
-        
-        
+        # ysol, xsol, ypop, xpop, fpop = MVRSM_mo_scaled.MVRSM_mo_scaled(obj_MVRSM_josep_con, x0, lb, ub, num_int, max_evals, rand_evals, args=(), n_objectives=2)
         print("Solution found: ")
         print(f"solution = {xsol}")
         print(f"f(x,y) = {ysol}")
         #print(solX)
         #print(solY)
         print()
+        
 
         # mvrsm.plot_results(logfile)
         return xsol, ysol, xpop, ypop, fpop
@@ -80,23 +106,31 @@ if __name__ == '__main__':
 
     cmap = plt.get_cmap('viridis', max_evals)
     for i in range(max_evals):
-         
+        plt.subplot(1,2,2)
         plt.scatter(yp[i, 0], yp[i, 1], color=cmap(i))
+        plt.ylim(0, 1000)
+        plt.xlim(0, 200)
+
+    # Dominant values 
+    for i in range(len(ys[:,0])):
+        plt.subplot(1,2,1) 
+        plt.scatter(ys[i, 0], ys[i, 1], color=cmap(i))
+        plt.ylim(0, 1000)
+        plt.xlim(0, 200)
         
 
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0, vmax=max_evals-1))
     plt.colorbar(sm, label='Point index')
-    plt.ylim(0, 1500)
-    plt.xlim(0, 500)
+    
     # plt.scatter(yp[:,0], yp[:,1])
-    #plt.show()
+    plt.show()
     
     print(xs)
     print(ys)
 
 
+    
     """
-
     lb = np.array([2, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6])  # Lower bound
     ub = np.array([3, 3, 0, 1, 0, 0, 0, 0.0, 1.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
 
@@ -166,7 +200,7 @@ if __name__ == '__main__':
     cmap = plt.get_cmap('viridis', max_evals)
     for i in range(max_evals):
          
-        plt.scatter(yp[i, 0], yp[i, 1], color=cmap(i))
+        plt.scatter(ys[i, 0], ys[i, 1], color=cmap(i))
         
 
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0, vmax=max_evals-1))
@@ -181,7 +215,8 @@ if __name__ == '__main__':
 
 
     plt.show()
-    """
+    
+    # Radom evaluation check
 
     trials = 1000
     ff = costac_2.costac_2
@@ -193,7 +228,7 @@ if __name__ == '__main__':
         #lb = np.array([2, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6])  # Lower bound
         #ub = np.array([3, 3, 1, 1, 1, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 800e6])  # Upper bound
         lb = np.array([2, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6])  # Lower bound
-        ub = np.array([3, 3, 1, 1, 0, 0, 0, 1.0, 1.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
+        ub = np.array([3, 3, 0, 1, 0, 0, 0, 1.0, 1.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
 
         num_int = 7 # number of integer variables
         x0 = np.zeros(d) # Initial guess
@@ -220,3 +255,4 @@ plt.colorbar(sm, label='Point index')
 plt.ylim(0, 1500)
 plt.xlim(0, 500)
 plt.show()
+"""
