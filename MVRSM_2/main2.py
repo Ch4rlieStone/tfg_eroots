@@ -14,8 +14,10 @@ if __name__ == '__main__':
     d = 13 # Total number of variables
     #lb = np.array([2, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6])  # Lower bound
     #ub = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
+    #lb = np.array([2, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6])  # Lower bound
+    #ub = np.array([3, 3, 1, 0, 0, 0, 0, 1.0, 0.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
     lb = np.array([2, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6])  # Lower bound
-    ub = np.array([3, 3, 1, 0, 0, 0, 0, 1.0, 0.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
+    ub = np.array([3, 3, 1, 1, 1, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 800e6])  # Upper bound
 
     num_int = 7 # number of integer variables
     x0 = np.zeros(d) # Initial guess
@@ -111,7 +113,7 @@ if __name__ == '__main__':
         plt.ylim(0, 1000)
         plt.xlim(0, 200)
 
-    # Dominant values 
+    # Dominant values
     for i in range(len(ys[:,0])):
         plt.subplot(1,2,1) 
         plt.scatter(ys[i, 0], ys[i, 1], color=cmap(i))
