@@ -116,33 +116,33 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
 
         # 1.4 Compensator
         if react1_bi == 1:
-            Y_l1 = -1j * react1_val
+            Y_l1 = - 1j * react1_val
         else:
             Y_l1 = 0
 
         if react2_bi == 1:
-            Y_l2 = -1j * react2_val
+            Y_l2 = - 1j * react2_val
             
         else:
             Y_l2 = 0
 
         if react3_bi == 1:
-            Y_l3 = -1j * react3_val
+            Y_l3 = - 1j * react3_val
         else:
             Y_l3 = 0
 
         if react4_bi == 1:
-            Y_l4 = -1j * react4_val
+            Y_l4 = - 1j * react4_val
         else:
             Y_l4 = 0
 
         if react5_bi == 1:
-            Y_l5 = -1j * react5_val
+            Y_l5 = - 1j * react5_val
         else:
             Y_l5 = 0
 
         # 1.5 Grid connection
-        scr = 50
+        scr = 5  # which value should we put here 5 or 50?
         xrr = 10
         zgridm = V_ref**2 / (scr * p_owf * Sbase)
         rgrid = np.sqrt(zgridm**2 / (xrr**2 + 1))
@@ -393,10 +393,11 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             c_tr = (0.0427 * (S_rtr * 1e-6)**0.7513)  # S_rtr in MVA
 
             # Cost reactors
-            k_on = 0.01049
-            k_mid = 0.01576
-            k_off = 0.01576
-            p_on = 0.8312
+            fact = 1e4
+            k_on = 0.01049 * fact
+            k_mid = 0.01576 * fact
+            k_off = 0.01576 * fact
+            p_on = 0.8312 
             p_mid = 1.244
             p_off = 1.244
 
@@ -427,7 +428,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
                 c_r5 = 0
             
             # c_reac = c_r1 + c_r2 + c_r3 + c_r4 + c_r5
-            c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * 10
+            c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * 1
 
             # we want reactive power delivered to the grid to be as close as possible to 0
             c_react = 0
@@ -474,7 +475,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
     Sbase = 100e6  # VA
     f = 50  # Hz
     l = 100  #  distance to shore in km
-    p_owf = 2  # p.u, equivalent to 500 MW owf
+    p_owf = 5  # p.u, equivalent to 500 MW owf
     q_owf = 0 # p.u, we assume no reactive power is generated at plant
 
     Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, y_trserie, y_piserie = build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val, react4_val, react5_val)
