@@ -279,7 +279,7 @@ def MVRSM_minimize(obj, x0, lb, ub, num_int, max_evals, rand_evals=0):
     # and explore the search space.
     for i in range(0, max_evals):
         iter_start = time.time()
-        print(f'Starting MVRSM iteration {i}/{max_evals}')
+        #print(f'Starting MVRSM iteration {i}/{max_evals}')
 
         # Evaluate the objective and scale it.
         x = np.copy(next_x).astype(float)
