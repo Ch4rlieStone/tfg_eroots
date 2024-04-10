@@ -14,8 +14,8 @@ if __name__ == '__main__':
     d = 13 # Total number of variables
     #lb = np.array([2, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6])  # Lower bound
     #ub = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 800e6])  # Upper bound
-    lb = np.array([3, 3, 1, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Lower bound
-    ub = np.array([3, 3, 1, 0, 0, 0, 0, 1.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Upper bound
+    lb = np.array([3, 3, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 400e6])  # Lower bound
+    ub = np.array([3, 3, 1, 0, 0, 0, 0, 1.0, 0.0, 0.0, 0.0, 0.0, 600e6])  # Upper bound
     #lb = np.array([2, 1, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 200e6])  # Lower bound
     #ub = np.array([3, 3, 1, 1, 1, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 800e6])  # Upper bound
 

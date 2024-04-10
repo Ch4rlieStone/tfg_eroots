@@ -35,14 +35,14 @@ if __name__ == '__main__':
     n_itrs = args.max_itr
     n_trials = args.trials
     batch = args.batch
-
+    
     n_trials = 1
 	
     if obj_func == 'wind_offshore':
         ff = wind_offshore.costac_2
         d = 13
-        lb = np.array([3, 3, 1, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Lower bound
-        ub = np.array([3, 3, 1, 0, 0, 0, 0, 0.8, 0.0, 0.0, 0.0, 0.0, 500e6])  # Upper bound
+        lb = np.array([2, 2, 1, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Lower bound
+        ub = np.array([3, 3, 1, 1, 1, 1, 1, 0.0, 0.0, 0.0, 0.0, 1.0, 600e6])  # Upper bound
         num_int = 7
     else:
         raise NotImplementedError
@@ -60,38 +60,44 @@ if __name__ == '__main__':
 	###########
 	## MVRSM ##
 	###########
-
+    logfile = 'MVRSM_log.txt'
     def obj_MVRSM(x):
         result = ff(x)
         return result
     def run_MVRSM():
-        solX, solY, model = MVRSM.MVRSM_minimize(obj_MVRSM, x0, lb, ub, num_int, max_evals, rand_evals)		
+        logfile = 'MVRSM_log.txt'
+        solX, solY, bests_ys,   model = MVRSM.MVRSM_minimize(obj_MVRSM, x0, lb, ub, num_int, max_evals, rand_evals)		
         print("Solution found: ")
+        
         print(f"X = {solX}")
         print(f"Y = {solY}")
-        return solY
+
+
+        # MVRSM.plot_results(logfile)
+        return solX, solY, bests_ys
         
+
+    fobj_vec = []
+    x_vec = []
     for i in range(n_trials):
         if obj_func == 'dim10Rosenbrock' or obj_func == 'dim53Rosenbrock' or obj_func == 'dim238Rosenbrock':
             print(f"Testing MVRSM on the {d}-dimensional Rosenbrock function with integer constraints.")
             print("The known global minimum is f(1,1,...,1)=0")
         else:
             print("Start MVRSM trials")
-        run_MVRSM()
+        
+        xs , ys , listys = run_MVRSM()
+        x_vec.append(xs)
+        fobj_vec.append(ys)
+        #print(listys)
+        #print(len(listys))
 
-    #  PART AFEGIDA PER GUARDAR ELS RESULTATS
-
-    # Run MVRSM multiple times and store the objective function values
-    all_obj_values = []
     for i in range(max_evals):
-    # ... your existing code ...
-        obj_values = run_MVRSM()
-        all_obj_values.append(obj_values)
 
-    # After all trials are done, plot the objective function values
-    for i, obj_values in enumerate(all_obj_values):
-        plt.plot(obj_values, label=f'Trial {i+1}')
-plt.xlabel('Iteration')
-plt.ylabel('Objective function value')
-plt.legend()
-plt.show()
+        plt.scatter(i, listys[i], color='blue')
+    plt.ylim(0,500)
+    plt.xlabel('Iteration')
+    plt.ylabel('Objective function value')
+    plt.show()
+    
+

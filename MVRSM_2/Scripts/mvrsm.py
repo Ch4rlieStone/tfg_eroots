@@ -266,17 +266,19 @@ def inv_scale(y_scaled, y0):
     return y_scaled + y0
 
 
-def MVRSM_minimize(obj, x0, lb, ub, num_int, max_evals, rand_evals=0):
+def MVRSM_minimize(obj, x0, lb, ub, num_int, max_evals, rand_evals = 0):
     start_time = time.time()
+    bests_ys = []
     d = len(x0)  # number of decision variables
 
     model = SurrogateModel.init(d, lb, ub, num_int)
     next_x = x0  # candidate solution
     best_x = np.copy(next_x)  # best candidate solution found so far
     best_y = math.inf  # least objective function value found so far, equal to obj(best_x).
-
+    
     # Iteratively evaluate the objective, update the model, find the minimum of the model,
     # and explore the search space.
+    
     for i in range(0, max_evals):
         iter_start = time.time()
         #print(f'Starting MVRSM iteration {i}/{max_evals}')
@@ -284,11 +286,14 @@ def MVRSM_minimize(obj, x0, lb, ub, num_int, max_evals, rand_evals=0):
         # Evaluate the objective and scale it.
         x = np.copy(next_x).astype(float)
         y_unscaled = obj(x)
+        bests_ys.append(y_unscaled)
+        
+        
         if i == 0:
             y0 = y_unscaled
         # noinspection PyUnboundLocalVariable
         y = scale(y_unscaled, y0)
-
+        
         # Keep track of the best found objective value and candidate solution so far.
         if y < best_y:
             best_x = np.copy(x)
@@ -396,8 +401,9 @@ def MVRSM_minimize(obj, x0, lb, ub, num_int, max_evals, rand_evals=0):
             np.clip(next_x, lb, ub, out=next_x)
 
         iter_time = time.time() - iter_start
+        #  print(inv_scale(best_y, y0))
 
-    return best_x, inv_scale(best_y, y0), model
+    return best_x, inv_scale(best_y, y0), bests_ys, model
 
 
 def read_log(filename):
@@ -412,7 +418,7 @@ def read_log(filename):
         for i, lines in enumerate(mvrsm_file):
             search_term = 'Best data point according to the model and predicted value'
             if search_term in lines:
-                # print('Hello', MVRSMfile)
+                #  print('Hello', MVRSMfile)
                 temp = mvrsm_file[i - 1]
                 temp = temp.split('] , ')
                 temp = temp[1]

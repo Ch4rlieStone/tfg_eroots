@@ -360,6 +360,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         :return: [cost_invest, cost_tech]
         """
 
+        """
         if not solution_found:
             print("NO SOLUTION !!!")
             cost_invest = 1e20
@@ -370,93 +371,94 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             cost_tech4 = 1e20
 
         else:
-            #  We compute the AC power losses
-            p_lossac = Sbase * (p_owf + p_wslack[5]) * 1e-6  # MW
+        """
+        #  We compute the AC power losses
+        p_lossac = Sbase * (p_owf + p_wslack[5]) * 1e-6  # MW
 
-            #  Cable cost
-            Sncab = np.sqrt(3) * u_i * I_rated
-            eur_sek = 0.087  # 0.087 eur = 1 sek
-            c_cab = n_cables * (A + B * np.exp(C * Sncab / 1e8)) * l * eur_sek / 1e6
+        #  Cable cost
+        Sncab = np.sqrt(3) * u_i * I_rated
+        eur_sek = 0.087  # 0.087 eur = 1 sek
+        c_cab = n_cables * (A + B * np.exp(C * Sncab / 1e8)) * l * eur_sek / 1e6
 
-            #  Cost switchgears
-            c_gis = (0.0017 * u_i * 1e-3 + 0.0231)  # u_i in kV
+        #  Cost switchgears
+        c_gis = (0.0017 * u_i * 1e-3 + 0.0231)  # u_i in kV
 
-            # Cost susbstation
-            c_ss = (2.534 + 0.0887 * p_owf * 100)  # p-owf in MW
+        # Cost susbstation
+        c_ss = (2.534 + 0.0887 * p_owf * 100)  # p-owf in MW
 
-            # Cost power losses
-            t_owf = 25  # lie time in years
-            c_ey = 100  # eu/MWh, cost of energy lost 
-            c_losses = (8760 * t_owf * c_ey * p_lossac) / 1e6 # losses in MW , 8760 since 1 year is 8760 h
+        # Cost power losses
+        t_owf = 25  # lie time in years
+        c_ey = 100  # eu/MWh, cost of energy lost 
+        c_losses = (8760 * t_owf * c_ey * p_lossac) / 1e6 # losses in MW , 8760 since 1 year is 8760 h
 
-            # Cost transformers
-            c_tr = (0.0427 * (S_rtr * 1e-6)**0.7513)  # S_rtr in MVA
+        # Cost transformers
+        c_tr = (0.0427 * (S_rtr * 1e-6)**0.7513)  # S_rtr in MVA
 
-            # Cost reactors
-            fact = 1e4
-            k_on = 0.01049 * fact
-            k_mid = 0.01576 * fact
-            k_off = 0.01576 * fact
-            p_on = 0.8312 
-            p_mid = 1.244
-            p_off = 1.244
+        # Cost reactors
+        fact = 1e4
+        k_on = 0.01049 * fact
+        k_mid = 0.01576 * fact
+        k_off = 0.01576 * fact
+        p_on = 0.8312 
+        p_mid = 1.244
+        p_off = 1.244
 
+    
+        if react1_bi == 1:
+            c_r1 = k_off * (abs(Y_l1) * (V[0])**2) + p_off
+        else:
+            c_r1 = 0
+
+        if react2_bi == 1:
+            c_r2 = k_off * (abs(Y_l2) * (V[1])**2) + p_off
+        else:
+            c_r2 = 0
+
+        if react3_bi == 1:
+            c_r3 = k_mid * (abs(Y_l3) * (V[2])**2) + p_mid
+        else:
+            c_r3 = 0
+
+        if react4_bi == 1:
+            c_r4 = k_on * (abs(Y_l4) * (V[3])**2) + p_on
+        else:
+            c_r4 = 0
+
+        if react5_bi == 1:
+            c_r5 = k_on * (abs(Y_l5) * (V[4])**2) + p_on
+        else:
+            c_r5 = 0
         
-            if react1_bi == 1:
-                c_r1 = k_off * (abs(Y_l1) * (V[0])**2) + p_off
-            else:
-                c_r1 = 0
+        # c_reac = c_r1 + c_r2 + c_r3 + c_r4 + c_r5
+        c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * 1
 
-            if react2_bi == 1:
-                c_r2 = k_off * (abs(Y_l2) * (V[1])**2) + p_off
-            else:
-                c_r2 = 0
+        # we want reactive power delivered to the grid to be as close as possible to 0
+        c_react = 0
+        if q_wslack[nbus-1] != 0:
+                c_react = abs(q_wslack[nbus-1]) * 100
+        
+        # over or below voltages
+        c_vol = 0
+        for i in range(nbus-1):
+            # c_vol += (abs(V[i] - 1) * 100)
+            if V[i] > 1.1:
+                c_vol += (V[i] - 1.1) * 100
+            elif V[i] < 0.9:
+                c_vol += (0.9 - V[i]) * 100
 
-            if react3_bi == 1:
-                c_r3 = k_mid * (abs(Y_l3) * (V[2])**2) + p_mid
-            else:
-                c_r3 = 0
+        # overcurrents
+        c_curr = 0
+        for i in [1, 2]:  # check only the cable for now
+            c_curr += (max(curr[i] - 1.1 * n_cables, 0)) * 100
 
-            if react4_bi == 1:
-                c_r4 = k_on * (abs(Y_l4) * (V[3])**2) + p_on
-            else:
-                c_r4 = 0
+        cost_invest = c_cab + c_gis + c_tr + c_reac + c_ss
+        cost_tech = c_vol + c_curr + c_react + c_losses
+        cost_tech1 = c_vol
+        cost_tech2 = c_curr
+        cost_tech3 = c_react
+        cost_tech4 = c_losses
 
-            if react5_bi == 1:
-                c_r5 = k_on * (abs(Y_l5) * (V[4])**2) + p_on
-            else:
-                c_r5 = 0
-            
-            # c_reac = c_r1 + c_r2 + c_r3 + c_r4 + c_r5
-            c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * 1
-
-            # we want reactive power delivered to the grid to be as close as possible to 0
-            c_react = 0
-            if q_wslack[nbus-1] != 0:
-                    c_react = abs(q_wslack[nbus-1]) * 100
-            
-            # over or below voltages
-            c_vol = 0
-            for i in range(nbus-1):
-                # c_vol += (abs(V[i] - 1) * 100)
-                if V[i] > 1.1:
-                    c_vol += (V[i] - 1.1) * 100
-                elif V[i] < 0.9:
-                    c_vol += (0.9 - V[i]) * 100
-
-            # overcurrents
-            c_curr = 0
-            for i in [1, 2]:  # check only the cable for now
-                c_curr += (max(curr[i] - 1.1 * n_cables, 0)) * 100
-
-            cost_invest = c_cab + c_gis + c_tr + c_reac + c_ss
-            cost_tech = c_vol + c_curr + c_react + c_losses
-            cost_tech1 = c_vol
-            cost_tech2 = c_curr
-            cost_tech3 = c_react
-            cost_tech4 = c_losses
-
-            cost_full = [c_vol, c_curr, c_losses, c_react, cost_tech, c_cab, c_gis, c_tr, c_reac, cost_invest]
+        cost_full = [c_vol, c_curr, c_losses, c_react, cost_tech, c_cab, c_gis, c_tr, c_reac, cost_invest]
             # pprint(cost_full)
 
         # return np.array([cost_invest, cost_tech1, cost_tech2, cost_tech3, cost_tech4])
