@@ -41,8 +41,8 @@ if __name__ == '__main__':
     if obj_func == 'wind_offshore':
         ff = wind_offshore.costac_2
         d = 13
-        lb = np.array([2, 2, 1, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 500e6])  # Lower bound
-        ub = np.array([3, 3, 1, 1, 1, 1, 1, 0.0, 0.0, 0.0, 0.0, 1.0, 600e6])  # Upper bound
+        lb = np.array([3, 2, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 400e6])  # Lower bound
+        ub = np.array([3, 3, 1, 1, 1, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 600e6])  # Upper bound
         num_int = 7
     else:
         raise NotImplementedError
@@ -53,14 +53,14 @@ if __name__ == '__main__':
 	
 	
     rand_evals = 24 # Number of random iterations, same as initN above (24)
-    n_itrs = 200 # Number of MVRSM iterations (200)
+    n_itrs = 400 # Number of MVRSM iterations (200)
     max_evals = n_itrs+rand_evals # Maximum number of MVRSM iterations, the first <rand_evals> are random
 	
 	
 	###########
 	## MVRSM ##
 	###########
-    logfile = 'MVRSM_log.txt'
+    
     def obj_MVRSM(x):
         result = ff(x)
         return result
@@ -95,9 +95,10 @@ if __name__ == '__main__':
     for i in range(max_evals):
 
         plt.scatter(i, listys[i], color='blue')
-    plt.ylim(0,500)
+    plt.ylim(0,1000)
     plt.xlabel('Iteration')
     plt.ylabel('Objective function value')
     plt.show()
     
+    np.savetxt("listys.csv", listys, delimiter=",")
 
