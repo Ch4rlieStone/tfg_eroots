@@ -7,20 +7,46 @@ from pymoo.optimize import minimize
 from pymoo.visualization.scatter import Scatter
 from prova_nsga_formulacio import binhorn_own
 
-#  problem = get_problem("bnh")
-problem = binhorn_own
+from pymoo.core.mixed import MixedVariableGA
+from pymoo.core.variable import Real, Integer, Choice, Binary
+from windopti import MixedVariableProblem
+from pymoo.algorithms.moo.nsga2 import RankAndCrowdingSurvival
+from pymoo.algorithms.moo.nsga2 import RankAndCrowding
 
-algorithm = NSGA2(pop_size=50)
+
+problem = MixedVariableProblem()
+
+algorithm = MixedVariableGA(pop=50, survival=RankAndCrowding())
 
 res = minimize(problem,
                algorithm,
-               ('n_gen', 200),
+               termination=('n_evals', 500),
                seed=1,
                verbose=False)
 
-print(res)
+print(res.F)
+
+plot = Scatter()
+plot.add(problem.pareto_front(), plot_type="line", color="black", alpha=0.7)
+plot.add(res.F, facecolor="none", edgecolor="red")
+plot.show()
+
+"""
+#  problem = get_problem("bnh")
+problem = binhorn_own
+
+algorithm = NSGA2(pop_size=100)
+
+res = minimize(problem,
+               algorithm,
+               ('n_gen', 50),
+               seed=1,
+               verbose=False)
+
+print(res.F)
 
 plot = Scatter()
 # plot.add(problem.pareto_front(), plot_type="line", color="black", alpha=0.7)
 plot.add(res.F, facecolor="none", edgecolor="red")
 plot.show()
+"""

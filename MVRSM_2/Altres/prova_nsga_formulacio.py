@@ -23,5 +23,5 @@ binhorn_own = FunctionalProblem(n_var,
 
 F, G = binhorn_own.evaluate(np.random.rand(3,2))
 
-print(f"F: {F}\n")
-print(f"G: {G}\n")
+#print(f"F: {F}\n")
+#print(f"G: {G}\n")
