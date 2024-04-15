@@ -455,7 +455,7 @@ class MixedVariableProblem(ElementwiseProblem):
             # return np.array([cost_invest, cost_tech1, cost_tech2, cost_tech3, cost_tech4])
             
             #return np.array([cost_invest, cost_tech])
-            return [cost_invest, cost_tech]
+            return cost_invest, cost_tech
 
 
 
@@ -476,6 +476,8 @@ class MixedVariableProblem(ElementwiseProblem):
 
         V_wslack, angle_wslack, curr, p_wslack, q_wslack, solution_found = run_pf(p_owf, q_owf, Y_bus, nbus, vslack, dslack, max_iter, epss, y_trserie, y_piserie)
 
-        cost_output = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, solution_found) 
+        cost_invest, cost_tech  = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, solution_found) 
         # print(cost_output)
-        return cost_output
+        out["F"] = [cost_invest, cost_tech]
+        #return cost_invest, cost_tech
+        

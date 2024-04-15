@@ -16,7 +16,7 @@ from pymoo.algorithms.moo.nsga2 import RankAndCrowding
 
 problem = MixedVariableProblem()
 
-algorithm = MixedVariableGA(pop=50, survival=RankAndCrowding())
+algorithm = MixedVariableGA(pop=50, survival=RankAndCrowding(crowding_func="pcd"))
 
 res = minimize(problem,
                algorithm,
