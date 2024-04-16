@@ -8,7 +8,7 @@ class MyProblem(ElementwiseProblem):
         super().__init__(
             n_var=13,
             n_obj=2,
-            n_constr=10,  # change if needed
+            n_constr=14,  # change if needed
             xl=np.array([0, 0, 0, 0, 0, 1, 2, 200e6, 0.0, 0.0, 0.0, 0.0, 0.0]),
             xu=np.array([1, 1, 1, 1, 1, 2, 3, 800e6, 1.0, 1.0, 1.0, 1.0, 1.0]),
             type_var=np.array([int, int, int, int, int, int, int,
@@ -16,9 +16,7 @@ class MyProblem(ElementwiseProblem):
         )
 
     def _evaluate(self, x, out, *args, **kwargs):
-        f1 = x[0]**2 + x[1]**2
-        f2 = (x[2] - 3)**2 + (x[3] - 2)**2
-        out["F"] = np.array([f1, f2], dtype=float)
+        
 
         react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, vol, n_cables, S_rtr, react1, react2, react3, react4, react5 = x 
 
@@ -46,7 +44,7 @@ class MyProblem(ElementwiseProblem):
             :return Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, Y_trserie, Y_piserie
             """
 
-            if vol == "vol132":
+            if vol == 1:
                 u_i = 132e3  # V
                 R = 0.0067  # ohm/km
                 Cap = 0.19e-6  # F/km
@@ -56,7 +54,7 @@ class MyProblem(ElementwiseProblem):
                 C = 1.66
                 I_rated = 500  # A
 
-            if vol == "vol220":
+            if vol == 2:
                 u_i = 220e3  # V
                 R = 0.0067  # ohm/km
                 Cap = 0.17e-6  # F/km
@@ -430,17 +428,35 @@ class MyProblem(ElementwiseProblem):
             # we try to implement the constraints in pymoo form
             # overvoltages
             g1_ov = V[0] - 1.1
+            g2_ov = V[1] - 1.1
+            g3_ov = V[2] - 1.1
+            g4_ov = V[3] - 1.1
+            g5_ov = V[4] - 1.1
+
             # TODO: do the same for the others
 
             # under voltages
             g1_uv = 0.9 - V[0]
+            g2_uv = 0.9 - V[1]
+            g3_uv = 0.9 - V[2]
+            g4_uv = 0.9 - V[3]
+            g5_uv = 0.9 - V[4]
             # TODO: do the same for the others
 
             # over current
             # g1_oc = curr[0] - 1.1 * n_cables
+            i_max_tr = S_rtr / Sbase # rated current of the transformer
+            # transformers
+            g1_octr = abs(curr[0]) - i_max_tr
+            g2_octr = abs(curr[3]) - i_max_tr
 
-            gs = [g1_vol, g2_vol, g3_vol, g4_vol, g5_vol, g6_vol, g7_vol, g8_vol, g9_vol, g10_vol]
-            # overcurrents
+            i_maxcb =  (Sncab / Sbase) * n_cables
+            g3_oc = abs(curr[1]) - i_maxcb
+            g4_oc = abs(curr[2]) - i_maxcb
+
+            
+            gs = [g1_ov, g2_ov, g3_ov, g4_ov, g5_ov, g1_uv, g2_uv, g3_uv, g4_uv, g5_uv, g1_octr,g2_octr, g3_oc, g4_oc]
+            
 
             cost_invest = c_cab + c_gis + c_tr + c_reac + c_ss
             cost_tech = c_react + c_losses  # not constraints per se, but we want to minimize these

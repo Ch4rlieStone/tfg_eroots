@@ -11,9 +11,10 @@ from pymoo.operators.mutation.pm import PM
 from pymoo.operators.repair.rounding import RoundingRepair
 from pymoo.operators.sampling.rnd import IntegerRandomSampling
 from pymoo.core.mixed import MixedVariableGA
+from windopti import MixedVariableProblem
 
 
-problem = MixedVariableGA()
+problem = MixedVariableProblem()
 ref_dirs = get_reference_directions("das-dennis", 2, n_partitions=200)
 algorithm = NSGA3(pop_size=20,
                   sampling=IntegerRandomSampling(),

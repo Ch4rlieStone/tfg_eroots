@@ -1,11 +1,12 @@
 from pymoo.algorithms.moo.nsga3 import NSGA3
 from pymoo.util.ref_dirs import get_reference_directions
 from pymoo.termination import get_termination
-from pymoo.operators.sampling import get_sampling
-from pymoo.operators.crossover import get_crossover
-from pymoo.operators.mutation import get_mutation
+from pymoo.operators.sampling.rnd import IntegerRandomSampling
+from problem import MyProblem
 from pymoo.optimize import minimize
-from NSGA_3.problem import MyProblem
+from pymoo.operators.crossover.sbx import SBX
+from pymoo.operators.mutation.pm import PM
+from pymoo.operators.repair.rounding import RoundingRepair
 
 # Reference directions for NSGA-III
 ref_dirs = get_reference_directions("das-dennis", 2, n_partitions=12)
@@ -14,9 +15,10 @@ ref_dirs = get_reference_directions("das-dennis", 2, n_partitions=12)
 algorithm = NSGA3(
     pop_size=100,
     ref_dirs=ref_dirs,
-    sampling=get_sampling("int_random"),
-    crossover=get_crossover("int_sbx", prob=0.9, eta=15),
-    mutation=get_mutation("int_pm", eta=20)
+    sampling=IntegerRandomSampling(),
+    crossover=SBX(prob=1.0, eta=3.0, vtype=float, repair=RoundingRepair()),
+    mutation=PM(prob=1.0, eta=3.0, vtype=float, repair=RoundingRepair()),
+    
 )
 
 # Define termination criteria
