@@ -5,11 +5,11 @@ from pymoo.problems import get_problem
 #  from pymoo.operators.sampling.rnd import BinaryRandomSampling
 from pymoo.optimize import minimize
 from pymoo.visualization.scatter import Scatter
-from prova_nsga_formulacio import binhorn_own
+#from prova_nsga_formulacio import binhorn_own
 
 from pymoo.core.mixed import MixedVariableGA
 from pymoo.core.variable import Real, Integer, Choice, Binary
-from windopti import MixedVariableProblem
+from windopti_constr import MixedVariableProblem
 from pymoo.algorithms.moo.nsga2 import RankAndCrowdingSurvival
 from pymoo.algorithms.moo.nsga2 import RankAndCrowding
 from pymoo.constraints.as_penalty import ConstraintsAsPenalty
@@ -17,8 +17,8 @@ from pymoo.constraints.as_penalty import ConstraintsAsPenalty
 
 problem = MixedVariableProblem()
 
-algorithm = MixedVariableGA(pop_size = 50, survival=RankAndCrowding(crowding_func="ce"))
-
+algorithm = MixedVariableGA(pop_size=100, survival=RankAndCrowding(crowding_func="ce"))
+"""
 res = minimize(problem,
                algorithm,
                termination=('n_evals', 500),
@@ -30,7 +30,7 @@ res = minimize(ConstraintsAsPenalty(problem, penalty=100),
                termination=('n_evals', 500),
                seed=1,
                verbose=False)
-"""
+
 
 print(res.F)
 
