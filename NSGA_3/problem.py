@@ -10,7 +10,7 @@ class MyProblem(ElementwiseProblem):
             n_obj=2,
             n_constr=14,  # change if needed
             xl=np.array([0, 0, 0, 0, 0, 1, 2, 200e6, 0.0, 0.0, 0.0, 0.0, 0.0]),
-            xu=np.array([1, 1, 1, 1, 1, 2, 3, 800e6, 1.0, 1.0, 1.0, 1.0, 1.0]),
+            xu=np.array([1, 1, 1, 1, 1, 2, 3, 800e6, 1000.0, 1000.0, 1000.0, 1000.0, 1000.0]),
             type_var=np.array([int, int, int, int, int, int, int,
                                float, float, float, float, float, float]) 
         )
@@ -19,6 +19,12 @@ class MyProblem(ElementwiseProblem):
         
 
         react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, vol, n_cables, S_rtr, react1, react2, react3, react4, react5 = x 
+
+        react1 /= 1000
+        react2 /= 1000
+        react3 /= 1000
+        react4 /= 1000
+        react5 /= 1000
 
         def build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val, react4_val, react5_val):
             """
