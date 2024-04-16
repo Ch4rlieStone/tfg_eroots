@@ -17,11 +17,11 @@ from pymoo.constraints.as_penalty import ConstraintsAsPenalty
 
 problem = MixedVariableProblem()
 
-algorithm = MixedVariableGA(pop_size = 50, survival=RankAndCrowding(crowding_func="ce"))
+algorithm = MixedVariableGA(pop_size = 200, survival=RankAndCrowding(crowding_func="ce"))
 
 res = minimize(problem,
                algorithm,
-               termination=('n_evals', 500),
+               termination=('n_evals', 1000),
                seed=1,
                verbose=False)
 """
