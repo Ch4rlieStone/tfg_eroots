@@ -12,6 +12,7 @@ from pymoo.core.variable import Real, Integer, Choice, Binary
 from windopti import MixedVariableProblem
 from pymoo.algorithms.moo.nsga2 import RankAndCrowdingSurvival
 from pymoo.algorithms.moo.nsga2 import RankAndCrowding
+from pymoo.constraints.as_penalty import ConstraintsAsPenalty
 
 
 problem = MixedVariableProblem()
@@ -23,11 +24,18 @@ res = minimize(problem,
                termination=('n_evals', 500),
                seed=1,
                verbose=False)
+"""
+res = minimize(ConstraintsAsPenalty(problem, penalty=100),
+               algorithm,
+               termination=('n_evals', 500),
+               seed=1,
+               verbose=False)
+"""
 
 print(res.F)
 
 plot = Scatter()
-plot.add(problem.pareto_front(), plot_type="line", color="black", alpha=0.7)
+#plot.add(problem.pareto_front(), plot_type="line", color="black", alpha=0.7)
 plot.add(res.F, facecolor="none", edgecolor="red")
 plot.show()
 

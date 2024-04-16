@@ -21,6 +21,7 @@ class MixedVariableProblem(ElementwiseProblem):
             "react5": Real(bounds=(0.0, 1.0)),
         }
         super().__init__(vars=vars, n_obj=2, **kwargs)
+        #super().__init__(vars=vars, n_obj=2, n_ieq_constr=10, **kwargs)
 
     def _evaluate(self, X, out, *args, **kwargs):
 
@@ -363,7 +364,7 @@ class MixedVariableProblem(ElementwiseProblem):
 
             else:
             """
-            #  We compute the AC power losses
+        #  We compute the AC power losses
             p_lossac = Sbase * (p_owf + p_wslack[5]) * 1e-6  # MW
 
             #  Cable cost
@@ -428,6 +429,7 @@ class MixedVariableProblem(ElementwiseProblem):
             if q_wslack[nbus-1] != 0:
                     c_react = abs(q_wslack[nbus-1]) * 100
             
+            
             # over or below voltages
             c_vol = 0
             for i in range(nbus-1):
@@ -436,26 +438,54 @@ class MixedVariableProblem(ElementwiseProblem):
                     c_vol += (V[i] - 1.1) * 100
                 elif V[i] < 0.9:
                     c_vol += (0.9 - V[i]) * 100
-
+            
             # overcurrents
             c_curr = 0
             for i in [1, 2]:  # check only the cable for now
                 c_curr += (max(curr[i] - 1.1 * n_cables, 0)) * 100
 
+            # we try to implement the constraints in pymoo form
+            # overvoltages
+            g1_vol = (1 / 1.1) * (V[0] - 1.1)
+            g2_vol = (1 / 1.1) * (V[1] - 1.1)
+            g3_vol = (1 / 1.1) * (V[2] - 1.1)
+            g4_vol = (1 / 1.1) * (V[3] - 1.1)
+            g5_vol = (1 / 1.1) * (V[4] - 1.1)
+            # under voltages
+            g6_vol = (1 / 0.9) * (0.9 - V[0])
+            g7_vol = (1 / 0.9) * (0.9 - V[1])
+            g8_vol = (1 / 0.9) * (0.9 - V[2])
+            g9_vol = (1 / 0.9) * (0.9 - V[3])
+            g10_vol = (1 / 0.9) * (0.9 - V[4])
+
+            gs = [g1_vol, g2_vol, g3_vol, g4_vol, g5_vol, g6_vol, g7_vol, g8_vol, g9_vol, g10_vol]
+            # overcurrents
+
+            
+            
+            
             cost_invest = c_cab + c_gis + c_tr + c_reac + c_ss
             cost_tech = c_vol + c_curr + c_react + c_losses
             cost_tech1 = c_vol
             cost_tech2 = c_curr
             cost_tech3 = c_react
             cost_tech4 = c_losses
+            """
 
-            cost_full = [c_vol, c_curr, c_losses, c_react, cost_tech, c_cab, c_gis, c_tr, c_reac, cost_invest]
+            cost_invest = c_cab + c_gis + c_tr + c_reac + c_ss
+            cost_tech = c_curr + c_react + c_losses
+            cost_tech2 = c_curr
+            cost_tech3 = c_react
+            cost_tech4 = c_losses
+            """
+
+            # cost_full = [c_vol, c_curr, c_losses, c_react, cost_tech, c_cab, c_gis, c_tr, c_reac, cost_invest]
                 # pprint(cost_full)
 
             # return np.array([cost_invest, cost_tech1, cost_tech2, cost_tech3, cost_tech4])
             
             #return np.array([cost_invest, cost_tech])
-            return cost_invest, cost_tech
+            return cost_invest, cost_tech, gs
 
 
 
@@ -476,8 +506,9 @@ class MixedVariableProblem(ElementwiseProblem):
 
         V_wslack, angle_wslack, curr, p_wslack, q_wslack, solution_found = run_pf(p_owf, q_owf, Y_bus, nbus, vslack, dslack, max_iter, epss, y_trserie, y_piserie)
 
-        cost_invest, cost_tech  = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, solution_found) 
+        cost_invest, cost_tech, gs  = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, solution_found) 
         # print(cost_output)
         out["F"] = [cost_invest, cost_tech]
+        #out["G"] = gs
         #return cost_invest, cost_tech
         
