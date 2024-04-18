@@ -1,3 +1,4 @@
+import numpy as np
 from pymoo.algorithms.moo.nsga2 import NSGA2
 from pymoo.problems import get_problem
 #  from pymoo.operators.crossover.pntx import TwoPointCrossover
@@ -33,6 +34,7 @@ res = minimize(ConstraintsAsPenalty(problem, penalty=100),
 
 
 print(res.F)
+
 
 plot = Scatter()
 #plot.add(problem.pareto_front(), plot_type="line", color="black", alpha=0.7)

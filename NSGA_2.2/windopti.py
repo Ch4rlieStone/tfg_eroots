@@ -23,7 +23,7 @@ class MixedVariableProblem(ElementwiseProblem):
             "react5": Real(bounds=(0.0, 1.0)),
         }
         super().__init__(vars=vars, n_obj=2, **kwargs)
-        #super().__init__(vars=vars, n_obj=2, n_ieq_constr=14, **kwargs)
+        
 
     def _evaluate(self, X, out, *args, **kwargs):
 
@@ -428,9 +428,10 @@ class MixedVariableProblem(ElementwiseProblem):
             c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * 1
 
             # we want reactive power delivered to the grid to be as close as possible to 0
+            penalty = 10
             c_react = 0
             if q_wslack[nbus-1] != 0:
-                    c_react = abs(q_wslack[nbus-1]) * 100
+                    c_react = abs(q_wslack[nbus-1]) * penalty
             
             
             # over or below voltages
@@ -438,9 +439,9 @@ class MixedVariableProblem(ElementwiseProblem):
             for i in range(nbus-1):
                 # c_vol += (abs(V[i] - 1) * 100)
                 if V[i] > 1.1:
-                    c_vol += (V[i] - 1.1) * 100
+                    c_vol += (V[i] - 1.1) * penalty
                 elif V[i] < 0.9:
-                    c_vol += (0.9 - V[i]) * 100
+                    c_vol += (0.9 - V[i]) * penalty
             """
             # overcurrents
             c_curr = 0
@@ -453,25 +454,25 @@ class MixedVariableProblem(ElementwiseProblem):
             # transformers
             c_curr = 0
             if abs(curr[0]) > 1.1 * i_max_tr:
-                c_curr += (abs(curr[0]) - i_max_tr) * 100
+                c_curr += (abs(curr[0]) - i_max_tr) * penalty
            
             
             if abs(curr[3]) > 1.1 * i_max_tr:
-                c_curr += (abs(curr[3]) - i_max_tr) * 100
+                c_curr += (abs(curr[3]) - i_max_tr) * penalty
             
 
 
             i_maxcb =  (Sncab / Sbase) * n_cables
             if abs(curr[1]) > 1.1 * i_maxcb:
-                c_curr += (abs(curr[1]) - i_maxcb) * 100
+                c_curr += (abs(curr[1]) - i_maxcb) * penalty
             
             if abs(curr[2]) > 1.1 * i_maxcb:
-                c_curr += (abs(curr[2]) - i_maxcb) * 100
+                c_curr += (abs(curr[2]) - i_maxcb) * penalty
             
 
             #g3_oc = abs(curr[1]) - i_maxcb
             #g4_oc = abs(curr[2]) - i_maxcb
-
+            """
             #c_curr = (g1_octr + g2_octr + g3_oc + g4_oc) * 100
             # we try to implement the constraints in pymoo form
             # overvoltages
@@ -489,7 +490,7 @@ class MixedVariableProblem(ElementwiseProblem):
 
             #gs = [g1_vol, g2_vol, g3_vol, g4_vol, g5_vol, g6_vol, g7_vol, g8_vol, g9_vol, g10_vol, g1_octr, g2_octr, g3_oc, g4_oc]
             # overcurrents
-
+            """
             
             
             
@@ -528,8 +529,8 @@ class MixedVariableProblem(ElementwiseProblem):
 
         Sbase = 100e6  # VA
         f = 50  # Hz
-        l = 100  #  distance to shore in km
-        p_owf = 2  # p.u, equivalent to 500 MW owf
+        l = 120  #  distance to shore in km
+        p_owf =2  # p.u, equivalent to 500 MW owf
         q_owf = 0 # p.u, we assume no reactive power is generated at plant
 
         Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, y_trserie, y_piserie = build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1, react2, react3, react4, react5)
