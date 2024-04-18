@@ -5,7 +5,7 @@ from pymoo.problems import get_problem
 #  from pymoo.operators.sampling.rnd import BinaryRandomSampling
 from pymoo.optimize import minimize
 from pymoo.visualization.scatter import Scatter
-from prova_nsga_formulacio import binhorn_own
+
 
 from pymoo.core.mixed import MixedVariableGA
 from pymoo.core.variable import Real, Integer, Choice, Binary
