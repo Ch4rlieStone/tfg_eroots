@@ -36,10 +36,11 @@ res = minimize(ConstraintsAsPenalty(problem,penalty=100),
                verbose=False)
 """
 
-print(res.F)
-min_row_index = np.argmin(np.min(res.F, axis=1))
-min_row = res.F[min_row_index]
-print("min row =", min_row)
+#print(res.F)
+print("Best solution found: \nX = %s\nF = %s" % (res.X, res.F))
+#min_row_index = np.argmin(np.min(res.F, axis=1))
+#min_row = res.F[min_row_index]
+#print("min row =", min_row)
 #print(res.X)
 #print(res.CV)
 # print("Best solution found: \nX = %s\nF = %s" % (res.X, res.F))
