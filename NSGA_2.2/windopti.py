@@ -14,8 +14,8 @@ class MixedVariableProblem(ElementwiseProblem):
             #"vol_level": Choice(options=["vol132","vol220"]),
             "vol_level": Choice(options=["vol220"]),
             #"vol_level": Choice(options=["vol132"]),
-            "n_cables": Integer(bounds=(1, 2)),
-            "S_rtr": Real(bounds=(1000e6, 2000e6)),
+            "n_cables": Integer(bounds=(2, 3)),
+            "S_rtr": Real(bounds=(1000e6, 1800e6)),
             "react1": Real(bounds=(0.0, 1.0)),
             "react2": Real(bounds=(0.0, 1.0)),
             "react3": Real(bounds=(0.0, 1.0)),
@@ -529,7 +529,7 @@ class MixedVariableProblem(ElementwiseProblem):
 
         Sbase = 100e6  # VA
         f = 50  # Hz
-        l = 150  #  distance to shore in km
+        l = 80  #  distance to shore in km
         p_owf = 10  # p.u, equivalent to 500 MW owf
         q_owf = 0 # p.u, we assume no reactive power is generated at plant
 
