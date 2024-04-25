@@ -12,10 +12,10 @@ class MixedVariableProblem(ElementwiseProblem):
             "react4_bi": Binary(),
             "react5_bi": Binary(),
             #"vol_level": Choice(options=["vol132","vol220"]),
-            "vol_level": Choice(options=["vol220"]),
-            #"vol_level": Choice(options=["vol132"]),
+            #"vol_level": Choice(options=["vol220"]),
+            "vol_level": Choice(options=["vol132"]),
             "n_cables": Integer(bounds=(2, 3)),
-            "S_rtr": Real(bounds=(1000e6, 1800e6)),
+            "S_rtr": Real(bounds=(200e6, 800e6)),
             "react1": Real(bounds=(0.0, 1.0)),
             "react2": Real(bounds=(0.0, 1.0)),
             "react3": Real(bounds=(0.0, 1.0)),
@@ -529,8 +529,8 @@ class MixedVariableProblem(ElementwiseProblem):
 
         Sbase = 100e6  # VA
         f = 50  # Hz
-        l = 80  #  distance to shore in km
-        p_owf = 10  # p.u, equivalent to 500 MW owf
+        l = 150  #  distance to shore in km
+        p_owf = 2  # p.u, equivalent to 500 MW owf
         q_owf = 0 # p.u, we assume no reactive power is generated at plant
 
         Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, y_trserie, y_piserie = build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1, react2, react3, react4, react5)

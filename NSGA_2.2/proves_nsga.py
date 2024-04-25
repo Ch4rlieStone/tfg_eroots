@@ -23,7 +23,7 @@ problem = MixedVariableProblem()
 
 #problem = MixedVariableProblem_constraints()
 
-algorithm = MixedVariableGA(pop_size = 300, survival=RankAndCrowding(crowding_func="pcd"))
+algorithm = MixedVariableGA(pop_size = 200, survival=RankAndCrowding(crowding_func="ce"))
 
 res = minimize(problem,
                algorithm,
@@ -49,6 +49,7 @@ plt.plot(n_evals, opt, "--")
 plt.yscale("log")
 plt.show()
 """
+
 # Choice of decicision point (we need weights for each objective)
 weights = np.array([0.5, 0.5])
 decomp = ASF()
@@ -73,9 +74,9 @@ plot.add(res.F, facecolor="none", edgecolor="black")
 # plot best point with weights aproach
 
 plot.add(res.F[I], color="red", s=50)
+plot.hold()
 
-
-plot.show()
+#plot.show()
 
 """
 #  problem = get_problem("bnh")

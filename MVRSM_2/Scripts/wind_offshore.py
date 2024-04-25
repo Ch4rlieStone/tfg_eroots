@@ -142,7 +142,7 @@ def costac_2(x):
             Y_l5 = 0
 
         # 1.5 Grid connection
-        scr = 5  # which value should we put here 5 or 50?
+        scr = 50  # which value should we put here 5 or 50?
         xrr = 10
         zgridm = V_ref**2 / (scr * p_owf * Sbase)
         rgrid = np.sqrt(zgridm**2 / (xrr**2 + 1))
@@ -476,8 +476,8 @@ def costac_2(x):
 
     Sbase = 100e6  # VA
     f = 50  # Hz
-    l = 100  #  distance to shore in km
-    p_owf = 5  # p.u, equivalent to 500 MW owf
+    l = 150  #  distance to shore in km
+    p_owf = 2  # p.u, equivalent to 500 MW owf
     q_owf = 0 # p.u, we assume no reactive power is generated at plant
 
     Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, y_trserie, y_piserie = build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val, react4_val, react5_val)

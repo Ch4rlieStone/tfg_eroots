@@ -142,7 +142,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             Y_l5 = 0
 
         # 1.5 Grid connection
-        scr = 5  # which value should we put here 5 or 50?
+        scr = 50  # which value should we put here 5 or 50?
         xrr = 10
         zgridm = V_ref**2 / (scr * p_owf * Sbase)
         rgrid = np.sqrt(zgridm**2 / (xrr**2 + 1))
@@ -323,7 +323,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             curr = np.array([i_21, i_32, i_43, i_54])
 
         else:
-            print("No solution found")
+            #print("No solution found")
             pass
 
         return V_wslack, angle_wslack, curr, p_wslack, q_wslack, solution_found
@@ -395,7 +395,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         c_tr = (0.0427 * (S_rtr * 1e-6)**0.7513)  # S_rtr in MVA
 
         # Cost reactors
-        fact = 1e4
+        fact = 1e3
         k_on = 0.01049 * fact
         k_mid = 0.01576 * fact
         k_off = 0.01576 * fact
@@ -433,24 +433,43 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * 1
 
         # we want reactive power delivered to the grid to be as close as possible to 0
+        penalty = 10
         c_react = 0
         if q_wslack[nbus-1] != 0:
-                c_react = abs(q_wslack[nbus-1]) * 100
+                c_react = abs(q_wslack[nbus-1]) * penalty
         
         # over or below voltages
         c_vol = 0
         for i in range(nbus-1):
             # c_vol += (abs(V[i] - 1) * 100)
             if V[i] > 1.1:
-                c_vol += (V[i] - 1.1) * 100
+                c_vol += (V[i] - 1.1) * penalty
             elif V[i] < 0.9:
-                c_vol += (0.9 - V[i]) * 100
-
+                c_vol += (0.9 - V[i]) * penalty
         # overcurrents
+        #c_curr = 0
+        #for i in [1, 2]:  # check only the cable for now
+        #    c_curr += (max(curr[i] - 1.1 * n_cables, 0)) * 100
+        i_max_tr = S_rtr / Sbase # rated current of the transformer
+            # transformers
         c_curr = 0
-        for i in [1, 2]:  # check only the cable for now
-            c_curr += (max(curr[i] - 1.1 * n_cables, 0)) * 100
+        if abs(curr[0]) > 1.1 * i_max_tr:
+            c_curr += (abs(curr[0]) - i_max_tr) * penalty
+           
+            
+        if abs(curr[3]) > 1.1 * i_max_tr:
+            c_curr += (abs(curr[3]) - i_max_tr) * penalty
+        
 
+
+        i_maxcb =  (Sncab / Sbase) * n_cables
+        if abs(curr[1]) > 1.1 * i_maxcb:
+            c_curr += (abs(curr[1]) - i_maxcb) * penalty
+        
+        if abs(curr[2]) > 1.1 * i_maxcb:
+            c_curr += (abs(curr[2]) - i_maxcb) * penalty
+
+        
         cost_invest = c_cab + c_gis + c_tr + c_reac + c_ss
         cost_tech = c_vol + c_curr + c_react + c_losses
         cost_tech1 = c_vol
@@ -463,8 +482,8 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
 
         # return np.array([cost_invest, cost_tech1, cost_tech2, cost_tech3, cost_tech4])
         
-        return np.array([cost_invest, cost_tech])
-    
+        #return np.array([cost_invest, cost_tech])
+        return cost_invest, cost_tech
     
 
     # Main data
@@ -476,14 +495,14 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
 
     Sbase = 100e6  # VA
     f = 50  # Hz
-    l = 100  #  distance to shore in km
-    p_owf = 5  # p.u, equivalent to 500 MW owf
+    l = 150  #  distance to shore in km
+    p_owf = 2  # p.u, equivalent to 500 MW owf
     q_owf = 0 # p.u, we assume no reactive power is generated at plant
 
     Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, y_trserie, y_piserie = build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val, react4_val, react5_val)
 
     V_wslack, angle_wslack, curr, p_wslack, q_wslack, solution_found = run_pf(p_owf, q_owf, Y_bus, nbus, vslack, dslack, max_iter, epss, y_trserie, y_piserie)
 
-    cost_output = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, solution_found) 
+    cost_invest, cost_tech = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, solution_found) 
 
-    return cost_output
+    return cost_invest, cost_tech

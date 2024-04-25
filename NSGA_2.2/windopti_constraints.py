@@ -503,7 +503,7 @@ class MixedVariableProblem_constraints(ElementwiseProblem):
             
             
             cost_invest = c_cab + c_gis + c_tr + c_reac + c_ss
-            cost_tech =  + c_react + c_losses
+            cost_tech =  c_react + c_losses
             #cost_tech1 = c_vol
             cost_tech2 = c_curr
             cost_tech3 = c_react
@@ -547,7 +547,7 @@ class MixedVariableProblem_constraints(ElementwiseProblem):
 
         cost_invest, cost_tech, gs  = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, solution_found) 
         # print(cost_output)
-        out["F"] = [cost_invest, cost_tech]
-        out["G"] = [gs[0], gs[1], gs[2], gs[3], gs[4], gs[5], gs[6], gs[7], gs[8], gs[9], gs[10], gs[11], gs[12], gs[13]]
+        out["F"] = np.array([cost_invest, cost_tech])
+        out["G"] = np.array([gs[0], gs[1], gs[2], gs[3], gs[4], gs[5], gs[6], gs[7], gs[8], gs[9], gs[10], gs[11], gs[12], gs[13]])
         #return cost_invest, cost_tech
         
