@@ -1,0 +1,12 @@
+\babel@toc {english}{}\relax 
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Prefaci}{7}{section.1}%
+\contentsline {section}{\numberline {2}Introducció}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Objectius}{9}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Abast del projecte}{9}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Apartats}{11}{section.3}%
+\contentsline {section}{\numberline {4}Pressupost}{11}{section.4}%
+\contentsline {section}{\numberline {5}Impacte ambiental}{11}{section.5}%
+\contentsline {section}{Conclusions}{11}{section.5}%
+\contentsline {section}{Agraïments}{11}{section.5}%
+\contentsline {section}{Bibliografia}{13}{section.5}%
