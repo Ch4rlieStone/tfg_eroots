@@ -23,11 +23,11 @@ problem = MixedVariableProblem()
 
 #problem = MixedVariableProblem_constraints()
 
-algorithm = MixedVariableGA(pop_size = 200, survival=RankAndCrowding(crowding_func="ce"))
+algorithm = MixedVariableGA(pop_size = 300, survival=RankAndCrowding(crowding_func="ce"))
 
 res = minimize(problem,
                algorithm,
-               termination=('n_evals', 500),
+               termination=('n_evals', 600),
                seed=1,
                verbose=False,
                save_history=True)
@@ -73,10 +73,9 @@ plot.add(res.F, facecolor="none", edgecolor="black")
 
 # plot best point with weights aproach
 
-plot.add(res.F[I], color="red", s=50)
-plot.hold()
+#plot.add(res.F[I], color="red", s=50)
 
-#plot.show()
+plot.show()
 
 """
 #  problem = get_problem("bnh")

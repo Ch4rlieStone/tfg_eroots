@@ -495,7 +495,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
 
     Sbase = 100e6  # VA
     f = 50  # Hz
-    l = 150  #  distance to shore in km
+    l = 80  #  distance to shore in km
     p_owf = 2  # p.u, equivalent to 500 MW owf
     q_owf = 0 # p.u, we assume no reactive power is generated at plant
 

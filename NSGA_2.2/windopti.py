@@ -12,8 +12,8 @@ class MixedVariableProblem(ElementwiseProblem):
             "react4_bi": Binary(),
             "react5_bi": Binary(),
             #"vol_level": Choice(options=["vol132","vol220"]),
-            #"vol_level": Choice(options=["vol220"]),
-            "vol_level": Choice(options=["vol132"]),
+            "vol_level": Choice(options=["vol220"]),
+            #"vol_level": Choice(options=["vol132"]),
             "n_cables": Integer(bounds=(2, 3)),
             "S_rtr": Real(bounds=(200e6, 800e6)),
             "react1": Real(bounds=(0.0, 1.0)),
@@ -389,7 +389,7 @@ class MixedVariableProblem(ElementwiseProblem):
             c_tr = (0.0427 * (S_rtr * 1e-6)**0.7513)  # S_rtr in MVA
 
             # Cost reactors
-            fact = 1e3
+            fact = 1e2
             #fact = 1e4 #  orginal facotr JOSEP
             k_on = 0.01049 * fact
             k_mid = 0.01576 * fact
