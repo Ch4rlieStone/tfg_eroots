@@ -73,7 +73,7 @@ plot.add(res.F, facecolor="none", edgecolor="black")
 
 # plot best point with weights aproach
 
-#plot.add(res.F[I], color="red", s=50)
+plot.add(res.F[I], color="red", s=50)
 
 plot.show()
 
