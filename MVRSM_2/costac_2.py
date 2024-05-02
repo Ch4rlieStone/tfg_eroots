@@ -4,7 +4,7 @@ import cmath
 import random
 from pprint import pprint
 
-def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val,react4_val, react5_val, S_rtr):
+def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val,react4_val, react5_val, S_rtr, p_owf):
 
 
 
@@ -116,6 +116,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
 
         # 1.4 Compensator
         if react1_bi == 1:
+            #Y_l1 = - 1j * react1_val / Y_ref
             Y_l1 = - 1j * react1_val
         else:
             Y_l1 = 0
@@ -157,7 +158,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
                     [0, 0, 0, -Y_trserie, Y_trserie + Y_tr + Y_l5 + Y_g, -Y_g],
                     [0, 0, 0, 0, -Y_g, Y_g]])
         
-        return Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, Y_trserie, Y_piserie
+        return Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, Y_trserie, Y_piserie, Y_ref
 
 
     def run_pf(p_owf: float=0.0,
@@ -323,7 +324,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             curr = np.array([i_21, i_32, i_43, i_54])
 
         else:
-            #print("No solution found")
+            print("No solution found")
             pass
 
         return V_wslack, angle_wslack, curr, p_wslack, q_wslack, solution_found
@@ -333,7 +334,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
                       curr: np.ndarray=None, nbus: int=1, n_cables: int=1, u_i: float=220, I_rated: float=1.0,
                       S_rtr: float=500, react1_bi: bool=False, react2_bi: bool=False, react3_bi: bool=False,
                       react4_bi: bool=False, react5_bi: bool=False, Y_l1: float=0.0, Y_l2: float=0.0, Y_l3: float=0.0,
-                      Y_l4: bool=False, Y_l5: bool=False, solution_found: bool=False):
+                      Y_l4: bool=False, Y_l5: bool=False, Y_ref: float=0.0, solution_found: bool=False):
         """
         Compute all the costs
         :param p_owf: Active power of the offshore wind farm
@@ -395,7 +396,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         c_tr = (0.0427 * (S_rtr * 1e-6)**0.7513)  # S_rtr in MVA
 
         # Cost reactors
-        fact = 1e3
+        fact = 1e4
         k_on = 0.01049 * fact
         k_mid = 0.01576 * fact
         k_off = 0.01576 * fact
@@ -405,27 +406,28 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
 
     
         if react1_bi == 1:
-            c_r1 = k_off * (abs(Y_l1) * (V[0])**2) + p_off
+            #  c_r1 = k_off * (abs(Y_l1) * (V[0])**2) + p_off
+            c_r1 = k_off * (abs(Y_l1) * Y_ref * (V[0])**2) + p_off
         else:
             c_r1 = 0
 
         if react2_bi == 1:
-            c_r2 = k_off * (abs(Y_l2) * (V[1])**2) + p_off
+            c_r2 = k_off * (abs(Y_l2)* Y_ref * (V[1])**2) + p_off
         else:
             c_r2 = 0
 
         if react3_bi == 1:
-            c_r3 = k_mid * (abs(Y_l3) * (V[2])**2) + p_mid
+            c_r3 = k_mid * (abs(Y_l3) * Y_ref * (V[2])**2) + p_mid
         else:
             c_r3 = 0
 
         if react4_bi == 1:
-            c_r4 = k_on * (abs(Y_l4) * (V[3])**2) + p_on
+            c_r4 = k_on * (abs(Y_l4) * Y_ref * (V[3])**2) + p_on
         else:
             c_r4 = 0
 
         if react5_bi == 1:
-            c_r5 = k_on * (abs(Y_l5) * (V[4])**2) + p_on
+            c_r5 = k_on * (abs(Y_l5) * Y_ref * (V[4])**2) + p_on
         else:
             c_r5 = 0
         
@@ -433,12 +435,13 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * 1
 
         # we want reactive power delivered to the grid to be as close as possible to 0
-        penalty = 10
+        penalty = 100
         c_react = 0
         if q_wslack[nbus-1] != 0:
                 c_react = abs(q_wslack[nbus-1]) * penalty
         
         # over or below voltages
+        
         c_vol = 0
         for i in range(nbus-1):
             # c_vol += (abs(V[i] - 1) * 100)
@@ -446,6 +449,16 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
                 c_vol += (V[i] - 1.1) * penalty
             elif V[i] < 0.9:
                 c_vol += (0.9 - V[i]) * penalty
+        
+        c_volover = 0
+        for i in range(nbus-1):
+            if V[i] > 1:
+                c_volover += abs(V[i] - 1) * penalty
+
+        c_volunder = 0
+        for i in range(nbus-1):
+            if V[i] < 1:
+                c_volunder += abs(1 - V[i]) * penalty
         # overcurrents
         #c_curr = 0
         #for i in [1, 2]:  # check only the cable for now
@@ -477,13 +490,13 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         cost_tech3 = c_react
         cost_tech4 = c_losses
 
-        cost_full = [c_vol, c_curr, c_losses, c_react, cost_tech, c_cab, c_gis, c_tr, c_reac, cost_invest]
+        cost_full = [c_vol, c_curr, c_losses, c_react, cost_tech, c_cab, c_gis, c_tr, c_reac, cost_invest,c_volover, c_volunder]
             # pprint(cost_full)
 
         # return np.array([cost_invest, cost_tech1, cost_tech2, cost_tech3, cost_tech4])
         
         #return np.array([cost_invest, cost_tech])
-        return cost_invest, cost_tech
+        return cost_invest, cost_tech, cost_full
     
 
     # Main data
@@ -495,14 +508,14 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
 
     Sbase = 100e6  # VA
     f = 50  # Hz
-    l = 80  #  distance to shore in km
-    p_owf = 2  # p.u, equivalent to 500 MW owf
+    l = 100  #  distance to shore in km
+    #p_owf = 7  # p.u, equivalent to 500 MW owf
     q_owf = 0 # p.u, we assume no reactive power is generated at plant
 
-    Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, y_trserie, y_piserie = build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val, react4_val, react5_val)
+    Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, y_trserie, y_piserie, Y_ref = build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val, react4_val, react5_val)
 
     V_wslack, angle_wslack, curr, p_wslack, q_wslack, solution_found = run_pf(p_owf, q_owf, Y_bus, nbus, vslack, dslack, max_iter, epss, y_trserie, y_piserie)
 
-    cost_invest, cost_tech = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, solution_found) 
+    cost_invest, cost_tech, cost_full = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, Y_ref, solution_found) 
 
-    return cost_invest, cost_tech
+    return cost_invest, cost_tech, cost_full

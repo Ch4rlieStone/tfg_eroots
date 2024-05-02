@@ -14,8 +14,8 @@ class MixedVariableProblem(ElementwiseProblem):
             #"vol_level": Choice(options=["vol132","vol220"]),
             "vol_level": Choice(options=["vol220"]),
             #"vol_level": Choice(options=["vol132"]),
-            "n_cables": Integer(bounds=(2, 3)),
-            "S_rtr": Real(bounds=(200e6, 800e6)),
+            "n_cables": Integer(bounds=(2, 2)),
+            "S_rtr": Real(bounds=(200e6, 1000e6)),
             "react1": Real(bounds=(0.0, 1.0)),
             "react2": Real(bounds=(0.0, 1.0)),
             "react3": Real(bounds=(0.0, 1.0)),
@@ -112,28 +112,28 @@ class MixedVariableProblem(ElementwiseProblem):
 
             # 1.4 Compensator
             if react1_bi:
-                Y_l1 = - 1j * react1_val
+                Y_l1 =  - 1j * react1_val
             else:
                 Y_l1 = 0
 
             if react2_bi:
-                Y_l2 = - 1j * react2_val
+                Y_l2 =  - 1j * react2_val
                 
             else:
                 Y_l2 = 0
 
             if react3_bi:
-                Y_l3 = - 1j * react3_val
+                Y_l3 =  - 1j * react3_val
             else:
                 Y_l3 = 0
 
             if react4_bi:
-                Y_l4 = - 1j * react4_val
+                Y_l4 =  - 1j * react4_val
             else:
                 Y_l4 = 0
 
             if react5_bi:
-                Y_l5 = - 1j * react5_val
+                Y_l5 =  - 1j * react5_val
             else:
                 Y_l5 = 0
 
@@ -153,7 +153,7 @@ class MixedVariableProblem(ElementwiseProblem):
                         [0, 0, 0, -Y_trserie, Y_trserie + Y_tr + Y_l5 + Y_g, -Y_g],
                         [0, 0, 0, 0, -Y_g, Y_g]])
         
-            return Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, Y_trserie, Y_piserie
+            return Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, Y_trserie, Y_piserie, Y_ref
 
         def run_pf(p_owf: float=0.0,
                q_owf: float=0.0,
@@ -327,7 +327,7 @@ class MixedVariableProblem(ElementwiseProblem):
                       curr: np.ndarray=None, nbus: int=1, n_cables: int=1, u_i: float=220, I_rated: float=1.0,
                       S_rtr: float=500, react1_bi: bool=False, react2_bi: bool=False, react3_bi: bool=False,
                       react4_bi: bool=False, react5_bi: bool=False, Y_l1: float=0.0, Y_l2: float=0.0, Y_l3: float=0.0,
-                      Y_l4: bool=False, Y_l5: bool=False, solution_found: bool=False):
+                      Y_l4: bool=False, Y_l5: bool=False, Y_ref: float=0.0, solution_found: bool=False):
             """
             Compute all the costs
             :param p_owf: Active power of the offshore wind farm
@@ -389,7 +389,7 @@ class MixedVariableProblem(ElementwiseProblem):
             c_tr = (0.0427 * (S_rtr * 1e-6)**0.7513)  # S_rtr in MVA
 
             # Cost reactors
-            fact = 1e2
+            fact = 1e3
             #fact = 1e4 #  orginal facotr JOSEP
             k_on = 0.01049 * fact
             k_mid = 0.01576 * fact
@@ -400,27 +400,28 @@ class MixedVariableProblem(ElementwiseProblem):
 
         
             if react1_bi:
-                c_r1 = k_off * (abs(Y_l1) * (V[0])**2) + p_off
+                # c_r1 = k_off * (abs(Y_l1) * (V[0])**2) + p_off
+                c_r1 = k_off * (abs(Y_l1) * Y_ref * (V[0])**2) + p_off
             else:
                 c_r1 = 0
 
             if react2_bi:
-                c_r2 = k_off * (abs(Y_l2) * (V[1])**2) + p_off
+                c_r2 = k_off * (abs(Y_l2) * Y_ref * (V[1])**2) + p_off
             else:
                 c_r2 = 0
 
             if react3_bi:
-                c_r3 = k_mid * (abs(Y_l3) * (V[2])**2) + p_mid
+                c_r3 = k_mid * (abs(Y_l3) * Y_ref * (V[2])**2) + p_mid
             else:
                 c_r3 = 0
 
             if react4_bi:
-                c_r4 = k_on * (abs(Y_l4) * (V[3])**2) + p_on
+                c_r4 = k_on * (abs(Y_l4) * Y_ref * (V[3])**2) + p_on
             else:
                 c_r4 = 0
 
             if react5_bi:
-                c_r5 = k_on * (abs(Y_l5) * (V[4])**2) + p_on
+                c_r5 = k_on * (abs(Y_l5) * Y_ref * (V[4])**2) + p_on
             else:
                 c_r5 = 0
             
@@ -533,11 +534,11 @@ class MixedVariableProblem(ElementwiseProblem):
         p_owf = 2  # p.u, equivalent to 500 MW owf
         q_owf = 0 # p.u, we assume no reactive power is generated at plant
 
-        Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, y_trserie, y_piserie = build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1, react2, react3, react4, react5)
+        Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, y_trserie, y_piserie, Y_ref = build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1, react2, react3, react4, react5)
 
         V_wslack, angle_wslack, curr, p_wslack, q_wslack, solution_found = run_pf(p_owf, q_owf, Y_bus, nbus, vslack, dslack, max_iter, epss, y_trserie, y_piserie)
 
-        cost_invest, cost_tech  = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, solution_found) 
+        cost_invest, cost_tech  = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, Y_ref, solution_found) 
         # print(cost_output)
         out["F"] = [cost_invest, cost_tech]
         #out["G"] = gs
