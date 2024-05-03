@@ -63,7 +63,11 @@ El text d'aquí incrementa els seus marges segons ``esq'' i ``dta''
 
 %%Comença pàgina nova per cada Secció SI hi ha alguna cosa escrita a la anterior
 
-\newcommand{\sectionbreak}{\cleardoublepage}
+%\newcommand{\sectionbreak}{\cleardoublepage}
+\newcommand{\sectionbreak}{\clearpage}
+
+% Descomentem això si volem començar les subseccions a pàgines noves
+%% \newcommand{\subsectionbreak}{\clearpage}
 
 
 %%Caps de pagina i peus (E/O (even/odd), L/C/R (left/center/right) y H/F (header/footer))
@@ -95,7 +99,7 @@ El text d'aquí incrementa els seus marges segons ``esq'' i ``dta''
     \vspace{10mm}
     %\Huge\textbf{MEMÒRIA}\\
     \vspace{3mm}
-    \Large\text{21 June 2024}\\  %Si e lloc del dia de la darrera edició es vol una data fixa, elimineu \today i poseu la data
+    \Large\text{June 2024}\\  %Si e lloc del dia de la darrera edició es vol una data fixa, elimineu \today i poseu la data
     }
     \vspace{20mm}
     \hspace{2mm}
@@ -107,7 +111,7 @@ El text d'aquí incrementa els seus marges segons ``esq'' i ``dta''
         \vspace{5mm}
         \Large\textbf{Advisor:} & \Large{Oriol Gomis Bellmunt}\\
         
-         \Large\textbf{Call: } & \Large{Spring 2024}\\
+         \Large\textbf{Call: } & \Large{Spring 2023-2024}\\
     \end{tabular}\par
     \vspace{10mm}
     {\centering
@@ -125,20 +129,33 @@ El text d'aquí incrementa els seus marges segons ``esq'' i ``dta''
 \null\newpage 
 \pagenumbering{arabic}
 
+\section*{Abstract}
+Incloure paraules clau i codis 
+
+
 \section*{Resum}
-1 Pàgina. 
-\lipsum[3-8]
-\clearpage\null\newpage
+ 
+\lipsum[3-5]
+
+\section*{Resumen}
+
+\lipsum[3-5]
+%\clearpage\null\newpage
 
 \tableofcontents
 \listoffigures
+\listoftables
 
+\section{Nomenclature}
+\section{Preface}
 
-\section{Prefaci}
 Per no repetir informació és millor referir-se a altres apartats \ref{introducció}.\par
 I recorda, sempre és important citar a la bibliografia \cite{Etiqueta}.\\
 La bibliografia ha d'estar ordenada, en teniu un exemple a la pàgina \pageref{biblio}
 
+
+\subsection{Motivation}
+Holas
 \begin{figure}[H] %Recorda fixar la posició de les figures si no
 	\centering
 	\includegraphics[width=0.35\textwidth]{imatges/ETSEIB.png}
@@ -147,30 +164,43 @@ La bibliografia ha d'estar ordenada, en teniu un exemple a la pàgina \pageref{b
 \end{figure}
 
 %------------------------------------------
-\section{Introducció}\label{introducció}
-\subsection{Objectius}
-\subsection{Abast del projecte}
+\section{Introduction}\label{introducció}
+\subsection{Background}
+\subsection{Reach of the thesis}
 Com hi ha coses escrites en aquest apartat, el següent començarà en una pàgina senar nova.
+
+\subsection{Objectives}
+
+\subsection{Outline}
 %------------------------------------------
-\section{Apartats}
+\section{Grid to study}
+\section{Minimization problem}
+\section{Optimization methods}
+\section{Case studies}
 
 %------------------------------------------
-\section{Pressupost}
+\section{Planning and viability studies}
 
-\section{Impacte ambiental}
+\subsection{Time Planning}
+\subsection{Budget}
+\subsection{Environmental study}
+\subsection{Social, equity and gender studies}
 
-\section*{Conclusions}
- \addcontentsline{toc}{section}{Conclusions}
+\section{Conclusions}
+\subsection{Outcome}
+\subsection{Future work}
+
+
  
-\section*{Agraïments}
- \addcontentsline{toc}{section}{Agraïments}
- Gràcies
+\section*{Acknowledgements}
+ \addcontentsline{toc}{section}{Acknowledgements}
+ Gràcies als meus amics de la uni sobretot, papa, mama i Mire.
 
  
  %INICI BIBLIOGRAFIA
  
  \begin{thebibliography}{99}\label{biblio}
- \addcontentsline{toc}{section}{Bibliografia}
+ \addcontentsline{toc}{section}{Bibliography}
  
  \bibitem{Etiqueta} \textsc{Autors del Text}, {} 
  \textit{Títol de l'obra}, EDITORIAL i publicació\\ 
