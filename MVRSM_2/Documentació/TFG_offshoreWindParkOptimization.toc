@@ -1,24 +1,23 @@
 \babel@toc {english}{}\relax 
 \babel@toc {english}{}\relax 
-\contentsline {section}{\numberline {1}Nomenclature}{7}{section.1}%
-\contentsline {section}{\numberline {2}Preface}{7}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Motivation}{7}{subsection.2.1}%
-\contentsline {section}{\numberline {3}Introduction}{8}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Background}{8}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Reach of the thesis}{8}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Objectives}{8}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Outline}{8}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Grid to study}{8}{section.4}%
-\contentsline {section}{\numberline {5}Minimization problem}{8}{section.5}%
-\contentsline {section}{\numberline {6}Optimization methods}{8}{section.6}%
-\contentsline {section}{\numberline {7}Case studies}{8}{section.7}%
-\contentsline {section}{\numberline {8}Planning and viability studies}{8}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Time Planning}{8}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Budget}{8}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3}Environmental study}{8}{subsection.8.3}%
-\contentsline {subsection}{\numberline {8.4}Social, equity and gender studies}{8}{subsection.8.4}%
-\contentsline {section}{\numberline {9}Conclusions}{8}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Outcome}{8}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Future work}{8}{subsection.9.2}%
-\contentsline {section}{Acknowledgements}{8}{subsection.9.2}%
-\contentsline {section}{Bibliography}{9}{subsection.9.2}%
+\contentsline {section}{\nonumberline Nomenclature}{7}{Doc-Start}%
+\contentsline {section}{\numberline {1}Preface}{8}{section.1}%
+\contentsline {section}{\numberline {2}Introduction}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Motivation}{9}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Scope}{9}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Objectives}{9}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Outline}{9}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Grid to study and theoretical background}{9}{section.3}%
+\contentsline {section}{\numberline {4}Minimization problem}{9}{section.4}%
+\contentsline {section}{\numberline {5}Optimization methods}{9}{section.5}%
+\contentsline {section}{\numberline {6}Case studies}{9}{section.6}%
+\contentsline {section}{\numberline {7}Conclusions}{9}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Outcome}{9}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Future work}{9}{subsection.7.2}%
+\contentsline {section}{\numberline {8}Planning and viability studies}{9}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Time Planning}{9}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Economic assessment}{9}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Environmental assessment}{9}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Social and gender equality assessment}{9}{subsection.8.4}%
+\contentsline {section}{Acknowledgements}{9}{subsection.8.4}%
+\contentsline {section}{Bibliography}{10}{subsection.8.4}%

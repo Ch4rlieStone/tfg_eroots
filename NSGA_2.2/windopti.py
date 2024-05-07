@@ -14,7 +14,7 @@ class MixedVariableProblem(ElementwiseProblem):
             #"vol_level": Choice(options=["vol132","vol220"]),
             "vol_level": Choice(options=["vol220"]),
             #"vol_level": Choice(options=["vol132"]),
-            "n_cables": Integer(bounds=(2, 2)),
+            "n_cables": Integer(bounds=(2, 3)),
             "S_rtr": Real(bounds=(200e6, 1000e6)),
             "react1": Real(bounds=(0.0, 1.0)),
             "react2": Real(bounds=(0.0, 1.0)),

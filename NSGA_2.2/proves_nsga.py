@@ -23,7 +23,7 @@ problem = MixedVariableProblem()
 
 #problem = MixedVariableProblem_constraints()
 
-algorithm = MixedVariableGA(pop_size = 300, survival=RankAndCrowding(crowding_func="ce"))
+algorithm = MixedVariableGA(pop_size = 200, survival=RankAndCrowding(crowding_func="ce"))
 
 res = minimize(problem,
                algorithm,
