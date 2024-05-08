@@ -396,7 +396,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         c_tr = (0.0427 * (S_rtr * 1e-6)**0.7513)  # S_rtr in MVA
 
         # Cost reactors
-        fact = 1e4
+        fact = 1e3
         k_on = 0.01049 * fact
         k_mid = 0.01576 * fact
         k_off = 0.01576 * fact
@@ -404,7 +404,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         p_mid = 1.244
         p_off = 1.244
 
-    
+        """
         if react1_bi == 1:
             #  c_r1 = k_off * (abs(Y_l1) * (V[0])**2) + p_off
             c_r1 = k_off * (abs(Y_l1) * Y_ref * (V[0])**2) + p_off
@@ -428,6 +428,33 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
 
         if react5_bi == 1:
             c_r5 = k_on * (abs(Y_l5) * Y_ref * (V[4])**2) + p_on
+        else:
+            c_r5 = 0
+        """
+        # without convertinb back to real Y using Y_base
+        if react1_bi == 1:
+            #  c_r1 = k_off * (abs(Y_l1) * (V[0])**2) + p_off
+            c_r1 = k_off * (abs(Y_l1)  * (V[0])**2) + p_off
+        else:
+            c_r1 = 0
+
+        if react2_bi == 1:
+            c_r2 = k_off * (abs(Y_l2) * (V[1])**2) + p_off
+        else:
+            c_r2 = 0
+
+        if react3_bi == 1:
+            c_r3 = k_mid * (abs(Y_l3)  * (V[2])**2) + p_mid
+        else:
+            c_r3 = 0
+
+        if react4_bi == 1:
+            c_r4 = k_on * (abs(Y_l4)  * (V[3])**2) + p_on
+        else:
+            c_r4 = 0
+
+        if react5_bi == 1:
+            c_r5 = k_on * (abs(Y_l5)  * (V[4])**2) + p_on
         else:
             c_r5 = 0
         
