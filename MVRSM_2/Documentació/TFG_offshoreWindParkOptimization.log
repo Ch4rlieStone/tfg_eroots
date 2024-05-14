@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.4.25)  3 MAY 2024 13:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.4.25)  14 MAY 2024 13:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -697,28 +697,28 @@ Package: setspace 2022/12/04 v6.7b set line spacing
 \@nomenclaturefile=\write4
 \openout4 = `TFG_offshoreWindParkOptimization.nlo'.
 
-Package nomencl Info: Writing nomenclature file TFG_offshoreWindParkOptimization.nlo on input line 93.
+Package nomencl Info: Writing nomenclature file TFG_offshoreWindParkOptimization.nlo on input line 98.
  (TFG_offshoreWindParkOptimization.aux)
 \openout1 = `TFG_offshoreWindParkOptimization.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -784,7 +784,7 @@ Package caption Info: scrextend package is loaded.
 \caption@addmargin@linewidth=\dimen305
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 97.
+Package hyperref Info: Link coloring ON on input line 102.
  (TFG_offshoreWindParkOptimization.out) (TFG_offshoreWindParkOptimization.out)
 \@outlinefile=\write5
 \openout5 = `TFG_offshoreWindParkOptimization.out'.
@@ -792,16 +792,16 @@ Package hyperref Info: Link coloring ON on input line 97.
 <imatges/ETSEIB.png, id=88, 179.16937pt x 225.84375pt>
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 125.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 130.
 (pdftex.def)             Requested size: 53.75122pt x 67.75363pt.
 <imatges/UPC_logo.PNG, id=90, 101.62968pt x 97.86563pt>
 File: imatges/UPC_logo.PNG Graphic file (type png)
 <use imatges/UPC_logo.PNG>
-Package pdftex.def Info: imatges/UPC_logo.PNG  used on input line 128.
+Package pdftex.def Info: imatges/UPC_logo.PNG  used on input line 133.
 (pdftex.def)             Requested size: 40.65114pt x 39.14554pt.
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 131.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 136.
 (pdftex.def)             Requested size: 447.92232pt x 564.60796pt.
  [1
 
@@ -810,31 +810,31 @@ Package pdftex.def Info: imatges/ETSEIB.png  used on input line 131.
 ]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 143.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 154.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.143 \section*{Resum}
+l.154 \section*{Resum}
                        [1
 
 ]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 147.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 162.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.147 \section*{Resumen}
+l.162 \section*{Resumen}
                          [2
 
 ]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 152.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 172.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [3
 
@@ -844,7 +844,7 @@ Package pdftex.def Info: imatges/ETSEIB.png  used on input line 152.
 
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 153.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 173.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [4
 
@@ -854,7 +854,7 @@ Package pdftex.def Info: imatges/ETSEIB.png  used on input line 153.
 
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 154.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 174.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [5
 
@@ -872,38 +872,43 @@ Package pdftex.def Info: imatges/ETSEIB.png  used on input line 2.
 ])
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 174.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 194.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [7
 
 ]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 192.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 208.
 (pdftex.def)             Requested size: 72.55157pt x 91.45242pt.
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 198.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 217.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [8
 
 ]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 237.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 263.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [9
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 242.
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 268.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [10]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 278.
  (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 248.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 285.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [10
+ [11
 
 {C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/tex-gyre/q-ec-sc.enc}] (TFG_offshoreWindParkOptimization.aux)
  ***********
@@ -914,17 +919,17 @@ Package rerunfilecheck Info: File `TFG_offshoreWindParkOptimization.out' has not
 (rerunfilecheck)             Checksum: 7B1A438B7955B9F4DB993EAD3983687A;2797.
  ) 
 Here is how much of TeX's memory you used:
- 28257 strings out of 474424
- 534525 string characters out of 5741739
+ 28258 strings out of 474424
+ 534532 string characters out of 5741739
  1935496 words of memory out of 5000000
- 50034 multiletter control sequences out of 15000+600000
+ 50033 multiletter control sequences out of 15000+600000
  595087 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  110i,17n,117p,1355b,525s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\garri\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecit1095.pk> <C:\Users\garri\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1095.pk><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplb.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplr.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplri.pfb>
-Output written on TFG_offshoreWindParkOptimization.pdf (12 pages, 259068 bytes).
+Output written on TFG_offshoreWindParkOptimization.pdf (13 pages, 265590 bytes).
 PDF statistics:
- 223 PDF objects out of 1000 (max. 8388607)
- 31 named destinations out of 1000 (max. 500000)
+ 231 PDF objects out of 1000 (max. 8388607)
+ 33 named destinations out of 1000 (max. 500000)
  191 words of extra memory for PDF output out of 10000 (max. 10000000)
 

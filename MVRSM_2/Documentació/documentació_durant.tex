@@ -36,12 +36,20 @@ Note that in the power flow all buses are considered PQ buses excpet bus 6, whic
 \section{Vector of unknowns
 }
 
+\[
+\mathbf{v} = 
+\begin{bmatrix}
+vol_{tr}, & n_{cables}, & react_{bi_1}, &, ... &, react_{bi5}&, react_{cont1}&, ... &,react_{cont5}&, react_{bi5}&, S_{trafo}  
+\end{bmatrix}
+\]
+
+
 \begin{itemize}
   \item Binary variables of the shunt reactors: Binary. Whether we put or not a shunt reactor at position i. 
   \item Transmission voltage: Choice ( a integer number is assigned which corresponds to a set of parameters for that voltage level)
   \item Number of cables: Integer
   \item Transformer rated power: Continuous
-  \item Shunt reactors value: Continuous. Sizing of the compensation at position i.
+  \item Shunt reactors value: Continuous. Sizing of the compensation at position i in p.u.
 \end{itemize}
 \section{Constraints AC}
 Equality constraints: POWER FLOW

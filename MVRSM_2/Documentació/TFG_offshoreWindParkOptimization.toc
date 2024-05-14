@@ -5,19 +5,19 @@
 \contentsline {section}{\numberline {2}Introduction}{9}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Motivation}{9}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Scope}{9}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Objectives}{9}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Outline}{9}{subsection.2.4}%
-\contentsline {section}{\numberline {3}Grid to study and theoretical background}{9}{section.3}%
-\contentsline {section}{\numberline {4}Minimization problem}{9}{section.4}%
-\contentsline {section}{\numberline {5}Optimization methods}{9}{section.5}%
-\contentsline {section}{\numberline {6}Case studies}{9}{section.6}%
-\contentsline {section}{\numberline {7}Conclusions}{9}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Outcome}{9}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Future work}{9}{subsection.7.2}%
-\contentsline {section}{\numberline {8}Planning and viability studies}{9}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Time Planning}{9}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Economic assessment}{9}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3}Environmental assessment}{9}{subsection.8.3}%
-\contentsline {subsection}{\numberline {8.4}Social and gender equality assessment}{9}{subsection.8.4}%
-\contentsline {section}{Acknowledgements}{9}{subsection.8.4}%
-\contentsline {section}{Bibliography}{10}{subsection.8.4}%
+\contentsline {subsection}{\numberline {2.3}Objectives}{10}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Outline}{10}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Grid to study and theoretical background}{10}{section.3}%
+\contentsline {section}{\numberline {4}Minimization problem}{10}{section.4}%
+\contentsline {section}{\numberline {5}Optimization methods}{10}{section.5}%
+\contentsline {section}{\numberline {6}Case studies}{10}{section.6}%
+\contentsline {section}{\numberline {7}Conclusions}{10}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Outcome}{10}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Future work}{10}{subsection.7.2}%
+\contentsline {section}{\numberline {8}Planning and viability studies}{10}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Time Planning}{10}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Economic assessment}{10}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Environmental assessment}{10}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Social and gender equality assessment}{10}{subsection.8.4}%
+\contentsline {section}{Acknowledgements}{10}{subsection.8.4}%
+\contentsline {section}{Bibliography}{11}{subsection.8.4}%

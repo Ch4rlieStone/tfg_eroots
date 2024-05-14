@@ -388,6 +388,7 @@ INPUT .\imatges\ETSEIB.png
 INPUT .\imatges\ETSEIB.png
 INPUT C:\Users\garri\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT C:\Users\garri\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\tex-gyre\q-ec.enc
+INPUT C:\Users\garri\AppData\Local\Programs\MiKTeX\fonts\tfm\public\tex-gyre\ec-qplb.tfm
 INPUT .\imatges\ETSEIB.png
 INPUT .\imatges\ETSEIB.png
 INPUT .\imatges\ETSEIB.png
@@ -403,7 +404,6 @@ INPUT .\imatges\ETSEIB.png
 INPUT .\TFG_offshoreWindParkOptimization.toc
 INPUT .\TFG_offshoreWindParkOptimization.toc
 INPUT TFG_offshoreWindParkOptimization.toc
-INPUT C:\Users\garri\AppData\Local\Programs\MiKTeX\fonts\tfm\public\tex-gyre\ec-qplb.tfm
 OUTPUT TFG_offshoreWindParkOptimization.toc
 INPUT .\imatges\ETSEIB.png
 INPUT .\imatges\ETSEIB.png
@@ -442,12 +442,16 @@ INPUT .\imatges\ETSEIB.png
 INPUT .\imatges\ETSEIB.png
 INPUT C:\Users\garri\AppData\Local\Programs\MiKTeX\fonts\tfm\public\tex-gyre\ec-qplr.tfm
 INPUT C:\Users\garri\AppData\Local\Programs\MiKTeX\fonts\tfm\public\tex-gyre\ec-qplb.tfm
+INPUT C:\Users\garri\AppData\Local\Programs\MiKTeX\fonts\tfm\public\tex-gyre\ec-qplri.tfm
+INPUT .\imatges\ETSEIB.png
+INPUT .\imatges\ETSEIB.png
+INPUT .\imatges\ETSEIB.png
+INPUT .\imatges\ETSEIB.png
 INPUT .\imatges\ETSEIB.png
 INPUT .\imatges\ETSEIB.png
 INPUT .\imatges\ETSEIB.png
 INPUT .\imatges\ETSEIB.png
 INPUT C:\Users\garri\AppData\Local\Programs\MiKTeX\fonts\tfm\public\tex-gyre\ec-qplr-sc.tfm
-INPUT C:\Users\garri\AppData\Local\Programs\MiKTeX\fonts\tfm\public\tex-gyre\ec-qplri.tfm
 INPUT C:\Users\garri\AppData\Local\Programs\MiKTeX\tex\latex\base\t1cmtt.fd
 INPUT C:\Users\garri\AppData\Local\Programs\MiKTeX\tex\latex\base\t1cmtt.fd
 INPUT C:\Users\garri\AppData\Local\Programs\MiKTeX\tex\latex\base\t1cmtt.fd

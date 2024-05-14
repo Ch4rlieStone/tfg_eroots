@@ -50,7 +50,8 @@
 \usepackage{scrextend}%Indentar un bloc sencer
 \usepackage{tgpagella}
 \usepackage{dtk-logos}
-\usepackage{nomencl}
+\usepackage{nomencl} % Per a la nomenclatura
+\usepackage{hyperref} % Per als links
 
 \usepackage{setspace}
 \renewcommand{\baselinestretch}{1.25} 
@@ -65,6 +66,8 @@ El text d'aquí incrementa els seus marges segons ``esq'' i ``dta''
 \end{addmargin}
 \end{comment}
 
+%------------------------------------------
+
 %%Comença pàgina nova per cada Secció SI hi ha alguna cosa escrita a la anterior
 
 %\newcommand{\sectionbreak}{\cleardoublepage}
@@ -73,6 +76,8 @@ El text d'aquí incrementa els seus marges segons ``esq'' i ``dta''
 % Descomentem això si volem començar les subseccions a pàgines noves
 %% \newcommand{\subsectionbreak}{\clearpage}
 
+
+%------------------------------------------
 
 %%Caps de pagina i peus (E/O (even/odd), L/C/R (left/center/right) y H/F (header/footer))
 \fancyhf{}
@@ -106,7 +111,7 @@ used within the body of the thesis.}
     \vspace{10mm}
     %\Huge\textbf{MEMÒRIA}\\
     \vspace{3mm}
-    \Large\text{June 2024}\\  %Si e lloc del dia de la darrera edició es vol una data fixa, elimineu \today i poseu la data
+    \Large\text{June 2024}\\  %Si en lloc del dia de la darrera edició es vol una data fixa, elimineu \today i poseu la data
     }
     \vspace{20mm}
     \hspace{2mm}
@@ -137,16 +142,31 @@ used within the body of the thesis.}
 \pagenumbering{arabic}
 
 \section*{Abstract}
-Incloure paraules clau i codis 
+
+Short and must include results.
+
+\textbf{Keywords:} offshore wind power plant, power flow, renewable energy, HVAC, transmission system, optimization, mixed-integer programming, genetic algorithms.
+
+
+\textbf{MSC codes:} 90C11, 90C15, 90C29, 90C30, 90C59
 
 
 \section*{Resum}
  
-\lipsum[3-5]
+Short and must include results.
 
+\textbf{Paraules clau:} parc eòlic marí, flux de potència, energia renovable, HVAC, sistema de transmissió, optimització, programació enter mixta, algoritmes genètics.
+
+
+\textbf{Codis MSC:} 90C11, 90C15, 90C29, 90C30, 90C59
 \section*{Resumen}
 
-\lipsum[3-5]
+Short and must include results.
+
+\textbf{Palabras clave:} parque eólico marino, flujo de potencia, energía renovable, HVAC, sistema de transmisión, optimización, programación entera mixta, algoritmos genéticos.
+
+
+\textbf{Códigos MSC:} 90C11, 90C15, 90C29, 90C30, 90C59
 %\clearpage\null\newpage
 
 \tableofcontents
@@ -173,11 +193,6 @@ Incloure paraules clau i codis
 \printnomenclature
 \section{Preface}
 
-Per no repetir informació és millor referir-se a altres apartats \ref{introducció}.\par
-I recorda, sempre és important citar a la bibliografia \cite{Etiqueta}.\\
-La bibliografia ha d'estar ordenada, en teniu un exemple a la pàgina \pageref{biblio}
-
-
 Argurably, climate change is one of the most pressing challenges we are facing today as humanity.
 That's why I wanted to develop a project revolving around sustainable solutions for the 
 energy system of the future. As an engineering student I wanted to explore how renewable 
@@ -187,6 +202,7 @@ He introduced me diverse research areas and also eRoots, a spin-off from the UPC
 that develops software solutions for modern grid modelling,analyis and optimization. That is
 how I ended up as an intern at eRoots and developed this thesis in collaboration with them.
 
+
 \begin{figure}[H] %Recorda fixar la posició de les figures si no
 	\centering
 	\includegraphics[width=0.15\textwidth]{imatges/ETSEIB.png}
@@ -194,12 +210,28 @@ how I ended up as an intern at eRoots and developed this thesis in collaboration
 	\label{fig:ETSEIB} %Si es posen les etiquetes de forma ordenada, la vida es més fàcil...
 \end{figure}
 
+Per no repetir informació és millor referir-se a altres apartats \ref{introducció}.\par
+I recorda, sempre és important citar a la bibliografia \cite{Etiqueta}.\\
+La bibliografia ha d'estar ordenada, en teniu un exemple a la pàgina \pageref{biblio}
 %------------------------------------------
 \section{Introduction}\label{introducció}
-\subsection{Motivation}
-\subsection{Scope}
-Com hi ha coses escrites en aquest apartat, el següent començarà en una pàgina senar nova.
 
+\subsection{Motivation}
+
+During the industrial engineering studies you get in touch with a wide range of topics that can be applied
+to different fields. During the last years to get introduced to electrical engineering fundamentals and its 
+applications. I discovered a deep interests for those topics and realized is a key tool for ensuring a future towards
+energy systems that can inegrate renwable energy sources.\par
+
+The main driving force behind choosing this topic is the need to develop a sustainable energy system that can
+ensure a future for the next generations. The energy system is a key player in the fight against climate change. Moreover, the last
+report on global sustainable development \cite{SustGoal7} highlights how \textit{Goal 7: Affordable and clean energy} is failing to meet its targets
+and evenmore notices a backward trend in the 2020-2023 period.\par
+
+This thesis is my modest and passionate contribution to provide sustainable solutions for our future.
+
+\subsection{Scope}
+hola
 \subsection{Objectives}
 
 \subsection{Outline}
@@ -222,10 +254,9 @@ Com hi ha coses escrites en aquest apartat, el següent començarà en una pàgi
 \subsection{Environmental assessment}
 \subsection{Social and gender equality assessment}
 
+%------------------------------------------
 
 
-
- 
 \section*{Acknowledgements}
  \addcontentsline{toc}{section}{Acknowledgements}
  Gràcies Josep, Oriol i als companys i companyes d'eRoots.\par
@@ -237,9 +268,15 @@ Com hi ha coses escrites en aquest apartat, el següent començarà en una pàgi
  \begin{thebibliography}{99}\label{biblio}
  \addcontentsline{toc}{section}{Bibliography}
  
+
+ \bibitem{SustGoal7}
+ \textit{Global Sustainable Development Report (GSDR) 2023}, United nations, 2023. [Online]. 
+ Available: \href{https://sdgs.un.org/gsdr/gsdr2023}{Global Sustainable Development Report (GSDR) 2023}
+ 
  \bibitem{Etiqueta} \textsc{Autors del Text}, {} 
  \textit{Títol de l'obra}, EDITORIAL i publicació\\ 
  \texttt{Consultat \emph{quotiens necesse est}}
+ 
  
 
  \end{thebibliography}
