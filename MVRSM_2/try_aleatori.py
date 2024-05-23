@@ -4,18 +4,18 @@ import costac_2
 
 
 
-trials = 50
+trials = 1000
 ff = costac_2.costac_2
 random_check = np.zeros((trials,6))
 d = 13
 num_int = 7
-lb = np.array([3, 2, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 150e6])  # Lower bound
-ub = np.array([3, 3, 1, 1, 1, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1000e6])  # Upper bound
+lb = np.array([3, 2, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 450e6])  # Lower bound
+ub = np.array([3, 2, 1, 1, 1, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1000e6])  # Upper bound
 
 p_owflist = np.linspace(1, 10, trials)
 x_history = np.zeros((trials, d))
 
-p_owf = 2
+p_owf = 5
 for i in range(trials):
         
         x0 = np.zeros(d) # Initial guess
@@ -36,7 +36,7 @@ for i in range(trials):
         random_check[i,:] = [cost_invest, cost_tech, cost_full[10], cost_full[2], cost_full[3], cost_full[11]]
         
         
-"""      
+     
 # print(random_check)
 plt.scatter(random_check[:,0], random_check[:,1], color='blue')
 plt.ylim(0,1000)
@@ -67,3 +67,4 @@ plt.legend()
 plt.show()
 
 # np.savetxt("random_check.csv", random_check, delimiter=",")
+"""

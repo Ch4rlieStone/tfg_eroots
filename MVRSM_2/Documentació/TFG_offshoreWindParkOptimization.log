@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.4.25)  14 MAY 2024 13:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.4.25)  23 MAY 2024 12:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -691,34 +691,152 @@ LaTeX Font Info:    Trying to load font information for T1+qpl on input line 112
 File: t1qpl.fd 2009/09/25 v1.2 font definition file for T1/qpl
 ))) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/latex/tools\xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
-)) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
+)) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/latex/pgfgantt\pgfgantt.sty
+Package: pgfgantt 2018/01/10 v5.0 Draw Gantt diagrams with TikZ
+ (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryarrows.code.tex
+File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+ (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibraryarrows.code.tex
+File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\arrowsize=\dimen302
+)) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarybackgrounds.code.tex
+File: tikzlibrarybackgrounds.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@layerbox@background=\box79
+\pgf@layerboxsaved@background=\box80
+) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarypatterns.code.tex
+File: tikzlibrarypatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
+ (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibrarypatterns.code.tex
+File: pgflibrarypatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
+ (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfcalendar.sty (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfcalendar.code.tex
+File: pgfcalendar.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfcalendarcurrentjulian=\count338
+\pgf@cal@easter@Y=\count339
+\pgf@cal@easter@G=\count340
+\pgf@cal@easter@C=\count341
+\pgf@cal@easter@X=\count342
+\pgf@cal@easter@Z=\count343
+\pgf@cal@easter@D=\count344
+\pgf@cal@easter@E=\count345
+\pgf@cal@easter@N=\count346
+\pgf@cal@easter@M=\count347
+\pgf@cal@easter@julianday=\count348
+))
+\gtt@currentline=\count349
+\gtt@lasttitleline=\count350
+\gtt@currgrid=\count351
+\gtt@chartwidth=\count352
+\gtt@lasttitleslot=\count353
+\gtt@elementid=\count354
+\gtt@today@slot=\count355
+\gtt@startjulian=\count356
+\gtt@endjulian=\count357
+\gtt@chartid=\count358
+\gtt@vrule@slot=\count359
+\gtt@calendar@slots=\count360
+\gtt@calendar@weeknumber=\count361
+\gtt@calendar@startofweek=\count362
+\gtt@left@slot=\count363
+\gtt@right@slot=\count364
+) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
+) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/latex/circuitikz\circuitikz.sty
+Package: circuitikz 2024/05/05{} The CircuiTikz circuit drawing package version 1.6.8
+ (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibraryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowinset=\dimen303
+\pgfarrowlength=\dimen304
+\pgfarrowwidth=\dimen305
+\pgfarrowlinewidth=\dimen306
+) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarybending.code.tex
+File: tikzlibrarybending.code.tex 2023-01-15 v3.1.10 (3.1.10)
+ (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodulebending.code.tex
+File: pgfmodulebending.code.tex 2023-01-15 v3.1.10 (3.1.10)
+ (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodulenonlineartransformations.code.tex
+File: pgfmodulenonlineartransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgftransformnonlinearflatness=\dimen307
+) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibrarycurvilinear.code.tex
+File: pgflibrarycurvilinear.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@curvilinear@time@a=\dimen308
+\pgf@curvilinear@length@a=\dimen309
+\pgf@curvilinear@length@b=\dimen310
+\pgf@curvilinear@length@c=\dimen311
+\pgf@curvilinear@length@d=\dimen312
+)
+\pgf@arrows@the@rigidity=\dimen313
+)) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryfpu.code.tex (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibraryfpu.code.tex)) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/circuitikz\pgfcirc.defines.tex
+\pgf@circ@count@a=\count365
+\pgf@circ@count@b=\count366
+\pgf@circ@count@c=\count367
+\pgf@circ@res@up=\dimen314
+\pgf@circ@res@down=\dimen315
+\pgf@circ@res@zero=\dimen316
+\pgf@circ@res@left=\dimen317
+\pgf@circ@res@right=\dimen318
+\pgf@circ@res@other=\dimen319
+\pgf@circ@res@step=\dimen320
+\pgf@circ@res@temp=\dimen321
+\pgf@circ@Rlen=\dimen322
+\pgf@circ@scaled@Rlen=\dimen323
+\pgfstartlinewidth=\dimen324
+) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/circuitikz\pgfcircutils.tex
+\ctikz@scratchbox=\box81
+) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/circuitikz\pgfcircpath.tex) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/circuitikz\pgfcircshapes.tex) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/circuitikz\pgfcircmonopoles.tex) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/circuitikz\pgfcircbipoles.tex) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/circuitikz\pgfcirctripoles.tex
+\pgf@circ@res@count=\count368
+) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/circuitikz\pgfcircquadpoles.tex) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/circuitikz\pgfcircmultipoles.tex) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/circuitikz\pgfcirclabel.tex) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/circuitikz\pgfcircvoltage.tex
+\pgfcirc@labelshift=\dimen325
+) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/circuitikz\pgfcirccurrent.tex) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/generic/circuitikz\pgfcircflow.tex)) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/latex/algorithms\algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
+\@float@every@algorithm=\toks49
+\c@algorithm=\count369
+) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/latex/algorithmicx\algpseudocode.sty
+Package: algpseudocode 
+ (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/latex/algorithmicx\algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count370
+\c@ALG@rem=\count371
+\c@ALG@nested=\count372
+\ALG@tlm=\skip79
+\ALG@thistlm=\skip80
+\c@ALG@Lnr=\count373
+\c@ALG@blocknr=\count374
+\c@ALG@storecount=\count375
+\c@ALG@tmpcounter=\count376
+\ALG@tmplength=\skip81
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
 )
 \@nomenclaturefile=\write4
 \openout4 = `TFG_offshoreWindParkOptimization.nlo'.
 
-Package nomencl Info: Writing nomenclature file TFG_offshoreWindParkOptimization.nlo on input line 98.
+Package nomencl Info: Writing nomenclature file TFG_offshoreWindParkOptimization.nlo on input line 103.
  (TFG_offshoreWindParkOptimization.aux)
 \openout1 = `TFG_offshoreWindParkOptimization.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -756,17 +874,17 @@ LaTeX Font Info:    ... okay on input line 102.
 
 (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count338
-\scratchdimen=\dimen302
-\scratchbox=\box79
-\nofMPsegments=\count339
-\nofMParguments=\count340
-\everyMPshowfont=\toks49
-\MPscratchCnt=\count341
-\MPscratchDim=\dimen303
-\MPnumerator=\count342
-\makeMPintoPDFobject=\count343
-\everyMPtoPDFconversion=\toks50
+\scratchcounter=\count377
+\scratchdimen=\dimen326
+\scratchbox=\box82
+\nofMPsegments=\count378
+\nofMParguments=\count379
+\everyMPshowfont=\toks50
+\MPscratchCnt=\count380
+\MPscratchDim=\dimen327
+\MPnumerator=\count381
+\makeMPintoPDFobject=\count382
+\everyMPtoPDFconversion=\toks51
 ) (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -780,28 +898,28 @@ Package caption Info: longtable package is loaded.
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: scrextend package is loaded.
-\caption@addmargin@hsize=\dimen304
-\caption@addmargin@linewidth=\dimen305
+\caption@addmargin@hsize=\dimen328
+\caption@addmargin@linewidth=\dimen329
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 102.
+Package hyperref Info: Link coloring ON on input line 107.
  (TFG_offshoreWindParkOptimization.out) (TFG_offshoreWindParkOptimization.out)
 \@outlinefile=\write5
 \openout5 = `TFG_offshoreWindParkOptimization.out'.
 
-<imatges/ETSEIB.png, id=88, 179.16937pt x 225.84375pt>
+<imatges/ETSEIB.png, id=212, 179.16937pt x 225.84375pt>
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 130.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 135.
 (pdftex.def)             Requested size: 53.75122pt x 67.75363pt.
-<imatges/UPC_logo.PNG, id=90, 101.62968pt x 97.86563pt>
+<imatges/UPC_logo.PNG, id=214, 101.62968pt x 97.86563pt>
 File: imatges/UPC_logo.PNG Graphic file (type png)
 <use imatges/UPC_logo.PNG>
-Package pdftex.def Info: imatges/UPC_logo.PNG  used on input line 133.
+Package pdftex.def Info: imatges/UPC_logo.PNG  used on input line 138.
 (pdftex.def)             Requested size: 40.65114pt x 39.14554pt.
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 136.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 141.
 (pdftex.def)             Requested size: 447.92232pt x 564.60796pt.
  [1
 
@@ -810,43 +928,56 @@ Package pdftex.def Info: imatges/ETSEIB.png  used on input line 136.
 ]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 154.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 159.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.154 \section*{Resum}
+l.159 \section*{Resum}
                        [1
 
 ]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 162.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 167.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.162 \section*{Resumen}
+l.167 \section*{Resumen}
                          [2
 
 ]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 172.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 177.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [3
 
-] (TFG_offshoreWindParkOptimization.toc)
+] (TFG_offshoreWindParkOptimization.toc
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 38.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [4
+
+])
 \tf@toc=\write6
 \openout6 = `TFG_offshoreWindParkOptimization.toc'.
 
+ (TFG_offshoreWindParkOptimization.nls
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 173.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 2.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [4
+ [5])
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 196.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [6
 
 ] (TFG_offshoreWindParkOptimization.lof)
 \tf@lof=\write7
@@ -854,82 +985,148 @@ Package pdftex.def Info: imatges/ETSEIB.png  used on input line 173.
 
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 174.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 197.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [5
+ [7
 
 ] (TFG_offshoreWindParkOptimization.lot)
 \tf@lot=\write8
 \openout8 = `TFG_offshoreWindParkOptimization.lot'.
 
- (TFG_offshoreWindParkOptimization.nls
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 2.
-(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [6
-
-])
-File: imatges/ETSEIB.png Graphic file (type png)
-<use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 194.
-(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [7
-
-]
-File: imatges/ETSEIB.png Graphic file (type png)
-<use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 208.
-(pdftex.def)             Requested size: 72.55157pt x 91.45242pt.
-File: imatges/ETSEIB.png Graphic file (type png)
-<use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 217.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 202.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [8
 
 ]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 263.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 220.
+(pdftex.def)             Requested size: 72.55157pt x 91.45242pt.
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 230.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [9
 
 ]
-File: imatges/ETSEIB.png Graphic file (type png)
-<use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 268.
-(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [10]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 278.
- (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
-File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+LaTeX Font Info:    Trying to load font information for TS1+qpl on input line 255.
+ (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/latex/tex-gyre\ts1qpl.fd
+File: ts1qpl.fd 2009/09/25 v1.2 font definition file for TS1/qpl
 )
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 285.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 262.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [11
+ [10
 
-{C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/tex-gyre/q-ec-sc.enc}] (TFG_offshoreWindParkOptimization.aux)
+{C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/tex-gyre/q-ts1.enc}]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 279.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [11]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 308.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [12
+
+]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 346.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [13]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 378.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [14]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 402.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [15
+
+]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 406.
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 444.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [16{C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/tex-gyre/q-ec-sc.enc}]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 448.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [17]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 454.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [18
+
+]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 467.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [19
+
+]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 472.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [20
+
+]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 496.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [21
+
+]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 504.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [22
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 513--518
+
+ []
+
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 524.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+[23
+
+] (TFG_offshoreWindParkOptimization.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-03-14>
  ***********
 Package rerunfilecheck Info: File `TFG_offshoreWindParkOptimization.out' has not changed.
-(rerunfilecheck)             Checksum: 7B1A438B7955B9F4DB993EAD3983687A;2797.
+(rerunfilecheck)             Checksum: 47B5FA46DE0BA5956573239DA89239EF;7831.
  ) 
 Here is how much of TeX's memory you used:
- 28258 strings out of 474424
- 534532 string characters out of 5741739
- 1935496 words of memory out of 5000000
- 50033 multiletter control sequences out of 15000+600000
- 595087 words of font info for 62 fonts, out of 8000000 for 9000
+ 48780 strings out of 474424
+ 1137106 string characters out of 5741739
+ 1941496 words of memory out of 5000000
+ 70377 multiletter control sequences out of 15000+600000
+ 607621 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 110i,17n,117p,1355b,525s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\garri\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecit1095.pk> <C:\Users\garri\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1095.pk><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplb.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplr.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplri.pfb>
-Output written on TFG_offshoreWindParkOptimization.pdf (13 pages, 265590 bytes).
+ 110i,17n,117p,1355b,947s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx6.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplb.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplr.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplri.pfb>
+Output written on TFG_offshoreWindParkOptimization.pdf (25 pages, 428075 bytes).
 PDF statistics:
- 231 PDF objects out of 1000 (max. 8388607)
- 33 named destinations out of 1000 (max. 500000)
- 191 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 513 PDF objects out of 1000 (max. 8388607)
+ 96 named destinations out of 1000 (max. 500000)
+ 439 words of extra memory for PDF output out of 10000 (max. 10000000)
 

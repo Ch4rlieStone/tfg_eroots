@@ -37,7 +37,8 @@ grid.add_transformer2w(tr1_2)
 grid.add_transformer2w(tr4_5)
 
 # Wind farm creation, change P and Q accordingly
-gen1 = gce.StaticGenerator(name='Wind Farm 1', P=5.0, Q=0.0, cost=0.0)
+# gen1 = gce.StaticGenerator(name='Wind Farm 1', P=5.0, Q=0.0, cost=0.0)
+gen1 = gce.StaticGenerator(name='Wind Farm 1', P=5.0, Q=0.0)
 
 grid.add_static_generator(bus1, gen1)
 

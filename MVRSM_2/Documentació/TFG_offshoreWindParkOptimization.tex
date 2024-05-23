@@ -18,9 +18,10 @@
 \setlength{\footskip}{60pt}
 \setlength{\headheight}{15pt}
 
-%% Sets page size and margins
+%% Sets page size and margins MARGES IGUALS ALS DOS COSTATS
 \usepackage[a4paper,top=3cm, bottom=3cm, inner=2cm, outer=2cm, footnotesep=1cm, heightrounded]{geometry}
-
+% MARGES ORIGINALS
+%\usepackage[a4paper,top=3cm, bottom=3.2cm, inner=3cm, outer=2cm, footnotesep=1cm, heightrounded]{geometry}
 
 %% Useful packages
 
@@ -52,8 +53,12 @@
 \usepackage{dtk-logos}
 \usepackage{nomencl} % Per a la nomenclatura
 \usepackage{hyperref} % Per als links
-
+\usepackage{tikz}
+\usepackage{pgfgantt}
 \usepackage{setspace}
+\usepackage{circuitikz}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \renewcommand{\baselinestretch}{1.25} 
 %%Comentaris
 \begin{comment}
@@ -94,20 +99,20 @@ El text d'aquí incrementa els seus marges segons ``esq'' i ``dta''
 \SetWatermarkAngle{0}
 \SetWatermarkLightness{1}
 
-
+% Text al inici de la nomenclatura
 \makenomenclature
-\renewcommand{\nompreamble}{The next list describes several abbreviations that will be later
+\renewcommand{\nompreamble}{The next list describes several abbreviations and symbols that will be later
 used within the body of the thesis.}
 
 \begin{document}
-\renewcommand{\refname}{Bibliografia}
+\renewcommand{\refname}{Bibliography}
 \begin{titlepage}
     {\centering
     {\Huge Bachelor's Thesis}\\
     \vspace{5mm}
     {\Large \textbf{Bachelor's degree in Industrial Technologies and Economic Analysis}}\\
     \vspace{20mm}
-    \Huge \textbf{Offshore wind park optimization}\\
+    \Huge \textbf{Offshore Wind Park Optimization}\\
     \vspace{10mm}
     %\Huge\textbf{MEMÒRIA}\\
     \vspace{3mm}
@@ -170,8 +175,6 @@ Short and must include results.
 %\clearpage\null\newpage
 
 \tableofcontents
-\listoffigures
-\listoftables
 
 %\section{Nomenclature}
 
@@ -189,8 +192,13 @@ Short and must include results.
 \nomenclature{SCR}{Short Circuit Ratio}
 \nomenclature{XLPE}{Cross-Linked Polyethylene}
 
-
 \printnomenclature
+\listoffigures
+\listoftables
+
+
+
+
 \section{Preface}
 
 Argurably, climate change is one of the most pressing challenges we are facing today as humanity.
@@ -198,9 +206,13 @@ That's why I wanted to develop a project revolving around sustainable solutions 
 energy system of the future. As an engineering student I wanted to explore how renewable 
 energy sources can by integrated into the grid and what challenges it poses, that's why I 
 contacted Oriol Gomis to explore thesis topics within this field.\par
+
 He introduced me diverse research areas and also eRoots, a spin-off from the UPC-CITCEA
-that develops software solutions for modern grid modelling,analyis and optimization. That is
-how I ended up as an intern at eRoots and developed this thesis in collaboration with them.
+that develops software solutions for modern grid modelling, analyis and optimization. Then Josep Fanals, my supervisor
+and eRoots CEO, presented to my various topics that they would be potenitially interested to develop a thesis on. This is when 
+he introduced me to the topic of design, sizing and optimization of the transmission system of offshore wind power plants. The research 
+group CITCEA-UPC has been working in this area \cite{paperbase} and further developement on this field was the breeding ground for this proposal.
+The topic inmediatly caught my attention and that is how I ended up as an intern at eRoots developing software solutions for the optimization of offshore wind power plants.
 
 
 \begin{figure}[H] %Recorda fixar la posició de les figures si no
@@ -210,11 +222,12 @@ how I ended up as an intern at eRoots and developed this thesis in collaboration
 	\label{fig:ETSEIB} %Si es posen les etiquetes de forma ordenada, la vida es més fàcil...
 \end{figure}
 
-Per no repetir informació és millor referir-se a altres apartats \ref{introducció}.\par
-I recorda, sempre és important citar a la bibliografia \cite{Etiqueta}.\\
+Per referir-se a la Fig.\ref{fig:ETSEIB}.
+Per no repetir informació és millor referir-se a altres apartats \ref{Optimization}.\par
+I recorda, sempre és important citar a la bibliografia \cite{paperbase}.\\
 La bibliografia ha d'estar ordenada, en teniu un exemple a la pàgina \pageref{biblio}
 %------------------------------------------
-\section{Introduction}\label{introducció}
+\section{Introduction}\label{Introduction}
 
 \subsection{Motivation}
 
@@ -225,35 +238,258 @@ energy systems that can inegrate renwable energy sources.\par
 
 The main driving force behind choosing this topic is the need to develop a sustainable energy system that can
 ensure a future for the next generations. The energy system is a key player in the fight against climate change. Moreover, the last
-report on global sustainable development \cite{SustGoal7} highlights how \textit{Goal 7: Affordable and clean energy} is failing to meet its targets
-and evenmore notices a backward trend in the 2020-2023 period.\par
+report on global sustainable development \cite{SustGoal7} highlights how \textit{Goal 7: Affordable and clean energy} is failing to meet its targets.
+In fact, it actually notices a backward trend in the 2020-2023 period when it comes to this goal targets, which signals that it is an area where efforts
+have to be put in. \par
 
 This thesis is my modest and passionate contribution to provide sustainable solutions for our future.
 
 \subsection{Scope}
-hola
+
+This work will limit its study to the optimal design of HVAC transmission systems, without considering the cost comparision with
+HVDC.  Moreover, it will limit its study to the steady-state of balanced three phase load systems, without considering unbalanced or transient states.
 \subsection{Objectives}
 
+The main objectives of the thesis are the following:
+\begin{itemize}
+    \item Model all the elements of the transmission system of an offshore wind power plant and find its equivalent circuit.
+    \item Formulate the optimization problem to minimize all types of costs taking into account the technical constraints of the system.
+    \item Implement a power flow solver with Python.
+    \item Bencharmark different optimization algorithms thar find solutions faster than state of the art methods.
+    \item Study some specific cases applicable to real offshore wind power plants.
+  \end{itemize}
+
+\newpage
+
 \subsection{Outline}
+
+The thesis is structured as follows:
+\begin{itemize}
+    \item Chapter \ref{Grid} introduces offshore wind power plants, the problem we want to tackle and models the elements that we find in a HVAC transmission system.
+    \item Chapter \ref{Minimization}  formulates the minimization problem, including objective functions and constraints. In this section we also
+    build the power flow solver that deals with the equality contraints and the algorithm for computing objective function values.
+    \item Chapter \ref{Optimization} explains state of the art methods to solve the problem, its limitations, and our new approaches involving surrogate models,
+     genetic algorithms and optimal power flow.
+    \item Chapter \ref{CaseStudies} showcases results for different OWPP's sizes and distance to shore and compare it with existing results in terms of validity
+    and computational time.
+    \item Chapter \ref{Conclusions} collects the main outcomes of the thesis and proposes future lines of work.
+    \item Chapter \ref{Planning} presents the planning and viability studies for the project.
+\end{itemize}
 %------------------------------------------
-\section{Grid to study and theoretical background}
-\section{Minimization problem}
-\section{Optimization methods}
-\section{Case studies}
+\section{Technical background: grid to study}\label{Grid}
+
+\subsection{Offshore wind power plants}
+As global energy demands surge and the pressing need for sustainable development becomes ever more urgent, 
+the quest for renewable energy sources has intensified. Among these, wind power has emerged as a frontrunner due to its potential to generate substantial amounts of clean electricity.
+While onshore wind farms have been widely implemented, their offshore counterparts are gaining increasing attention for their ability to harness the stronger and more consistent winds found over the oceans.\par
+
+Offshore wind power, defined as the use of wind turbines located in bodies of water to generate electricity, presents several advantages over onshore installations. The primary benefit lies in the higher wind speeds
+and lower turbulence experienced offshore, which contribute to greater energy yields. Additionally, offshore wind farms can be situated closer to urban centers located along coastlines, thereby reducing transmission
+losses and enhancing energy efficiency. The development of offshore wind technology has seen rapid advancements in recent years. From the deployment of the first offshore wind farm in Denmark in 1991 to the establishment
+of massive installations such as the Hornsea Project in the UK, the scale and capacity of these projects have grown significantly. Technological innovations, including larger turbines, floating foundations, and improved
+grid integration techniques, have further propelled the industry forward.
+\subsection{Transmission systems and reactive power compensation problem}
+
+\subsection{Grid modelling}
+\subsubsection{Cables}
+
+\begin{figure}[h]
+\centering
+\begin{circuitikz}
+    \draw (0,0) to [generic, l=$\underline{Z}_{\pi}$] (6,0);
+    \draw (1,0) to [generic, l=$\underline{Y}_{\pi}$] (1,-2);
+    \draw (5,0) to [generic, l=$\underline{Y}_{\pi}$] (5,-2);
+    \draw (0,-2) -- (6,-2);
+\end{circuitikz}
+\caption{Pi model transmission line}
+\label{fig:piline} 
+\end{figure}   
+
+\newpage
+\subsubsection{Transformers}
+
+\begin{figure}[h]
+\centering
+\begin{circuitikz}
+    \draw (0,0) to [generic, l=$\underline{Z}_{tr}$] (6,0);
+    \draw (1,0) to [generic, l=$\underline{Y}_{tr}$] (1,-2);
+    \draw (0,-2) -- (6,-2);
+\end{circuitikz}
+\caption{Transformer model}
+\label{fig:transformer}
+\end{figure}
+\subsubsection{Shunt reactor: reactive power compensation}
+
+\begin{figure}[h]
+\centering
+\begin{circuitikz}
+    \draw (0,0) to [generic, l=$\underline{y}_{sh}$] (0,-3) node[ground]{};
+    
+\end{circuitikz}
+\caption{Shunt reactor model}
+\label{fig:shuntreactor}
+\end{figure}
+
+\subsubsection{Main grid}
+It will be the slack bus.
+
+\begin{figure}[h]
+\centering
+\begin{circuitikz}
+    \draw (0,0) to[sV, l=$\underline{u}_{g}$] (0,-3) to (0,-3) node[ground]{};
+    \draw (0,0) to [generic, l=$\underline{z}_{g}$](-2,0);   
+\end{circuitikz}
+\caption{Main grid model}
+\label{fig:maingrid}
+\end{figure}
+
+\newpage
+\subsubsection{Power plant}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+    \draw (0,0) rectangle (3,3);
+    % Draw the dots
+    \foreach \x in {0.5,1,1.5,2,2.5}
+        \foreach \y in {0.5,1,1.5,2,2.5}
+            \fill (\x,\y) circle (0.1);
+\end{tikzpicture}
+\caption{Power plant}
+\label{fig:powerplant}
+\end{figure}
+
+\subsubsection{Admittance matrix}
+Now we can build the full HVAC trasnsmission system model and fins its admittance matrix $\underline{Y}_{bus}$, which will be essential
+for the power flow solver.
+
+\begin{equation} \label{ybus}
+    \resizebox{0.9\textwidth}{!}{%
+    $\mathbf{{Y}_{bus}}=\begin{bmatrix}
+        (2\underline{y}_{tr}+\underline{y}_{sh}) & -\underline{y}_{tr} & 0 & 0 & 0 & 0\\
+       -\underline{y}_{tr} & (2\underline{y}_{\pi1}+\underline{y}_{sh}+\underline{y}_{tr}) & -\underline{y}_{\pi1} & 0 & 0 & 0  \\
+       0 & -\underline{y}_{\pi1} & (2\underline{y}_{\pi1}+2\underline{y}_{\pi2}+\underline{y}_{sh}) & -\underline{y}_{\pi2}   & 0 & 0 \\
+       0 & 0 & -\underline{y}_{\pi2} & (2\underline{y}_{\pi2}+\underline{y}_{sh}+\underline{y}_{tr}) & -\underline{y}_{tr} & 0  \\
+       0 & 0 & 0 & -\underline{y}_{tr} & (2\underline{y}_{tr}+\underline{y}_{sh}+\underline{y}_{g}) & -\underline{y}_{g}  \\
+       0 & 0 & 0 & 0 & -\underline{y}_{g} & \underline{y}_{g}\\
+       \end{bmatrix}$%
+    }
+\end{equation}
+\section{Minimization problem formulation}\label{Minimization}
+\subsection{Objective function: multiobjective and mixed-integer}
+\subsection{Costs modelling}
+\subsubsection{Cables}
+\subsubsection{Transformers}
+\subsubsection{Shunt reactor}
+\subsubsection{Switchgears}
+\subsubsection{Substation platform}
+
+\subsection{Constraints}
+\subsubsection{Equality: Power Flow}
+
+Now we define de equality constraints as seen in  Eq. \ref{eqconstr}
+\begin{gather}
+    \mathbf{h_m(x) = 0 } \label{eqconstr} \\
+    \mathbf{S_i} = \mathbf{V_i(\sum_{j=1}^{N_{nodes}}Y_{ij}V_j)^*} \\
+    \underline{s}_1-(p_{owf}+jq_{owf}) = 0, \nonumber \\
+    \underline{s}_1-\underline{u}_1[(2\underline{y}_{tr}+\underline{y}_l)\underline{u}_1-(\underline{y}_{tr})\underline{u}_2]^* = 0, \nonumber \\
+    \underline{s}_2-\underline{u}_2[-(\underline{y}_{tr})\underline{u}_1+(2\underline{y}_{\pi1}+\underline{y}_l+\underline{y}_{tr})\underline{u}_2-(\underline{y}_{\pi1})\underline{u}_3]^* = 0, \nonumber \\
+    \underline{s}_3-\underline{u}_3[-(\underline{y}_{\pi1})\underline{u}_2+(2\underline{y}_{\pi1}+2\underline{y}_{\pi2}+\underline{y}_{l})\underline{u}_3-(\underline{y}_{\pi2})\underline{u}_4]^* = 0, \nonumber \\
+    \underline{s}_4-\underline{u}_4[-(\underline{y}_{\pi2})\underline{u}_3+(2\underline{y}_{\pi2}+\underline{y}_l+\underline{y}_{tr})\underline{u}_4-(\underline{y}_{tr})\underline{u}_5]^* = 0, \nonumber \\
+    \underline{s}_5-\underline{u}_5[-(\underline{y}_{tr})\underline{u}_4+(2\underline{y}_{tr}+\underline{y}_l+\underline{y}_{g})\underline{u}_5]^* = 0
+\end{gather}
+
+\newpage
+
+The power flow solver is described in Algorithm 1.
+\begin{algorithm}[h]
+    \caption{Power Flow Solver}
+    \begin{algorithmic}[1]
+    \Procedure{run\_pf}{}
+        \State Initialize $V$ with ones and $\theta$ with zeros
+        \Statex \hspace{\algorithmicindent}Set $V[slack$] to $1$, $\theta[slack]$ to $0$
+        \Statex \hspace{\algorithmicindent}Set $P_{}$, $Q_{}$ based on OWPP data
+        \Statex \hspace{\algorithmicindent}Set $iter = 0 $ and $tol$
+        \While{$iter$ < $max\_iter$ and $ \Delta PQ > tol$}
+            \State Compute $P\_present$, $Q\_present$ using $V$, $\theta$, $Y_{bus}$
+            \State Compute mismatch $\Delta PQ = [dP, dQ]$ as difference between calculated and given $P$, $Q$
+            \State Compute the Jacobian matrix $J$.
+            \State Solve the linear system $J \cdot \Delta x = -\Delta PQ$.
+            \State Compute the updated $x = x_{old} + \Delta x $.
+            \State Update $V$, $\theta$ using $dP$, $dQ$, $Y\_bus$
+            \If{$\max(\Delta PQ) < tol$}
+                %\State Converged
+                \State \textbf{break}
+            \EndIf
+            
+        \EndWhile
+        \State \textbf{return} $V$, $\theta$
+    \EndProcedure
+    \end{algorithmic}
+    \end{algorithm}
+
+\subsubsection{Inequality: Technical constraints}
+
+\begin{gather}
+    \mathbf{g_n(x)\leq0} \\
+    U_{kj}-U_{max}\leq0 \\
+    U_{min}-U_{kj}\leq0 \\
+    I_{kj}-I_{max}\leq0 \\
+    Q_{min}-Q_{gj}\leq0 \\
+    Q_{gj}-Q_{max}\leq0 \\
+    Y_{l-ij}-Y_{l-i}^{max}\leq0 \\
+    N_{react}-N_{react}^{max}\leq0 \\
+\end{gather}
+
+\newpage
+\subsection{Algorithm overview}
+h
+
+\section{Optimization methods}\label{Optimization}
+
+\subsection{State of the art: interior point method}
+\subsection{NSGA-II: Genetic algorithm}
+\subsection{Optimal Power Flow approach for compensation sizing}
+h
+\section{Case studies}\label{CaseStudies}
+
+\subsection{200 MW OWPP}
+\subsubsection{50km}
+\subsubsection{100km}
+\subsubsection{150km}
+\subsection{1000 MW OWPP}
+\subsubsection{50km}
+\subsubsection{100km}
+\subsubsection{150km}
+h
 
 %------------------------------------------
-\section{Conclusions}
+\section{Conclusions}\label{Conclusions}
 \subsection{Outcome}
 \subsection{Future work}
-
+h
 %------------------------------------------
-\section{Planning and viability studies}
+\section{Planning and viability studies}\label{Planning}
 
 \subsection{Time Planning}
+\begin{figure}[h]
+\begin{center}
+\begin{ganttchart}[hgrid, vgrid]{1}{20}
+    \gantttitle{Project Gantt Chart}{20} \\
+    \gantttitle{February}{4} \gantttitle{March}{4} \gantttitle{April}{4} \gantttitle{May}{4} \gantttitle{June}{4} \\
+    \ganttbar{Literature review}{1}{2} \\
+    %\ganttlinkedbar{Task 2}{2}{3} \ganttnewline
+    \ganttbar{Final Task}{3}{5}
+\end{ganttchart}
+\caption{Project Gantt Chart}
+\label{fig:gantt}
+\end{center}
+\end{figure}
+
 \subsection{Economic assessment}
 \subsection{Environmental assessment}
 \subsection{Social and gender equality assessment}
-
+h
 %------------------------------------------
 
 
@@ -273,9 +509,12 @@ hola
  \textit{Global Sustainable Development Report (GSDR) 2023}, United nations, 2023. [Online]. 
  Available: \href{https://sdgs.un.org/gsdr/gsdr2023}{Global Sustainable Development Report (GSDR) 2023}
  
- \bibitem{Etiqueta} \textsc{Autors del Text}, {} 
- \textit{Títol de l'obra}, EDITORIAL i publicació\\ 
- \texttt{Consultat \emph{quotiens necesse est}}
+ \bibitem{paperbase} 
+{J. Dakic, M. Cheah-Mane, O. Gomis-Bellmunt, and E. Prieto-Araujo},
+\textit{“HVAC Transmission System for Offshore Wind Power Plants Including
+ Mid-cable Reactive Power Compensation: Optimal Design and Comparison to VSC-HVDC transmission"}, \textit{IEEE Trans. Power Del.}, vol. 36,
+ no. 5, pp. 2814–2824, Oct. 2021.\\ 
+ %\texttt{Consultat \emph{quotiens necesse est}}
  
  
 

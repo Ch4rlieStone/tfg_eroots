@@ -95,11 +95,17 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         B_tri = - (i_o * (S_rtr / U_rtr**2))
         Y_tr = (G_tri + 1j * B_tri) / Y_ref
 
+        g_tr = np.real(Y_tr)
+        b_tr = np.imag(Y_tr)
+
         # Computation of Y series
         R_tr = P_Cu / S_rtr
         X_tr = np.sqrt((u_k * (U_rtr**2 / S_rtr))**2 - R_tr**2)
         Z_tr = R_tr + 1j * X_tr
         Y_trserie =  (1 / Z_tr) / Y_ref
+
+        r_tr = np.real(Z_tr)
+        x_tr = np.imag(Z_tr)
 
         # 1.3 Cables
         R = 0.0067  # ohm/km
@@ -109,11 +115,16 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         Z = R + 1j * (2 * np.pi * f * L)
         theta = l / 2 * np.sqrt(Z * Y)
         Y_pi = n_cables * (Y * l / 4 * np.tanh(theta / 4) / (theta / 4)) / Y_ref
+        
         G_pi = np.real(Y_pi)
-        B_pi = np.imag(Y_pi)
+       
         Z_piserie = (Z * l / 2 * np.sinh(theta /2) / (theta/2)) 
+        
         Y_piserie = n_cables * (1 / Z_piserie)  / Y_ref 
 
+        b_unit = 2 * np.imag(Y_pi)
+        r_unit = np.real(Z_piserie)
+        x_unit = np.imag(Z_piserie)
         # 1.4 Compensator
         if react1_bi == 1:
             #Y_l1 = - 1j * react1_val / Y_ref
