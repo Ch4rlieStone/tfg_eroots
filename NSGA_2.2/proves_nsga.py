@@ -11,15 +11,21 @@ from pymoo.visualization.scatter import Scatter
 from pymoo.core.mixed import MixedVariableGA
 from pymoo.core.variable import Real, Integer, Choice, Binary
 from windopti import MixedVariableProblem
+from windopti_withcstr import MixedVariableProblem2
 from windopti_constraints import MixedVariableProblem_constraints
 from pymoo.algorithms.moo.nsga2 import RankAndCrowdingSurvival
 from pymoo.algorithms.moo.nsga2 import RankAndCrowding
 from pymoo.constraints.as_penalty import ConstraintsAsPenalty
 from pymoo.decomposition.asf import ASF
 import matplotlib.pyplot as plt
+from pymoo.core.evaluator import Evaluator
+from pymoo.core.individual import Individual
+import time
 
-
+start_time = time.time()
 problem = MixedVariableProblem()
+#problem = MixedVariableProblem2()
+
 
 #problem = MixedVariableProblem_constraints()
 
@@ -27,19 +33,19 @@ algorithm = MixedVariableGA(pop_size = 300, survival=RankAndCrowding(crowding_fu
 
 res = minimize(problem,
                algorithm,
-               termination=('n_evals', 600),
+               termination=('n_evals', 500),
                seed=1,
                verbose=False,
                save_history=True)
 """
-res = minimize(ConstraintsAsPenalty(problem,penalty=100),
+res = minimize(ConstraintsAsPenalty(problem, penalty=100),
                algorithm,
                termination=('n_evals', 500),
                seed=1,
                verbose=False)
+
+res = Evaluator().eval(problem, Individual(X=res.X))
 """
-
-
 """
 # Plot the convergence using the history object
 n_evals = np.array([e.evaluator.n_eval for e in res.history])
@@ -55,11 +61,14 @@ weights = np.array([0.5, 0.5])
 decomp = ASF()
 I = decomp(res.F, weights).argmin()
 
-#print(res.F)
-print("Best solution found: \nX = %s\nF = %s" % (res.X, res.F))
+print(res.F)
+print("Best solution found: \nX = %s\nF = %s\nC = %s" % (res.X, res.F, res.CV))
 #print(res.history)
 
 print(res.H)
+end_time = time.time()
+execution_time = end_time - start_time
+print("Execution time: ", execution_time,"s")
 #min_row_index = np.argmin(np.min(res.F, axis=1))
 #min_row = res.F[min_row_index]
 #print("min row =", min_row)
@@ -68,13 +77,12 @@ print(res.H)
 # print("Best solution found: \nX = %s\nF = %s" % (res.X, res.F))
 plot = Scatter()
 
+
 #plot.add(problem.pareto_front(), plot_type="line", color="black", alpha=0.7)
 plot.add(res.F, facecolor="none", edgecolor="black")
-
 # plot best point with weights aproach
-
-#plot.add(res.F[I], color="red", s=50)
-
+plot.add(res.F[I], color="red", s=50)
+print("Best solution found weigthed: \nX = %s\nF = %s" % (res.X[I], res.F[I]))
 plot.show()
 
 """

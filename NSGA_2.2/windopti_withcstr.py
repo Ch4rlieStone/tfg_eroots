@@ -3,7 +3,7 @@ from pymoo.core.variable import Real, Integer, Choice, Binary
 import numpy as np
 import cmath
 import pymoo.gradient.toolbox as anp
-class MixedVariableProblem(ElementwiseProblem):
+class MixedVariableProblem2(ElementwiseProblem):
 
     def __init__(self, **kwargs):
         vars = {
@@ -23,8 +23,8 @@ class MixedVariableProblem(ElementwiseProblem):
             "react4": Real(bounds=(0.0, 1.0)),
             "react5": Real(bounds=(0.0, 1.0)),
         }
-        super().__init__(vars=vars, n_obj=2, **kwargs)
-        #super().__init__(vars=vars, n_obj=2, n_ieq_constr = 10, **kwargs)
+        #super().__init__(vars=vars, n_obj=2, **kwargs)
+        super().__init__(vars=vars, n_obj=2, n_ieq_constr = 14, **kwargs)
         
 
     def _evaluate(self, X, out, *args, **kwargs):
@@ -175,7 +175,7 @@ class MixedVariableProblem(ElementwiseProblem):
                 react5_bi = 0.0
 
             # 1.5 Grid connection
-            scr = 50  # which value should we put here 5 or 50?
+            scr = 5  # which value should we put here 5 or 50?
             xrr = 10
             zgridm = V_ref**2 / (scr * p_owf * Sbase)
             rgrid = np.sqrt(zgridm**2 / (xrr**2 + 1))
@@ -432,7 +432,7 @@ class MixedVariableProblem(ElementwiseProblem):
             k_mid = 0.01576 * fact
             k_off = 0.01576 * fact
             p_on = 0.8312 
-            p_mid = 12.44
+            p_mid = 1.244
             p_off = 1.244
 
         
@@ -471,7 +471,7 @@ class MixedVariableProblem(ElementwiseProblem):
             if q_wslack[nbus-1] != 0:
                     c_react = abs(q_wslack[nbus-1]) * penalty
             
-            
+            """
             # over or below voltages
             c_vol = 0
             for i in range(nbus-1):
@@ -480,12 +480,12 @@ class MixedVariableProblem(ElementwiseProblem):
                     c_vol += (V[i] - 1.1) * penalty
                 elif V[i] < 0.9:
                     c_vol += (0.9 - V[i]) * penalty
-            """
+            
             # overcurrents
             c_curr = 0
             for i in [1, 2]:  # check only the cable for now
                 c_curr += (max(curr[i] - 1.1 * n_cables, 0)) * 100
-            """
+            
             # over current
             # g1_oc = curr[0] - 1.1 * n_cables
             i_max_tr = S_rtr / Sbase # rated current of the transformer
@@ -512,6 +512,14 @@ class MixedVariableProblem(ElementwiseProblem):
             #g4_oc = abs(curr[2]) - i_maxcb
             
             #c_curr = (g1_octr + g2_octr + g3_oc + g4_oc) * 100
+
+            cost_invest = c_cab + c_gis + c_tr + c_reac + c_ss
+            cost_tech = c_vol + c_curr + c_react + c_losses
+            cost_tech1 = c_vol
+            cost_tech2 = c_curr
+            cost_tech3 = c_react
+            cost_tech4 = c_losses
+            """
             # we try to implement the constraints in pymoo form
             # overvoltages
             g1_vol = (1 / 1.1) * (V[0] - 1.1)
@@ -520,25 +528,29 @@ class MixedVariableProblem(ElementwiseProblem):
             g4_vol = (1 / 1.1) * (V[3] - 1.1)
             g5_vol = (1 / 1.1) * (V[4] - 1.1)
             # under voltages
-            g6_vol = (1 / 0.9) * (0.9 - V[0])
-            g7_vol = (1 / 0.9) * (0.9 - V[1])
-            g8_vol = (1 / 0.9) * (0.9 - V[2])
-            g9_vol = (1 / 0.9) * (0.9 - V[3])
-            g10_vol = (1 / 0.9) * (0.9 - V[4])
+            g6_vol = -(1 / 0.9) * (-0.9 + V[0])
+            g7_vol = -(1 / 0.9) * (-0.9 + V[1])
+            g8_vol = -(1 / 0.9) * (-0.9 + V[2])
+            g9_vol = -(1 / 0.9) * (-0.9 + V[3])
+            g10_vol = -(1 / 0.9) * (-0.9 + V[4])
 
-            gs = [g1_vol, g2_vol, g3_vol, g4_vol, g5_vol, g6_vol, g7_vol, g8_vol, g9_vol, g10_vol]
+            gvol = [g1_vol, g2_vol, g3_vol, g4_vol, g5_vol, g6_vol, g7_vol, g8_vol, g9_vol, g10_vol]
             #gs = [g1_vol, g2_vol, g3_vol, g4_vol, g5_vol, g6_vol, g7_vol, g8_vol, g9_vol, g10_vol, g1_octr, g2_octr, g3_oc, g4_oc]
             # overcurrents
-            
-            
-            
+            i_max_tr = S_rtr / Sbase # rated current of the transformer
+            i_maxcb =  (Sncab / Sbase) * n_cables
+
+            g1_octr = (1 / 1.1) * (abs(curr[0]) - i_max_tr)
+            g2_octr = (1 / 1.1) * (abs(curr[3]) - i_max_tr)
+            g3_octr = (1 / 1.1) * (abs(curr[1]) - i_maxcb)
+            g4_octr = (1 / 1.1) * (abs(curr[2]) - i_maxcb)
+            gcur = [g1_octr, g2_octr, g3_octr, g4_octr]
             
             cost_invest = c_cab + c_gis + c_tr + c_reac + c_ss
-            cost_tech = c_vol + c_curr + c_react + c_losses
-            cost_tech1 = c_vol
-            cost_tech2 = c_curr
-            cost_tech3 = c_react
-            cost_tech4 = c_losses
+            cost_tech = c_react + c_losses
+            
+            
+            
             """
 
             cost_invest = c_cab + c_gis + c_tr + c_reac + c_ss
@@ -554,7 +566,7 @@ class MixedVariableProblem(ElementwiseProblem):
             # return np.array([cost_invest, cost_tech1, cost_tech2, cost_tech3, cost_tech4])
             
             #return np.array([cost_invest, cost_tech])
-            return cost_invest, cost_tech, gs, g1_vol
+            return cost_invest, cost_tech, gvol, gcur
             #  return cost_invest, cost_tech, gs
 
 
@@ -576,11 +588,10 @@ class MixedVariableProblem(ElementwiseProblem):
 
         V_wslack, angle_wslack, curr, p_wslack, q_wslack, solution_found = run_pf(p_owf, q_owf, Y_bus, nbus, vslack, dslack, max_iter, epss, y_trserie, y_piserie)
 
-        cost_invest, cost_tech, gs, g1_vol  = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, Y_ref, solution_found) 
+        cost_invest, cost_tech, gvol, gcur  = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, Y_ref, solution_found) 
         # print(cost_output)
         
-        #out["G"] = anp.column_stack([gs[0],gs[1],gs[2],gs[3],gs[4],gs[5],gs[6],gs[7],gs[8],gs[9]])
-        #out["G"] = anp.column_stack([gs[0]])
+        out["G"] = anp.column_stack([gvol[0], gvol[1], gvol[2], gvol[3], gvol[4], gvol[5], gvol[6], gvol[7], gvol[8], gvol[9], gcur[0], gcur[1], gcur[2], gcur[3]])
         out["F"] = [cost_invest, cost_tech]
         #return cost_invest, cost_tech
         

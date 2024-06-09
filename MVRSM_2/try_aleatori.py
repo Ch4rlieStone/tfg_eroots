@@ -4,11 +4,14 @@ import costac_2
 
 
 
-trials = 1000
+trials = 500
 ff = costac_2.costac_2
 random_check = np.zeros((trials,6))
 d = 13
 num_int = 7
+#lb = np.array([3, 2, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 450e6])  # Lower bound
+#ub = np.array([3, 3, 1, 1, 1, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1000e6])  # Upper bound
+
 lb = np.array([3, 2, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 450e6])  # Lower bound
 ub = np.array([3, 2, 1, 1, 1, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1000e6])  # Upper bound
 
@@ -16,6 +19,8 @@ p_owflist = np.linspace(1, 10, trials)
 x_history = np.zeros((trials, d))
 
 p_owf = 5
+
+xnsga = np.array([3, 2, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 450e6])
 for i in range(trials):
         
         x0 = np.zeros(d) # Initial guess
@@ -35,11 +40,21 @@ for i in range(trials):
         #result = ff(h[0], h[1], h[2], h[3] ,h[4] , h[5] ,h[6], x0[7],x0[8],x0[9],x0[10],x0[11],x0[12])
         random_check[i,:] = [cost_invest, cost_tech, cost_full[10], cost_full[2], cost_full[3], cost_full[11]]
         
-        
-     
+xnsga = np.array([3, 2, 1, 0, 0, 0, 1, 0.702, 0.0, 0.0, 0.0, 0.839, 666.31e6])
+vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val,react4_val, react5_val, S_rtr = xnsga
+cost_invest_nsga, cost_tech_nsga, cost_fullnsga = ff(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val,react4_val, react5_val, S_rtr, p_owf)        
+
+xopf = np.array([3, 2, 1, 0, 0, 0, 1, 0.1711, 0.0, 0.0, 0.0, 0.4775, 666.31e6])
+vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val,react4_val, react5_val, S_rtr = xopf
+cost_invest_opf, cost_tech_opf, cost_fullopf = ff(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val,react4_val, react5_val, S_rtr, p_owf)        
+
+print(cost_invest_nsga, cost_tech_nsga)
+print(cost_invest_opf, cost_tech_opf)
 # print(random_check)
-plt.scatter(random_check[:,0], random_check[:,1], color='blue')
-plt.ylim(0,1000)
+plt.scatter(random_check[:,0], random_check[:,1], facecolor="none", edgecolor="black")
+plt.scatter(cost_invest_nsga, cost_tech_nsga, color='red', s=50)
+plt.scatter(cost_invest_opf, cost_tech_opf, color='green')
+plt.ylim(0,1500)
 plt.xlim(0,500)
 # Find the index of the row with the smallest sum
 min_sum_row_index = np.argmin(np.sum(random_check, axis=1))

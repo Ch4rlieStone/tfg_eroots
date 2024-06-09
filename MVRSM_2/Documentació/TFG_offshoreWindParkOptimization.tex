@@ -59,6 +59,12 @@
 \usepackage{circuitikz}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+
+%------------------------------------------
+% tikz things
+\usetikzlibrary{shapes.geometric, arrows}
+
+%------------------------------------------
 \renewcommand{\baselinestretch}{1.25} 
 %%Comentaris
 \begin{comment}
@@ -253,8 +259,8 @@ HVDC.  Moreover, it will limit its study to the steady-state of balanced three p
 The main objectives of the thesis are the following:
 \begin{itemize}
     \item Model all the elements of the transmission system of an offshore wind power plant and find its equivalent circuit.
-    \item Formulate the optimization problem to minimize all types of costs taking into account the technical constraints of the system.
     \item Implement a power flow solver with Python.
+    \item Formulate the optimization problem to minimize all types of costs taking into account the technical constraints of the system. 
     \item Bencharmark different optimization algorithms thar find solutions faster than state of the art methods.
     \item Study some specific cases applicable to real offshore wind power plants.
   \end{itemize}
@@ -288,9 +294,40 @@ and lower turbulence experienced offshore, which contribute to greater energy yi
 losses and enhancing energy efficiency. The development of offshore wind technology has seen rapid advancements in recent years. From the deployment of the first offshore wind farm in Denmark in 1991 to the establishment
 of massive installations such as the Hornsea Project in the UK, the scale and capacity of these projects have grown significantly. Technological innovations, including larger turbines, floating foundations, and improved
 grid integration techniques, have further propelled the industry forward.
-\subsection{Transmission systems and reactive power compensation problem}
 
-\subsection{Grid modelling}
+\subsection{Transmission systems design and reactive power compensation problem}
+
+When designing the transmission system of an OWPP, several factors must be considered to ensure optimal performance and efficiency. The system must be capable of transmitting the generated power from the wind turbines to the onshore grid
+while trying to be as energy and cost-efficient as possible. There are two main types of technologies that can bu used, HVDC and HVAC. In this thesis we will focus our study to the HVAC technology.\par
+
+To put in context the relevance of this topic, the work and software developed in this thesis will be used
+as the breeding-ground of a parternship between eRoots and Acciona, a leading infrastructre company in Spain that has shown interest in developing a tool for the optimal design
+of OWPP's transmission systems.
+
+One drawback of using HVAC cables is the high shunt capcitance they have, which is even larger in underground cables,
+which are the ones used for OWPP. The charging current of this capacitance limits the active power tranfer capacity of the line and increases
+power losses and voltage across the line due to the Ferranti effect\cite{ferranti}. This effect can be described by the votage difference between the sending and reciving end of transmission line under no-load conditions is:
+
+\begin{equation}
+    \frac{V_{o} - V_{i}}{V_{o}} = \omega^2CL\frac{l^2}{2}
+\end{equation}
+where $V_{o}$ and $V_{i}$ are the receiving and sending end voltages respectively, $\omega$ is the frequency, $C$ is the capacitance per unit length, $L$ is the inductance per unit length and $l$ is the length of the line. Note that the voltage difference is
+proportional to the square of the length of the line which leads to overvoltages for long transmission lines.\par
+
+However, the possbility to include reactive power compensation elements helps reduce the reative power generation. The goal of the project is to
+determine where this compensation has to be placed  and how to size it. But this is only part of the design carachteristics we want to optimize. A full descrption of the optimitization variables will be
+presented in Chapter \ref{Minimization}.
+
+
+
+
+\subsection{Grid elements}
+
+To be able to do a steady-state analysis of the transmission system we need to model all the elements contained in the model. This section models this elements and presents
+some important concepts to understand the grid.
+
+
+
 \subsubsection{Cables}
 
 \begin{figure}[h]
@@ -359,9 +396,69 @@ It will be the slack bus.
 \label{fig:powerplant}
 \end{figure}
 
+\subsection{Costs modelling}
+\subsubsection{Cables}
+\subsubsection{Transformers}
+\subsubsection{Shunt reactor}
+\subsubsection{Switchgears}
+\subsubsection{Substation platform}
+
+
+\subsection{Full transmission sytem modelling}
+
+\paragraph{Types of buses}
+
 \subsubsection{Admittance matrix}
 Now we can build the full HVAC trasnsmission system model and fins its admittance matrix $\underline{Y}_{bus}$, which will be essential
 for the power flow solver.
+
+
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[scale=1]
+        \draw (0,0) rectangle (1.5,1.5);
+        % Draw the dots
+        \foreach \x in {0.3,0.6,0.9,1.2}
+            \foreach \y in {0.3,0.6,0.9,1.2}
+                \fill (\x,\y) circle (0.07);
+        
+        \draw (1.5,0.75) -- (3.5,0.75);
+        \node at (3,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{1}$]{};
+        \draw (3.5,0.75) to [generic, l=$\underline{Z}_{tr}$] (5,0.75);
+        \draw (3,0.75) to [generic, l=$\underline{Y}_{tr}$] (3,-2) node[ground]{};
+        \draw (3,0.4) -- (2,0.4);
+        \draw (2,0.4) to [generic, l_=$\underline{Y}_{sh}$] (2,-2)node[ground]{};
+        \draw (5,0.75) -- (6,0.75);
+        \node at (5.75,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{2}$]{};
+        \draw (6,0.75) to [generic, l=$\underline{Z}_{\pi1}$] (7.5,0.75);
+        \draw (5.75,0.75) to [generic, l=$\underline{Y}_{\pi1}$] (5.75,-2) node[ground]{};
+        \draw (5.75,0.4) -- (5,0.4);
+        \draw (5,0.4) to [generic, l_=$\underline{Y}_{sh}$] (5,-2)node[ground]{};
+        \draw (7.5,0.75) -- (10,0.75);
+        \node at (9,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{3}$]{};
+        \draw (8,0.75) to [generic, l_=$\underline{Y}_{\pi1}$] (8,-2) node[ground]{};
+        \draw (9,0.75) to [generic, l^=$\underline{Y}_{sh}$] (9,-2) node[ground]{};
+        \draw (10,0.75) to [generic, l=$\underline{Y}_{\pi2}$] (10,-2)node[ground]{};
+        \draw (10,0.75) to [generic, l=$\underline{Z}_{\pi2}$] (12.5,0.75);
+        \draw (12.5,0.75) to [generic, l=$\underline{Y}_{\pi2}$] (12.5,-2) node[ground]{};
+        \draw (12.5,0.4) -- (11.5,0.4);
+        \node at (12.5,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{4}$]{};
+        \draw (11.5,0.4) to [generic, l=$\underline{Y}_{sh}$] (11.5,-2)node[ground]{};
+        \draw (12.5,0.75) to [generic, l=$\underline{Z}_{tr}$] (15,0.75);
+        \draw (15,0.75) to [generic, l=$\underline{Y}_{tr}$] (15,-2) node[ground]{};
+        \node at (15,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{5}$]{};
+        \draw (15,0.4) -- (14,0.4);
+        \draw (14,0.4) to [generic, l=$\underline{Y}_{sh}$] (14,-2) node[ground]{};
+        \draw (15,0.75) to [generic, l=$\underline{z}_{g}$](17,0.75);
+        \draw (17,0.75) to[sV, l=$\underline{u}_{g}$] (17,-2) to (17,-2) node[ground]{};
+        \node at (17,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{6}$]{};
+    
+
+    \end{tikzpicture}
+    \caption{Transmission system model}
+    \label{fig:fullgrid}
+    \end{figure}
 
 \begin{equation} \label{ybus}
     \resizebox{0.9\textwidth}{!}{%
@@ -375,14 +472,25 @@ for the power flow solver.
        \end{bmatrix}$%
     }
 \end{equation}
-\section{Minimization problem formulation}\label{Minimization}
+
+\subsubsection{Power flow equations}
+
+\section{Optimization problem formulation}\label{Minimization}
+
+Explicar pq separem en multiobjective, ventages respsecvte solució tradicional, etc
+\begin{equation}\label{vecunk}
+    \resizebox{0.9\textwidth}{!}{%
+    $\mathbf{x} = 
+    \begin{bmatrix}
+    vol_{tr}, & n_{cables}, & react_{bi_1}, &, ... &, react_{bi5}&, react_{cont1}&, ... &,react_{cont5}&, react_{bi5}&, S_{trafo}  
+    \end{bmatrix}$
+    }
+\end{equation}
+
+In equation \ref{vecunk} we define the vector of unknowns that we want to find the optimal values for. The vector includes the voltage of the transformer, the number of cables ...
+
 \subsection{Objective function: multiobjective and mixed-integer}
-\subsection{Costs modelling}
-\subsubsection{Cables}
-\subsubsection{Transformers}
-\subsubsection{Shunt reactor}
-\subsubsection{Switchgears}
-\subsubsection{Substation platform}
+
 
 \subsection{Constraints}
 \subsubsection{Equality: Power Flow}
@@ -403,19 +511,19 @@ Now we define de equality constraints as seen in  Eq. \ref{eqconstr}
 
 The power flow solver is described in Algorithm 1.
 \begin{algorithm}[h]
-    \caption{Power Flow Solver}
+    \caption{Newton Raphson Solver}
     \begin{algorithmic}[1]
     \Procedure{run\_pf}{}
         \State Initialize $V$ with ones and $\theta$ with zeros
         \Statex \hspace{\algorithmicindent}Set $V[slack$] to $1$, $\theta[slack]$ to $0$
         \Statex \hspace{\algorithmicindent}Set $P_{}$, $Q_{}$ based on OWPP data
-        \Statex \hspace{\algorithmicindent}Set $iter = 0 $ and $tol$
+        \Statex \hspace{\algorithmicindent}Set $iter = 0 $, $tol$ and $k = 0$
         \While{$iter$ < $max\_iter$ and $ \Delta PQ > tol$}
             \State Compute $P\_present$, $Q\_present$ using $V$, $\theta$, $Y_{bus}$
             \State Compute mismatch $\Delta PQ = [dP, dQ]$ as difference between calculated and given $P$, $Q$
             \State Compute the Jacobian matrix $J$.
-            \State Solve the linear system $J \cdot \Delta x = -\Delta PQ$.
-            \State Compute the updated $x = x_{old} + \Delta x $.
+            \State Solve the linear system $J \cdot \Delta x_k = -\Delta PQ$.
+            \State Compute the updated $x_{k+1} = x_{k} + \Delta x_k $.
             \State Update $V$, $\theta$ using $dP$, $dQ$, $Y\_bus$
             \If{$\max(\Delta PQ) < tol$}
                 %\State Converged
@@ -443,7 +551,10 @@ The power flow solver is described in Algorithm 1.
 
 \newpage
 \subsection{Algorithm overview}
-h
+H
+
+
+
 
 \section{Optimization methods}\label{Optimization}
 
@@ -453,14 +564,14 @@ h
 h
 \section{Case studies}\label{CaseStudies}
 
-\subsection{200 MW OWPP}
-\subsubsection{50km}
-\subsubsection{100km}
-\subsubsection{150km}
+\subsection{500 MW OWPP}
+%\subsubsection{50km}
+%\subsubsection{100km}
+%\subsubsection{150km}
 \subsection{1000 MW OWPP}
-\subsubsection{50km}
-\subsubsection{100km}
-\subsubsection{150km}
+%\subsubsection{50km}
+%\subsubsection{100km}
+%\subsubsection{150km}
 h
 
 %------------------------------------------
@@ -472,33 +583,80 @@ h
 \section{Planning and viability studies}\label{Planning}
 
 \subsection{Time Planning}
+
+Figure \ref{fig:gantt} shows the time distribution for the tasks carried out in the thesis.
 \begin{figure}[h]
 \begin{center}
 \begin{ganttchart}[hgrid, vgrid]{1}{20}
-    \gantttitle{Project Gantt Chart}{20} \\
+    \gantttitle{Thesis Gantt Chart}{20} \\
     \gantttitle{February}{4} \gantttitle{March}{4} \gantttitle{April}{4} \gantttitle{May}{4} \gantttitle{June}{4} \\
-    \ganttbar{Literature review}{1}{2} \\
+    \ganttbar{Literature review}{1}{6} \\
     %\ganttlinkedbar{Task 2}{2}{3} \ganttnewline
-    \ganttbar{Final Task}{3}{5}
+    \ganttbar{Modelling of the grid}{3}{7} \\
+    \ganttbar{Power flow solver}{6}{8} \\
+    \ganttlinkedbar{Optimization methods}{9}{18} \\
+    %\ganttbar{Optimization methods}{9}{18} \\
+    \ganttbar{Case studies}{12}{18} \\
+    \ganttbar{Thesis final writting}{17}{20}
 \end{ganttchart}
-\caption{Project Gantt Chart}
+\caption{Thesis Gantt Chart}
 \label{fig:gantt}
 \end{center}
 \end{figure}
 
 \subsection{Economic assessment}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l|c}
+\hline
+\textbf{Concept} & \textbf{Cost} \\
+\hline
+Computer & \$XXX \\
+Working hours & \$XXX \\
+Tutor supervision & \$XXX \\
+\hline
+\end{tabular}
+\caption{Thesis Costs}
+\label{tab:costs}
+\end{table}
+
 \subsection{Environmental assessment}
+
+This environmental assessment evaluates the energy costs incurred during
+the development of a thesis over five months, using a computer as the primary tool. The primary energy consumption arises
+from the computer's usage, which includes writing, research, data analysis, and communication.\par
+
+Assuming an average laptop with a power consumption of 60 watts, used for approximately 6 hours daily, the total energy consumption
+over five months is around 54 kWh. This consumption translates to roughly 30 kg of CO2 emissions, assuming the average emission
+factor for electricity generation.\par
+
+To reduce these energy costs and associated environmental impacts in future thesis projects, several strategies can be employed.
+Utilizing energy-efficient computers, enabling power-saving modes, and limiting usage time can significantly lower consumption.
+Additionally, adopting renewable energy sources, such as solar panels for charging devices, further reduces the carbon footprint,
+contributing to a more sustainable academic practice.
+
 \subsection{Social and gender equality assessment}
-h
+
+This assessment evaluates the social and gender equality aspects of a bachelor's thesis focused on developing a tool for optimizing renewable energy system design, authored by a 22-year-old white engineering student. While the thesis itself addresses a critical area in sustainable development, examining its social dimensions is essential to ensure inclusivity and equality.
+
+The demographic profile of the author reflects broader trends in STEM fields, where women and minority groups remain underrepresented. This lack of diversity can influence the perspectives and priorities embedded in the research. Ensuring diverse representation in such projects is crucial for incorporating a wide range of insights and addressing the needs of various communities.
+
+To promote social and gender equality, the research should consider the differential impacts of renewable energy systems on diverse populations. Inclusive design processes involve consulting with and incorporating feedback from women, marginalized communities, and other underrepresented groups. This approach ensures that the developed tools and technologies are accessible and beneficial to all segments of society.
+
+Moreover, educational institutions should encourage and support participation from diverse backgrounds in engineering and renewable energy fields. Mentorship programs, scholarships, and targeted recruitment can help bridge the gender and social gap, fostering an environment where innovative solutions for renewable energy are developed through diverse and inclusive contributions.
 %------------------------------------------
 
 
 \section*{Acknowledgements}
  \addcontentsline{toc}{section}{Acknowledgements}
- Gràcies Josep, Oriol i als companys i companyes d'eRoots.\par
- Gràcies als meus amics de la uni sobretot, papa, mama i Mire.
 
- 
+Primer de tot vull agraïr profundament el suport constant del Josep, el meu tutor, que m'ha donat suport, consell i ajuda quan
+l'he necessitat cada dia des de que vaig entrar a eRoots. Per extensió, agraïr la rebuda i suport de tot l'equip d'eRoots durant aquests mesos,
+especialment a l'Oriol Gomis que ha proporcionat noves idees i enfocs al desenvolupament de la tesi.\par
+
+Aquest TFG tanca un capítol de quatre anys de la meva vida que han sigut molt feliços gràcies als meus amics del grau; gràcies a tots nou. 
+Finalment, agraïr a la meva família i a la Mire el seu suport incondicional cada dia i a ensenyar-me a estimar.
  %INICI BIBLIOGRAFIA
  
  \begin{thebibliography}{99}\label{biblio}
@@ -510,12 +668,18 @@ h
  Available: \href{https://sdgs.un.org/gsdr/gsdr2023}{Global Sustainable Development Report (GSDR) 2023}
  
  \bibitem{paperbase} 
-{J. Dakic, M. Cheah-Mane, O. Gomis-Bellmunt, and E. Prieto-Araujo},
+ {J. Dakic, M. Cheah-Mane, O. Gomis-Bellmunt, and E. Prieto-Araujo},
 \textit{“HVAC Transmission System for Offshore Wind Power Plants Including
  Mid-cable Reactive Power Compensation: Optimal Design and Comparison to VSC-HVDC transmission"}, \textit{IEEE Trans. Power Del.}, vol. 36,
- no. 5, pp. 2814–2824, Oct. 2021.\\ 
- %\texttt{Consultat \emph{quotiens necesse est}}
- 
+ no. 5, pp. 2814–2824, Oct. 2021.
+ %\texttt{Consultat \emph{quotiens necesse est}} 
+ \bibitem{ferranti} 
+ {W. Wiechowski and P. B. Eriksen},
+\textit{“Selected studies on offshore wind farm
+cable connections - challenges and experience of the Danish TSO"}, \textit{Proc.
+IEEE Power Energy Soc. General Meet.: Convers. Del. Elect. Energy the
+21st Century}, PES, 2008, pp. 1–8.
+
  
 
  \end{thebibliography}
