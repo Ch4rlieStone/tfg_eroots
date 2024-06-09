@@ -314,8 +314,17 @@ power losses and voltage across the line due to the Ferranti effect\cite{ferrant
 where $V_{o}$ and $V_{i}$ are the receiving and sending end voltages respectively, $\omega$ is the frequency, $C$ is the capacitance per unit length, $L$ is the inductance per unit length and $l$ is the length of the line. Note that the voltage difference is
 proportional to the square of the length of the line which leads to overvoltages for long transmission lines.\par
 
-However, the possbility to include reactive power compensation elements helps reduce the reative power generation. The goal of the project is to
-determine where this compensation has to be placed  and how to size it. But this is only part of the design carachteristics we want to optimize. A full descrption of the optimitization variables will be
+However, the possbility to include reactive power compensation elements helps reduce the reactive power generation. Figure \ref{fig:whycomp} shows how including
+this compensation reduces power losses, especially when we approach the no-load condition, which is equavialent to not having any type of active power injection from
+the OWPP, i.e. the wind speed is very low.
+\begin{figure}[h] %Recorda fixar la posició de les figures si no
+	\centering
+	\includegraphics[width=0.65\textwidth]{imatges/why_compensation.png}
+	\caption{Power losses comparision when including reactive power compensation}
+	\label{fig:whycomp} %Si es posen les etiquetes de forma ordenada, la vida es més fàcil...
+\end{figure}
+
+The goal of the project is todetermine where this compensation has to be placed  and how to size it. But this is only part of the design carachteristics we want to optimize. A full descrption of the optimitization variables will be
 presented in Chapter \ref{Minimization}.
 
 

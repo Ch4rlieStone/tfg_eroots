@@ -502,7 +502,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             if V[i] > 1:
                 c_volover += abs(V[i] - 1) * penalty
 
-        c_volunder = 0
+        c_volunder = 0.0
         for i in range(nbus-1):
             if V[i] < 1:
                 c_volunder += abs(1 - V[i]) * penalty
