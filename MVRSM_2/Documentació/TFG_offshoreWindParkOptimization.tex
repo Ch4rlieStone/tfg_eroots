@@ -59,6 +59,7 @@
 \usepackage{circuitikz}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{enumitem}
 
 %------------------------------------------
 % tikz things
@@ -295,7 +296,7 @@ losses and enhancing energy efficiency. The development of offshore wind technol
 of massive installations such as the Hornsea Project in the UK, the scale and capacity of these projects have grown significantly. Technological innovations, including larger turbines, floating foundations, and improved
 grid integration techniques, have further propelled the industry forward.
 
-\subsection{Transmission systems design and reactive power compensation problem}
+\subsection{Transmission system: design and reactive power compensation problem}
 
 When designing the transmission system of an OWPP, several factors must be considered to ensure optimal performance and efficiency. The system must be capable of transmitting the generated power from the wind turbines to the onshore grid
 while trying to be as energy and cost-efficient as possible. There are two main types of technologies that can bu used, HVDC and HVAC. In this thesis we will focus our study to the HVAC technology.\par
@@ -342,8 +343,15 @@ the OWPP, i.e. the wind speed is very low.
 The goal of the project is to determine where this compensation has to be placed  and how to size it. But this is only part of the design carachteristics we want to optimize. A full descrption of the optimitization variables will be
 presented in Chapter \ref{Minimization}.
 
+Taking all this into consderation, a HVAC transmission system layout for an OWPP with reactive power compensation looks like the one in Figure \ref{fig:fulltransmission}.
+\begin{figure}[H] %Recorda fixar la posició de les figures si no
+    \centering
+    \includegraphics[width=0.75\textwidth]{imatges/layout.png}
+    \caption{HVAC transmission system layout for an OWPP with reactive power compensation\cite{paperbase}}
+    \label{fig:fulltransmission} %Si es posen les etiquetes de forma ordenada, la vida es més fàcil...
+\end{figure}
 
-
+From this general layout we will be able to create the network model using the equivalent circuits of the  elements involved.
 
 \subsection{Grid elements}
 
@@ -435,7 +443,7 @@ Note that we need the short circuit ratio ($SCR$) and the $\frac{X_g}{R_g}$ rati
 We will model our OWPP as a simple power injection at one end of the transmission line. For our
 analysis we will consider that there is no reactive power generation, therefore $q_{owf} = 0$. $p_{owf}$ will be the active power generation that will depend 
 on the wind conditions of the plant. The reach of the work will limit its analysis to a fix power generation.
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}
     \draw (0,0) rectangle (3,3);
@@ -449,7 +457,7 @@ on the wind conditions of the plant. The reach of the work will limit its analys
 \caption{Power plant}
 \label{fig:powerplant}
 \end{figure}
-
+ Explicar aquí que differents vents, diferents potènices injectadees i referenciar a future work.
 \newpage
 
 \subsection{Costs modelling}
@@ -537,11 +545,22 @@ In our case we will use $S_{base} =100 \text{ MVA}$ and $V_{base} = \text{ trans
 \end{equation}
 
 Using the per unit system will be particularly useful for analyzing the results and for dealing with the inequality constraints \ref{inequality}.
-\subsection{Admittance matrix}
-The admittance matrix encodesd all the information of the elements of the grid and the relationship between them and allows us to perform the steady-state 
-analysis of the grid.
-Now we can build the full HVAC trasnsmission system model and fins its admittance matrix $\underline{Y}_{bus}$, which will be essential
-for the power flow solver.
+
+\subsection{Grid model}
+
+Now we have all the information neeeded to build our full model. In \cite{paperbase} they consider five possible postions for the shunt reactors, as seen in Figure \ref{fig:poss_position}. 
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.65\textwidth]{imatges/poss_position.png}
+	\caption{Possible locations for the shunt reactors \cite{paperbase}}
+    \label{fig:poss_position}
+\end{figure}
+
+
+
+They consider when optimizing the cost function only the combinations where: if at a given transformer you place a reactor before it, you won't consider placing another one
+after the same transformer. For sake of generality, we will consider that any combination within the five possible positions is valid. This will lead to a total of $2^5 = 32$ possible combinations.
+
 
 
 
@@ -559,28 +578,28 @@ for the power flow solver.
         \draw (3.5,0.75) to [generic, l=$\underline{Z}_{tr}$] (5,0.75);
         \draw (3,0.75) to [generic, l=$\underline{Y}_{tr}$] (3,-2) node[ground]{};
         \draw (3,0.4) -- (2,0.4);
-        \draw (2,0.4) to [generic, l_=$\underline{Y}_{sh}$] (2,-2)node[ground]{};
+        \draw (2,0.4) to [generic, l_=$\underline{Y}_{sh1}$] (2,-2)node[ground]{};
         \draw (5,0.75) -- (6,0.75);
         \node at (5.75,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{2}$]{};
         \draw (6,0.75) to [generic, l=$\underline{Z}_{\pi1}$] (7.5,0.75);
         \draw (5.75,0.75) to [generic, l=$\underline{Y}_{\pi1}$] (5.75,-2) node[ground]{};
         \draw (5.75,0.4) -- (5,0.4);
-        \draw (5,0.4) to [generic, l_=$\underline{Y}_{sh}$] (5,-2)node[ground]{};
+        \draw (5,0.4) to [generic, l_=$\underline{Y}_{sh2}$] (5,-2)node[ground]{};
         \draw (7.5,0.75) -- (10,0.75);
         \node at (9,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{3}$]{};
         \draw (8,0.75) to [generic, l_=$\underline{Y}_{\pi1}$] (8,-2) node[ground]{};
-        \draw (9,0.75) to [generic, l^=$\underline{Y}_{sh}$] (9,-2) node[ground]{};
+        \draw (9,0.75) to [generic, l^=$\underline{Y}_{sh3}$] (9,-2) node[ground]{};
         \draw (10,0.75) to [generic, l=$\underline{Y}_{\pi2}$] (10,-2)node[ground]{};
         \draw (10,0.75) to [generic, l=$\underline{Z}_{\pi2}$] (12.5,0.75);
         \draw (12.5,0.75) to [generic, l=$\underline{Y}_{\pi2}$] (12.5,-2) node[ground]{};
         \draw (12.5,0.4) -- (11.5,0.4);
         \node at (12.5,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{4}$]{};
-        \draw (11.5,0.4) to [generic, l=$\underline{Y}_{sh}$] (11.5,-2)node[ground]{};
+        \draw (11.5,0.4) to [generic, l=$\underline{Y}_{sh4}$] (11.5,-2)node[ground]{};
         \draw (12.5,0.75) to [generic, l=$\underline{Z}_{tr}$] (15,0.75);
         \draw (15,0.75) to [generic, l=$\underline{Y}_{tr}$] (15,-2) node[ground]{};
         \node at (15,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{5}$]{};
         \draw (15,0.4) -- (14,0.4);
-        \draw (14,0.4) to [generic, l=$\underline{Y}_{sh}$] (14,-2) node[ground]{};
+        \draw (14,0.4) to [generic, l=$\underline{Y}_{sh5}$] (14,-2) node[ground]{};
         \draw (15,0.75) to [generic, l=$\underline{z}_{g}$](17,0.75);
         \draw (17,0.75) to[sV, l=$\underline{u}_{g}$] (17,-2) to (17,-2) node[ground]{};
         \node at (17,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{6}$]{};
@@ -591,18 +610,50 @@ for the power flow solver.
     \label{fig:fullgrid}
     \end{figure}
 
+
+\subsection{Admittance matrix}
+
+The admittance matrix encodes all the information of the elements of the grid and the relationship between them and allows us to perform the steady-state 
+analysis of the grid.
+Now we can build the full HVAC trasnsmission system model and fins its admittance matrix $\underline{Y}_{bus}$, which will be essential
+for the power flow solver.
+
+Note that when will build it, we take the series impedances in \ref{fig:fullgrid}, compute their inverse and add the subindex $s$ to identify them. For example:
+\begin{equation}
+    \underline{y}_{\pi1s} = \frac{1}{\underline{z}_{\pi1}}
+\end{equation}
+
+%We build $\underline{Y}_{bus}$ by inspection 
+Using the Kirchhoff's Current Law (KCL):
+\begin{equation}
+\textbf{I} = \textbf{Y}_{bus} \textbf{V}
+\label{eq:kirchhoff}
+\end{equation}
+
+
+    
 \begin{equation} \label{ybus}
-    \resizebox{0.9\textwidth}{!}{%
+    \resizebox{0.92\textwidth}{!}{%
     $\mathbf{{Y}_{bus}}=\begin{bmatrix}
-        (2\underline{y}_{tr}+\underline{y}_{sh}) & -\underline{y}_{tr} & 0 & 0 & 0 & 0\\
-       -\underline{y}_{tr} & (2\underline{y}_{\pi1}+\underline{y}_{sh}+\underline{y}_{tr}) & -\underline{y}_{\pi1} & 0 & 0 & 0  \\
-       0 & -\underline{y}_{\pi1} & (2\underline{y}_{\pi1}+2\underline{y}_{\pi2}+\underline{y}_{sh}) & -\underline{y}_{\pi2}   & 0 & 0 \\
-       0 & 0 & -\underline{y}_{\pi2} & (2\underline{y}_{\pi2}+\underline{y}_{sh}+\underline{y}_{tr}) & -\underline{y}_{tr} & 0  \\
-       0 & 0 & 0 & -\underline{y}_{tr} & (2\underline{y}_{tr}+\underline{y}_{sh}+\underline{y}_{g}) & -\underline{y}_{g}  \\
+        (\underline{y}_{tr}+\underline{y}_{trs}+\underline{y}_{sh1}) & -\underline{y}_{trs} & 0 & 0 & 0 & 0\\
+       -\underline{y}_{trs} & (\underline{y}_{\pi1}+\underline{y}_{\pi1s}+\underline{y}_{sh2}+\underline{y}_{trs}) & -\underline{y}_{\pi1s} & 0 & 0 & 0  \\
+       0 & -\underline{y}_{\pi1s} & (2\underline{y}_{\pi1}+2\underline{y}_{\pi1s}+\underline{y}_{sh3}) & -\underline{y}_{\pi2s}   & 0 & 0 \\
+       0 & 0 & -\underline{y}_{\pi2s} & (\underline{y}_{\pi2}+\underline{y}_{\pi2s}+\underline{y}_{sh4}+\underline{y}_{trs}) & -\underline{y}_{trs} & 0  \\
+       0 & 0 & 0 & -\underline{y}_{trs} & (\underline{y}_{tr}+\underline{y}_{tr}+\underline{y}_{sh5}+\underline{y}_{g}) & -\underline{y}_{g}  \\
        0 & 0 & 0 & 0 & -\underline{y}_{g} & \underline{y}_{g}\\
-       \end{bmatrix}$%
+       \end{bmatrix}$
     }
 \end{equation}
+
+Some of the properties of the admittance matrix are:
+\begin{itemize}[itemsep=0pt]
+    \item It is a square matrix of size $n \times n$, where $n$ is the number of buses in the system.
+    \item It is symmetric.
+    \item The diagonal elements, $Y_{ii}$, are self-admittance, equal to the sum of the admittances of elements connected to bus $i$.
+    \item $Y_{ij}$ is the negative of the admittance between buses $i$ and $j$
+    \item For large networks, the matrix es very sparse. The level of sparsity, which is the percentage of zero elements in a matrix, increases with the size of the network.
+    For instance, in a 1000-bus system, the matrix approximately is 99\% sparse. You can take advantage of this sparsity for computational efficiency.
+\end{itemize}
 
 \subsection{Grid parameters}
 
@@ -630,10 +681,21 @@ We will use the following set of grid elements parameters for the transformers a
 
 \subsection{Power flow equations and solver}
 
+We first going to derive an expression for the PF equations.
+From \ref{eq:kirchhoff} we can get the injected current for the $i$-th component:
+\begin{equation}
+    I_i = \sum_{j=1}^{n} Y_{ik}V_k, \quad i = 1,2,...,n
+\end{equation}
+Now we can compute the $i$-th bus power:
+\begin{equation}
+    S_i = V_iI_i^* = V_i\sum_{j=1}^{n} Y_{ik}^*V_k^*, \quad i = 1,2,...,n
+\end{equation}
+
 The power flow solver is described in Algorithm 1.
 \begin{algorithm}[h]
     \caption{Newton Raphson Solver}
-    \begin{algorithmic}[1]
+    %\begin{algorithmic}[1]
+    \begin{algorithmic}
     \Procedure{run\_pf}{}
         \State Initialize $V$ with ones and $\theta$ with zeros
         \Statex \hspace{\algorithmicindent}Set $V[slack$] to $1$, $\theta[slack]$ to $0$
@@ -657,6 +719,7 @@ The power flow solver is described in Algorithm 1.
     \end{algorithmic}
     \end{algorithm}
 
+- Referenciar paper Goranandersson per la converegencia de N-R
 \section{Optimization problem formulation}\label{Minimization}
 
 Explicar pq separem en multiobjective, ventages respsecvte solució tradicional, etc
@@ -849,5 +912,10 @@ IEEE Power Energy Soc. General Meet.: Convers. Del. Elect. Energy the
 
  \end{thebibliography}
  
+\section*{Appendix}
+\addcontentsline{toc}{section}{Appendix}
+
+In the following link you can find the Git repository with all the code used for the development of this work:
+\url{https://github.com/Ch4rlieStone/tfg_eroots}
  
 \end{document}
