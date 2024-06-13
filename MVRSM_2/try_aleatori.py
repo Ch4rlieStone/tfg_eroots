@@ -1,7 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import costac_2
-
+mpl.rcParams.update({
+    "text.usetex": True,
+    "font.family": "Helvetica"
+})
 
 
 trials = 500
@@ -105,8 +109,11 @@ plt.xlabel('Power Injection [p.u]')
 #plt.ylabel('Normalized Costs')
 plt.ylabel('Power losses [M€/year]')
 
+#yticks = np.arange(min(cost_losses_yes), max(cost_losses_yes), step=(max(cost_losses_yes)-min(cost_losses_yes))/10)
+#plt.yticks(yticks)
+plt.grid(axis='y', linestyle='--')
 #plt.title('Evolution of  Costs for Different Power Injections')
-plt.title('Power losses at different wind conditions for a 500 MW wind farm')
+plt.title('Power losses at different wind conditions for a 500 MW wind farm', weight='bold')
 plt.legend()
 
 plt.show()

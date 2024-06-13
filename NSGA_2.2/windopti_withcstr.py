@@ -175,7 +175,7 @@ class MixedVariableProblem2(ElementwiseProblem):
                 react5_bi = 0.0
 
             # 1.5 Grid connection
-            scr = 5  # which value should we put here 5 or 50?
+            scr = 50  # which value should we put here 5 or 50?
             xrr = 10
             zgridm = V_ref**2 / (scr * p_owf * Sbase)
             rgrid = np.sqrt(zgridm**2 / (xrr**2 + 1))
@@ -347,10 +347,10 @@ class MixedVariableProblem2(ElementwiseProblem):
 
                 #  When it comes to overcurrents, we are interested in line currents, not node injection currents.
                 #  We compute now line currents. Note they are normalized to the power of the plant
-                i_21 = abs((cmath.rect(V[0],angles[0]) - cmath.rect(V[1],angles[1])) * y_trserie) / p_owf
-                i_32 = abs((cmath.rect(V[1],angles[1]) - cmath.rect(V[2],angles[2])) * y_piserie) / p_owf
-                i_43 = abs((cmath.rect(V[2],angles[2]) - cmath.rect(V[3],angles[3])) * y_piserie) / p_owf
-                i_54 = abs((cmath.rect(V[3],angles[3]) - cmath.rect(V[4],angles[4])) * y_trserie) / p_owf
+                i_21 = abs((cmath.rect(V[0],angles[0]) - cmath.rect(V[1],angles[1])) * y_trserie)
+                i_32 = abs((cmath.rect(V[1],angles[1]) - cmath.rect(V[2],angles[2])) * y_piserie)
+                i_43 = abs((cmath.rect(V[2],angles[2]) - cmath.rect(V[3],angles[3])) * y_piserie)
+                i_54 = abs((cmath.rect(V[3],angles[3]) - cmath.rect(V[4],angles[4])) * y_trserie)
 
                 curr = np.array([i_21, i_32, i_43, i_54])
 

@@ -305,8 +305,23 @@ as the breeding-ground of a parternship between eRoots and Acciona, a leading in
 of OWPP's transmission systems.
 
 One drawback of using HVAC cables is the high shunt capcitance they have, which is even larger in underground cables,
-which are the ones used for OWPP. The charging current of this capacitance limits the active power tranfer capacity of the line and increases
-power losses and voltage across the line due to the Ferranti effect\cite{ferranti}. This effect can be described by the votage difference between the sending and reciving end of transmission line under no-load conditions is:
+which are the ones used for OWPP.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+     & Overhead Lines & Underground Lines \\
+     \hline
+    Capacitance per unit length ($\mu$F/km) & 0.01 - 0.02  & 0.3 - 0.6 \\
+    \hline
+    \end{tabular}
+    \caption{Comparison of Capacitance per unit length of Overhead and Underground Lines}
+    \label{tab:capacitance_comparison}
+    \end{table}
+
+The charging current of this capacitance limits the active power tranfer capacity of the line and increases
+power losses and voltage across the line due to the Ferranti effect\cite{ferranti}. This effect can be described by the votage difference between the sending and reciving end of transmission line under no-load conditions:
 
 \begin{equation}
     \frac{V_{o} - V_{i}}{V_{o}} = \omega^2CL\frac{l^2}{2}
@@ -324,7 +339,7 @@ the OWPP, i.e. the wind speed is very low.
 	\label{fig:whycomp} %Si es posen les etiquetes de forma ordenada, la vida es més fàcil...
 \end{figure}
 
-The goal of the project is todetermine where this compensation has to be placed  and how to size it. But this is only part of the design carachteristics we want to optimize. A full descrption of the optimitization variables will be
+The goal of the project is to determine where this compensation has to be placed  and how to size it. But this is only part of the design carachteristics we want to optimize. A full descrption of the optimitization variables will be
 presented in Chapter \ref{Minimization}.
 
 
@@ -332,12 +347,16 @@ presented in Chapter \ref{Minimization}.
 
 \subsection{Grid elements}
 
-To be able to do a steady-state analysis of the transmission system we need to model all the elements contained in the model. This section models this elements and presents
+To be able to do a steady-state analysis of the transmission system we need to model all the elements in the grid. This section models this elements and presents
 some important concepts to understand the grid.
 
 
 
+
 \subsubsection{Cables}
+
+Cables are an essential part of HVAC transmission systems. We will consider  three-core cross-linked Polyethylene (XLPE) cables, which are the most common type of cables used in OWPP's. 
+The equivalent circuit of a cable is shown in Figure \ref{fig:piline}. We will use a model
 
 \begin{figure}[h]
 \centering
@@ -351,7 +370,7 @@ some important concepts to understand the grid.
 \label{fig:piline} 
 \end{figure}   
 
-\newpage
+%\newpage
 \subsubsection{Transformers}
 
 \begin{figure}[h]
@@ -364,8 +383,14 @@ some important concepts to understand the grid.
 \caption{Transformer model}
 \label{fig:transformer}
 \end{figure}
-\subsubsection{Shunt reactor: reactive power compensation}
 
+\subsubsection{Shunt reactor: reactive power compensation}
+To compensate reactive power generation we will use shunt reactors. They are reactive power absorvers and in our case will be connected from
+the line directly to the ground. The equivalent circuit is shown in Figure \ref{fig:shuntreactor}.
+\begin{equation}
+    \underline{y}_{sh} = \frac{1}{j\omega L}
+\end{equation}
+where $L$ is the inductance of the reactor.
 \begin{figure}[h]
 \centering
 \begin{circuitikz}
@@ -376,8 +401,25 @@ some important concepts to understand the grid.
 \label{fig:shuntreactor}
 \end{figure}
 
+We will consider the possibility to include 5 different shunt reactors in the system. Further development on the reasoning of this scheme on \ref{fulltransmission}
+
 \subsubsection{Main grid}
 It will be the slack bus.
+
+We will model the grid we are connected to using a Thévenin equivalent circuit where $\underline{u}_{g}$ is the
+Thévenin voltage and $\underline{z}_{g}$ is the Thévenin impedance:
+\begin{subequations}\label{maingrideq}
+\begin{align}
+    \underline{z}_{g} = R_g + jX_g \\
+    R_g = \sqrt{\frac{\frac{U_{g}^2}{SCR} \, p_{owf}S_{base}}{(\frac{X_g}{R_g})^2+1}}
+\end{align}
+\end{subequations}
+Note that we need the short circuit ratio ($SCR$) and the $\frac{X_g}{R_g}$ ratio as parameters to the equivalent circuit.
+\begin{itemize}
+    \item The $SCR$ is the ratio of the short circuit apparent power in the case of a line-line-line-ground
+    fault at the location in the grid where some generator is connected to the power rating of the generator itself.
+    It is somehow a measure of the grid strength to small disturbances.
+\end{itemize}
 
 \begin{figure}[h]
 \centering
@@ -389,9 +431,10 @@ It will be the slack bus.
 \label{fig:maingrid}
 \end{figure}
 
-\newpage
 \subsubsection{Power plant}
-
+We will model our OWPP as a simple power injection at one end of the transmission line. For our
+analysis we will consider that there is no reactive power generation, therefore $q_{owf} = 0$. $p_{owf}$ will be the active power generation that will depend 
+on the wind conditions of the plant. The reach of the work will limit its analysis to a fix power generation.
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}
@@ -400,10 +443,14 @@ It will be the slack bus.
     \foreach \x in {0.5,1,1.5,2,2.5}
         \foreach \y in {0.5,1,1.5,2,2.5}
             \fill (\x,\y) circle (0.1);
+    \draw[->] (3,1.5) -- (5.5,1.5);
+    \node at (4.3,1.5)[label ={[font=\bfseries] above:$p_{owf}+jq_{owf}$}]{};
 \end{tikzpicture}
 \caption{Power plant}
 \label{fig:powerplant}
 \end{figure}
+
+\newpage
 
 \subsection{Costs modelling}
 \subsubsection{Cables}
@@ -412,12 +459,87 @@ It will be the slack bus.
 \subsubsection{Switchgears}
 \subsubsection{Substation platform}
 
+\newpage
 
-\subsection{Full transmission sytem modelling}
+\section{Power flow analysis} \label{fulltransmission}
 
-\paragraph{Types of buses}
+Now we can fully define the power flow analysis.  This approach will allow as to model the transmission system as a set of buses (or nodes)
+interconnected by transmission links. This will allow as to solve for the steady-state powers and voltages of the system. This step is crucial to latter on
+formulate our optimization since power flow equations will be the equality constraint of the optimization problem, \ref{eqconstr}, and the objective function will also depend on the solution of the power flow (PF).
 
-\subsubsection{Admittance matrix}
+\subsection{Types of buses}
+
+In this section we will breifly describe what is a bus and what types we have.\par
+Buses are points of the grid which either supplied by generators, \textit{generator buses}, or those without generators, \textit{load buses}. More formally, a $n$-bus system, $N=\{B_1,...,B_i,...,B_n\}$ where $N$ is the set of $n$-nodes, is defined as:
+
+\begin{equation}
+    \forall B_i \in N,
+    \begin{cases}
+        S_i = P_i + jQ_i, & \text{where } S_i \text{ is the apparent power at bus } i \\
+        V_i = |V_i|e^{j\theta_i}, & \text{where } V_i \text{ is the complex voltage at bus } i
+    \end{cases}
+    %\forall i \in N,  \text{where } N={1,2,...,i,...,n}
+\end{equation}
+
+As we can see, for each bus $i$ we have 4 variables:
+
+\begin{itemize}
+    \item $P_i$ and $Q_i$ are the active and reactive power at bus $i$ respectively.
+    \item $|V_i|$ and $\theta_i$ are the voltage magnitude and angle at bus $i$ respectively.
+\end{itemize}
+
+It is important to note that in general we cannot specify all the $P_i$'s independently since there is a constraint imposed by the need to balance active power. In our case, a transmission system with losses, which are unknown before the PF,
+the sum of $P_i$'s must be equal to losses. To tackle this we will define one bus as the $slack$ bus, where power injection is left free. Taking all of this account, depeding on the variables are known and unknown for a cerain bus we can classify them as:
+\begin{itemize}
+    \item \textbf{Slack bus:} The slack bus is the reference bus of the system. It is the bus where the voltage magnitude and angle are known, typically $|V_i|= 1, \theta_i= 0 $.
+    All other buses angles will be referenced to the $slack$. It is used to balance the active and reactive power in the system.
+    \item \textbf{Generator bus (PV):} The generator bus is the bus where the active and reactive power are known. The voltage magnitude and angle are unknown.
+    \item \textbf{Load bus (PQ):} The load bus is the bus where the active and reactive power are unknown. The voltage magnitude and angle are known.
+\end{itemize}
+In summary:
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        & Slack Bus & Generator Bus & Load Bus \\
+        \hline
+        Voltage Magnitude ($|V_i|$) & Yes & No & Yes \\
+        \hline
+        Voltage Angle ($\theta_i$) & Yes & No & Yes \\
+        \hline
+        Active Power ($P_i$) & No & Yes & No \\
+        \hline
+        Reactive Power ($Q_i$) & No & Yes & No \\
+        \hline
+    \end{tabular}
+    \caption{Known and unknown variables for each type of bus}
+    \label{tab:bus_variables}
+\end{table}
+
+
+
+
+
+\subsection{Per unit system (p.u.)}
+
+In power systems analysis, it is common to use the per unit system to normalize the magnitudes of the variables. This is very useful when we are dealing with several transformers and voltage levels. 
+The per unit system is defined as:
+\begin{equation}
+    \text{Per unit value} = \frac{\text{Actual value}}{\text{Base value}}
+\end{equation}
+
+In our case we will use $S_{base} =100 \text{ MVA}$ and $V_{base} = \text{ transmission voltage in kV}$ as the base values. This means that the per unit system will be defined as:
+\begin{equation}
+    \begin{cases}
+        I_{base} = S_{base}V_{base} \\
+        Y_{base} = \frac{S_{base}}{V_{base}^2} \\
+    \end{cases}
+\end{equation}
+
+Using the per unit system will be particularly useful for analyzing the results and for dealing with the inequality constraints \ref{inequality}.
+\subsection{Admittance matrix}
+The admittance matrix encodesd all the information of the elements of the grid and the relationship between them and allows us to perform the steady-state 
+analysis of the grid.
 Now we can build the full HVAC trasnsmission system model and fins its admittance matrix $\underline{Y}_{bus}$, which will be essential
 for the power flow solver.
 
@@ -482,7 +604,58 @@ for the power flow solver.
     }
 \end{equation}
 
-\subsubsection{Power flow equations}
+\subsection{Grid parameters}
+
+We will use the following set of grid elements parameters for the transformers and the main grid:
+\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{l|c}
+    \hline
+    \textbf{Parameter} & \textbf{Value} \\
+    \hline
+    $SCR$ & \ 5 \\
+    $\frac{X_g}{R_g}$ & 10 \\
+    $P_{Cu}^{loss}$ & 60 kW \\
+    $P_{Fe}^{loss}$ & 40 kW \\
+    $u_k$ & 18 \%  \\
+    $i_o$ & 1.2 \% \\
+    \hline
+    \end{tabular}
+    \caption{Grid parameters \cite{paperbase}}
+    \label{tab:gridparameters}
+    \end{table}
+
+\newpage
+
+\subsection{Power flow equations and solver}
+
+The power flow solver is described in Algorithm 1.
+\begin{algorithm}[h]
+    \caption{Newton Raphson Solver}
+    \begin{algorithmic}[1]
+    \Procedure{run\_pf}{}
+        \State Initialize $V$ with ones and $\theta$ with zeros
+        \Statex \hspace{\algorithmicindent}Set $V[slack$] to $1$, $\theta[slack]$ to $0$
+        \Statex \hspace{\algorithmicindent}Set $P_{}$, $Q_{}$ based on OWPP data
+        \Statex \hspace{\algorithmicindent}Set $iter = 0 $, $tol$ and $k = 0$
+        \While{$iter$ < $max\_iter$ and $ \Delta PQ > tol$}
+            \State Compute $P\_present$, $Q\_present$ using $V$, $\theta$, $Y_{bus}$
+            \State Compute mismatch $\Delta PQ = [dP, dQ]$ as difference between calculated and given $P$, $Q$
+            \State Compute the Jacobian matrix $J$.
+            \State Solve the linear system $J \cdot \Delta x_k = -\Delta PQ$.
+            \State Compute the updated $x_{k+1} = x_{k} + \Delta x_k $.
+            \State Update $V$, $\theta$ using $dP$, $dQ$, $Y\_bus$
+            \If{$\max(\Delta PQ) < tol$}
+                %\State Converged
+                \State \textbf{break}
+            \EndIf
+            
+        \EndWhile
+        \State \textbf{return} $V$, $\theta$
+    \EndProcedure
+    \end{algorithmic}
+    \end{algorithm}
 
 \section{Optimization problem formulation}\label{Minimization}
 
@@ -518,34 +691,9 @@ Now we define de equality constraints as seen in  Eq. \ref{eqconstr}
 
 \newpage
 
-The power flow solver is described in Algorithm 1.
-\begin{algorithm}[h]
-    \caption{Newton Raphson Solver}
-    \begin{algorithmic}[1]
-    \Procedure{run\_pf}{}
-        \State Initialize $V$ with ones and $\theta$ with zeros
-        \Statex \hspace{\algorithmicindent}Set $V[slack$] to $1$, $\theta[slack]$ to $0$
-        \Statex \hspace{\algorithmicindent}Set $P_{}$, $Q_{}$ based on OWPP data
-        \Statex \hspace{\algorithmicindent}Set $iter = 0 $, $tol$ and $k = 0$
-        \While{$iter$ < $max\_iter$ and $ \Delta PQ > tol$}
-            \State Compute $P\_present$, $Q\_present$ using $V$, $\theta$, $Y_{bus}$
-            \State Compute mismatch $\Delta PQ = [dP, dQ]$ as difference between calculated and given $P$, $Q$
-            \State Compute the Jacobian matrix $J$.
-            \State Solve the linear system $J \cdot \Delta x_k = -\Delta PQ$.
-            \State Compute the updated $x_{k+1} = x_{k} + \Delta x_k $.
-            \State Update $V$, $\theta$ using $dP$, $dQ$, $Y\_bus$
-            \If{$\max(\Delta PQ) < tol$}
-                %\State Converged
-                \State \textbf{break}
-            \EndIf
-            
-        \EndWhile
-        \State \textbf{return} $V$, $\theta$
-    \EndProcedure
-    \end{algorithmic}
-    \end{algorithm}
 
-\subsubsection{Inequality: Technical constraints}
+
+\subsubsection{Inequality: Technical constraints}\label{inequality}
 
 \begin{gather}
     \mathbf{g_n(x)\leq0} \\
@@ -571,13 +719,13 @@ H
 \subsection{NSGA-II: Genetic algorithm}
 \subsection{Optimal Power Flow approach for compensation sizing}
 h
-\section{Case studies}\label{CaseStudies}
+\section{Case study}\label{CaseStudies}
 
 \subsection{500 MW OWPP}
 %\subsubsection{50km}
 %\subsubsection{100km}
 %\subsubsection{150km}
-\subsection{1000 MW OWPP}
+%\subsection{1000 MW OWPP}
 %\subsubsection{50km}
 %\subsubsection{100km}
 %\subsubsection{150km}
@@ -625,6 +773,10 @@ Computer & \$XXX \\
 Working hours & \$XXX \\
 Tutor supervision & \$XXX \\
 \hline
+\textbf{Total without IVA} & \$600 \\
+\hline
+\textbf{Total with IVA (21\%)} & \$720 \\
+\hline
 \end{tabular}
 \caption{Thesis Costs}
 \label{tab:costs}
@@ -660,8 +812,8 @@ Moreover, educational institutions should encourage and support participation fr
 \section*{Acknowledgements}
  \addcontentsline{toc}{section}{Acknowledgements}
 
-Primer de tot vull agraïr profundament el suport constant del Josep, el meu tutor, que m'ha donat suport, consell i ajuda quan
-l'he necessitat cada dia des de que vaig entrar a eRoots. Per extensió, agraïr la rebuda i suport de tot l'equip d'eRoots durant aquests mesos,
+Primer de tot vull agraïr profundament el suport constant del Josep, el meu tutor, que m'ha donat consell i ajuda quan
+l'he necessitada cada dia des de que vaig entrar a eRoots. Per extensió, agraïr la rebuda i suport de tot l'equip d'eRoots durant aquests mesos,
 especialment a l'Oriol Gomis que ha proporcionat noves idees i enfocs al desenvolupament de la tesi.\par
 
 Aquest TFG tanca un capítol de quatre anys de la meva vida que han sigut molt feliços gràcies als meus amics del grau; gràcies a tots nou. 
@@ -688,6 +840,10 @@ Finalment, agraïr a la meva família i a la Mire el seu suport incondicional ca
 cable connections - challenges and experience of the Danish TSO"}, \textit{Proc.
 IEEE Power Energy Soc. General Meet.: Convers. Del. Elect. Energy the
 21st Century}, PES, 2008, pp. 1–8.
+
+\bibitem{llibrebase} 
+ {Arthur R. Bergen, Vijay Vittal},
+\textit{“Power systems analysis"}, 2nd ed. Tom Robbins, 2000.
 
  
 
