@@ -3,6 +3,7 @@ from pymoo.core.variable import Real, Integer, Choice, Binary
 import numpy as np
 import cmath
 import pymoo.gradient.toolbox as anp
+import time
 class MixedVariableProblem(ElementwiseProblem):
 
     def __init__(self, **kwargs):
@@ -208,6 +209,7 @@ class MixedVariableProblem(ElementwiseProblem):
                n_cables = n_cables,
                vol = vol):
 
+            start_time = time.time()
             """
             Run the power flow algorithm to find the voltages and angles of the nodes in the grid.
             :param p_owf: Active power of the offshore wind farm
@@ -326,6 +328,8 @@ class MixedVariableProblem(ElementwiseProblem):
             curr_inj = np.zeros((nbus),dtype = "complex")
             curr = np.zeros(nbus - 2)
             if k + 1 < max_iter:
+                end_time = time.time()
+                print(f"Time taken to compute power flow: {end_time - start_time} seconds")                
                 solution_found = True
 
                 Iinj = Y_bus @ (V_wslack * np.exp(1j * angle_wslack))

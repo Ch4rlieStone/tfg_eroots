@@ -13,9 +13,9 @@
 \contentsline {subsection}{\numberline {3.3}Grid elements}{14}{subsection.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.1}Cables}{14}{subsubsection.3.3.1}%
 \contentsline {subsubsection}{\numberline {3.3.2}Transformers}{14}{subsubsection.3.3.2}%
-\contentsline {subsubsection}{\numberline {3.3.3}Shunt reactor: reactive power compensation}{15}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.3}Shunt reactor: reactive power compensation}{14}{subsubsection.3.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.4}Main grid}{15}{subsubsection.3.3.4}%
-\contentsline {subsubsection}{\numberline {3.3.5}Power plant}{15}{subsubsection.3.3.5}%
+\contentsline {subsubsection}{\numberline {3.3.5}Power plant}{16}{subsubsection.3.3.5}%
 \contentsline {subsection}{\numberline {3.4}Costs modelling}{17}{subsection.3.4}%
 \contentsline {subsubsection}{\numberline {3.4.1}Cables}{17}{subsubsection.3.4.1}%
 \contentsline {subsubsection}{\numberline {3.4.2}Transformers}{17}{subsubsection.3.4.2}%
@@ -27,28 +27,31 @@
 \contentsline {subsection}{\numberline {4.2}Per unit system (p.u.)}{19}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}Grid model}{19}{subsection.4.3}%
 \contentsline {subsection}{\numberline {4.4}Admittance matrix}{20}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}Grid parameters}{21}{subsection.4.5}%
-\contentsline {subsection}{\numberline {4.6}Power flow equations and solver}{22}{subsection.4.6}%
-\contentsline {section}{\numberline {5}Optimization problem formulation}{23}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Objective function: multiobjective and mixed-integer}{23}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Constraints}{23}{subsection.5.2}%
-\contentsline {subsubsection}{\numberline {5.2.1}Equality: Power Flow}{23}{subsubsection.5.2.1}%
-\contentsline {subsubsection}{\numberline {5.2.2}Inequality: Technical constraints}{24}{subsubsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.3}Algorithm overview}{25}{subsection.5.3}%
-\contentsline {section}{\numberline {6}Optimization methods}{26}{section.6}%
-\contentsline {subsection}{\numberline {6.1}State of the art: interior point method}{26}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}NSGA-II: Genetic algorithm}{26}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Optimal Power Flow approach for compensation sizing}{26}{subsection.6.3}%
-\contentsline {section}{\numberline {7}Case study}{27}{section.7}%
-\contentsline {subsection}{\numberline {7.1}500 MW OWPP}{27}{subsection.7.1}%
-\contentsline {section}{\numberline {8}Conclusions}{28}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Outcome}{28}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Future work}{28}{subsection.8.2}%
-\contentsline {section}{\numberline {9}Planning and viability studies}{29}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Time Planning}{29}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Economic assessment}{29}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}Environmental assessment}{29}{subsection.9.3}%
-\contentsline {subsection}{\numberline {9.4}Social and gender equality assessment}{30}{subsection.9.4}%
-\contentsline {section}{Acknowledgements}{31}{subsection.9.4}%
-\contentsline {section}{Bibliography}{32}{subsection.9.4}%
-\contentsline {section}{Appendix}{33}{subsection.9.4}%
+\contentsline {subsection}{\numberline {4.5}Grid parameters}{22}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Power flow }{22}{subsection.4.6}%
+\contentsline {subsubsection}{\numberline {4.6.1}Power flow equations}{22}{subsubsection.4.6.1}%
+\contentsline {subsubsection}{\numberline {4.6.2}Newton-Raphson Solver}{23}{subsubsection.4.6.2}%
+\contentsline {paragraph}{Problem Solvability}{23}{subsubsection.4.6.2}%
+\contentsline {section}{\numberline {5}Optimization problem formulation}{25}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Objective function: multiobjective and mixed-integer}{25}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Constraints}{25}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Equality: Power Flow}{25}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2}Inequality: Technical constraints}{26}{subsubsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.3}Algorithm overview}{27}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Optimization methods}{28}{section.6}%
+\contentsline {subsection}{\numberline {6.1}State of the art: interior point method}{28}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}NSGA-II: Genetic algorithm}{28}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Optimal Power Flow approach for compensation sizing}{28}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Results: Case study}{29}{section.7}%
+\contentsline {subsection}{\numberline {7.1}500 MW OWPP}{29}{subsection.7.1}%
+\contentsline {section}{\numberline {8}Conclusions}{30}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Outcome}{30}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Future work}{30}{subsection.8.2}%
+\contentsline {section}{\numberline {9}Planning and viability studies}{31}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Time Planning}{31}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Economic assessment}{31}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Environmental assessment}{31}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Social and gender equality assessment}{32}{subsection.9.4}%
+\contentsline {section}{Acknowledgements}{33}{subsection.9.4}%
+\contentsline {section}{Bibliography}{34}{subsection.9.4}%
+\contentsline {section}{Appendix}{35}{subsection.9.4}%
