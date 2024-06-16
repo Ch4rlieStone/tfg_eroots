@@ -1,5 +1,6 @@
 \documentclass[a4paper,11pt, titlepage, twoside]{article}
 \usepackage[intoc, english]{nomencl}
+\usepackage{amssymb}
 
 %Cedit a tots els estudiants futurs
 \title{Plantilla Per a TFG-TFM ETSEIB}
@@ -381,10 +382,35 @@ The equivalent circuit of a cable is shown in Figure \ref{fig:piline}. We will u
 \label{fig:piline} 
 \end{figure}   
 
+
+\begin{align}
+\begin{bmatrix}
+\underline{V}_s \\
+\underline{I}_s
+\end{bmatrix}
+&=
+\begin{bmatrix}
+\cosh(\underline{\theta}) & \underline{Z}_c \sinh(\underline{\theta}) \\
+\frac{1}{\underline{Z}_c} \sinh(\underline{\theta}) & \cosh(\underline{\theta})
+\end{bmatrix}
+\begin{bmatrix}
+\underline{V}_r \\
+\underline{I}_r
+\end{bmatrix} \\
+\underline{Z}_c &= \sqrt{\frac{\underline{Z}}{\underline{Y}}}; \quad \underline{\theta} = l\sqrt{\underline{Z}\underline{Y}} \\
+\underline{Z} &= R + j\omega L; \quad \underline{Y} = j\omega\frac{C}{2}
+\end{align}
+
+Therefore, the equivalent $\pi$ model is given by:
+\begin{align}
+\underline{Z}_{\pi} &= \underline{Z}_c \sinh(\underline{\theta}) = \underline{Z} l \frac{\sinh(\underline{\theta})}{\underline{\theta}} \\
+\underline{Y}_{\pi} &= \frac{\tanh(\underline{\theta}/2)}{\underline{Z}_c} = \frac{\underline{Y} l}{2} \frac{\tanh(\underline{\theta}/2)}{\underline{\theta}/2}
+\end{align}
+
 %\newpage
 \subsubsection{Transformers}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \begin{circuitikz}
     \draw (0,0) to [generic, l=$\underline{Z}_{tr}$] (6,0);
@@ -395,6 +421,16 @@ The equivalent circuit of a cable is shown in Figure \ref{fig:piline}. We will u
 \label{fig:transformer}
 \end{figure}
 
+\begin{subequations}
+\begin{align}
+    \underline{Z}_{tr} &= R_{tr} + jX_{tr}; \quad
+    \underline{Y}_{tr} = G_{tr} + jB_{tr} \\
+    R_{tr} &= P_{Cu}^{loss} \left(\frac{U_{r-tr}}{S_{r-tr}}\right)^2 \quad
+    X_{tr} = \sqrt{ \left(u_k\frac{U_{r-tr}}{S_{r-tr}}\right)^2 - R_{tr}^2} \\
+    G_{tr} &= \frac{P_{Fe}^{loss}}{U_{r-tr}^2} \quad
+    B_{tr} = i_o \frac{S_{r-tr}}{U_{r-tr}^2}
+\end{align}
+\end{subequations}
 \subsubsection{Shunt reactor: reactive power compensation}
 To compensate reactive power generation we will use shunt reactors. They are reactive power absorvers and in our case will be connected from
 the line directly to the ground. The equivalent circuit is shown in Figure \ref{fig:shuntreactor}.
@@ -464,6 +500,9 @@ on the wind conditions of the plant. The reach of the work will limit its analys
 \newpage
 
 \subsection{Costs modelling}
+
+In this section we will derive the cost equations for the different elements of our transmission system. This costs function will be essential for our optimization problem since
+the will be the objective function to minimize and the parameters on which thwey depend will be the vector of decision variables we want to get.
 \subsubsection{Cables}
 
 Equations from \cite{chalmers}:
@@ -472,6 +511,21 @@ Equations from \cite{chalmers}:
     S_n &= \sqrt{3}V_{rated}I_{rated} \quad \left[\text{VA}\right]
 \end{align}
 
+where $S_n$ is the rated power of the cable, $n_{cables}$ is the number of cables, $A$, $B$ and $C$ are parameters that depend on the rated voltage of the cable, $E_{\frac{eu}{sek}=0.087}$ is the exchange rate between euros and sek and $V_{rated}$ and $I_{rated}$ are the rated voltage and current of the cable respectively.
+The parameters $A$, $B$ and $C$ are shown in Table \ref{tab:parameterscab}. 
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|c|c|c}
+    \hline
+    \textbf{Rated Voltage (kV)} & \textbf{A [$10^6$]} & \textbf{B [$10^6$]} & \textbf{C} \\
+    \hline
+    132 & 1.971 & 0.209 & 1.66 \\
+    220 & 3.181 & 0.11 & 1.16 \\
+    \hline
+    \end{tabular}
+    \caption{Parameters A, B, C for different rated voltages \cite{chalmers}}
+    \label{tab:parameterscab}
+    \end{table}
 
 
 \subsubsection{Transformers}
@@ -480,24 +534,42 @@ Equations from \cite{chalmers}:
     C_{tr}= 0.0427 \cdot S_{r-tr}^{0.7513} \quad \left[\frac{M\euro}{\text{km}}\right]
 \end{equation}
 
+where $S_{r-tr}$ is the rated power of the transformer.
 \subsubsection{Shunt reactor}
 
 \begin{equation}
     C_{sh}= K \cdot Q_l \cdot + P = K \cdot Y_l\cdot U_{AC-N}^2 + P \quad \left[\frac{M\euro}{\text{km}}\right]
 \end{equation}
 
+where $K$ and $P$ are constants that depends on the location of the reactor, $Q_l$ is the reactive power absorbed by the reactor, $Y_l$ is the admittance of the reactor and $U_{AC-N}$ is the nominal transmission voltage in kV where the compensation is placed.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|c|c}
+    \hline
+    \textbf{Location} & \textbf{K} & \textbf{P} \\
+    \hline
+    Onshore & 0.01049 & 0.8312  \\
+    Offshore & 0.01576 & 1.244 \\
+    Mid cable & 0.01576 & 12.44 \\
+    \hline
+    \end{tabular}
+    \caption{Parameters K and P for different positions of the reactive power compensation \cite{paperbase}}
+    \label{tab:parametersshunt}
+    \end{table}
 \subsubsection{Switchgears}
 
 \begin{equation}
     C_{gis-AC} = 0.0117 \cdot U_{AC-N} + 0.0231 \quad \left[\frac{M\euro}{\text{km}}\right]
 \end{equation}
 
+where $U_{AC-N}$ is the nominal transmission voltage in kV.
 \subsubsection{Substation platform}
 
 \begin{equation}
     C_{ss-AC} = 2.534 + 0.0887 \cdot P_{owf} \quad \left[\frac{M\euro}{\text{km}}\right]
 \end{equation}
-
+where $P_{owf}$ is the nominal power generated by the OWPP in MW.
 \newpage
 
 \section{Power flow analysis} \label{fulltransmission}
@@ -892,6 +964,18 @@ quadratic convergence \cite{convergenceNR}.
 
 
 \section{Optimization problem formulation}\label{Minimization}
+
+Generally an optimization problem that involves equality and inequality constraints can be formulated as:
+\begin{equation}
+    \begin{aligned}
+        \text{min} \quad & f(\mathbf{x}) \\
+        \text{subject to} \quad & \mathbf{H(x)} = 0 \\
+        & \mathbf{G(x)} \leq 0
+    \end{aligned}
+\end{equation}
+
+where $\mathbf{x} \in \mathbb{R}^n$ is the $n$ decision variables vector, $f(\mathbf{x})$ is the objective function to be minimized, $\mathbf{H(x)}$ are the equality constraints and $\mathbf{G(x)}$
+are the inequality constraints. 
 
 Explicar pq separem en multiobjective, ventages respsecvte solució tradicional, etc
 \begin{equation}\label{vecunk}
