@@ -1,0 +1,13 @@
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{Transmission system model}{6}{0}{2}
+\beamer@subsectionintoc {2}{1}{Elements modelling}{8}{0}{2}
+\beamer@subsectionintoc {2}{2}{Cost modelling}{10}{0}{2}
+\beamer@sectionintoc {3}{Power Flow}{14}{0}{3}
+\beamer@subsectionintoc {3}{1}{Admittance matrix}{15}{0}{3}
+\beamer@subsectionintoc {3}{2}{Equations}{15}{0}{3}
+\beamer@subsectionintoc {3}{3}{Newton-Raphson method}{15}{0}{3}
+\beamer@sectionintoc {4}{Optimization}{15}{0}{4}
+\beamer@subsectionintoc {4}{1}{NSGA-II Genetic Algorithm}{16}{0}{4}
+\beamer@subsectionintoc {4}{2}{OPF benchmark approach}{16}{0}{4}
+\beamer@sectionintoc {5}{Results}{16}{0}{5}
+\beamer@sectionintoc {6}{Conclusions}{17}{0}{6}

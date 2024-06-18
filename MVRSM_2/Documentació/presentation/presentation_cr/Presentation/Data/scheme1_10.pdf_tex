@@ -1,0 +1,83 @@
+%% Creator: Inkscape 1.2 (dc2aedaf03, 2022-05-15), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'scheme1_10.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{431.33562423bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.75023106)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{scheme1_10.pdf}}%
+    \put(0.40854713,0.63650839){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\bm{\Psi_{p_i}} \forall i \leq N_d$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{scheme1_10.pdf}}%
+    \put(0.41090265,0.29385815){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\max(|\bm{f}|) > \epsilon $\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{scheme1_10.pdf}}%
+    \put(0.42547051,0.24959566){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Yes\end{tabular}}}}%
+    \put(0.61503937,0.30673348){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}No\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{scheme1_10.pdf}}%
+    \put(0.45067812,0.72383127){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Start\end{tabular}}}}%
+    \put(0.38616028,0.12622514){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Solve $-\bm{f} = \bm{J} \bm{\Delta x}$\end{tabular}}}}%
+    \put(0.36451758,0.1019617){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}for $\bm{\Delta x} = [\bm{\Delta c^e}, \bm{\Delta c^f}]$\end{tabular}}}}%
+    \put(0.38083133,0.02327304){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Update $\bm{c^e}$ and $\bm{c^f}$\end{tabular}}}}%
+    \put(0.35828102,0.66259307){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Form the primal bases\end{tabular}}}}%
+    \put(0.71013714,0.20186336){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}End\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{scheme1_10.pdf}}%
+    \put(0.38623067,0.57325971){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Calculate the full\end{tabular}}}}%
+    \put(0.43060828,0.54622329){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\bm{\Phi}$ bases\end{tabular}}}}%
+    \put(0.36845974,0.48369695){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Initialize the vectors\end{tabular}}}}%
+    \put(0.38185396,0.45851095){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}with coefficients $c$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{scheme1_10.pdf}}%
+    \put(0.35847807,0.21312282){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Compute the Jacobian\end{tabular}}}}%
+    \put(0.42328035,0.18968727){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}matrix $\bm{J}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{scheme1_10.pdf}}%
+    \put(0.35902473,0.39536912){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Compute the residual\end{tabular}}}}%
+    \put(0.36724242,0.37157617){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\bm{f}=\langle \bm{R}(\bm{x}, \bm{p}),\bm{\Phi}(\bm{p})\rangle$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{scheme1_10.pdf}}%
+  \end{picture}%
+\endgroup%

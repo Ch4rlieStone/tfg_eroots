@@ -1,0 +1,72 @@
+\documentclass[aspectratio=169, 10pt]{beamer} % dvipsnames gives more built-in colors
+\usepackage{preamble}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{mathtools}
+\usepackage{amsmath, array}
+\DeclareMathOperator*{\argmax}{arg\,max}
+%\usepackage{epsfig}
+\usepackage{makecell,multirow,diagbox} 
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{slashbox,multirow}
+\usepackage{epstopdf}
+\usepackage{placeins}
+\usepackage{algorithmicx}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{color, colortbl}
+\usepackage{siunitx}
+\usepackage{threeparttable}
+\usepackage{bm}
+\usepackage[compatibility=false, font=footnotesize]{caption}
+\usepackage{subcaption}
+\usepackage{amssymb}
+\usepackage{pifont}
+
+% ready for the next
+\title{Offshore Wind Farm Optimization}
+\institute{\large{\textbf{Escola Tècnica Superior d'Enginyeria Industrial de Barcelona (ETSEIB)}} \\[1.5ex]
+\large{\textbf{Universitat Pompeu Fabra (UPF)}} \\[1.5ex]
+{Bachelor's Degree in Industrial Technologies and Economic Analysis}}
+\date{July 2024}
+\author[Carles Roca]{Carles Roca Reverter}
+\subject{Bachelor's Degree in Industrial Technologies and Economic Analysis}
+
+
+
+% ---content---
+\begin{document}
+
+\begin{frame}[plain]
+\hspace*{-1.0cm}\parbox[t]{\textwidth}{
+	\titlepage
+    } 
+\end{frame}
+
+\begin{frame}{Contents}
+	\footnotesize
+	\tableofcontents
+\end{frame}
+
+
+\input{Chapters/Introduction}
+\input{Chapters/GridElements}
+\input{Chapters/PowerFlow}
+\input{Chapters/Optimization}
+\input{Chapters/Results}
+\input{Chapters/Conclusion}
+
+
+\begin{frame}[plain]
+\hspace*{-1.0cm}\parbox[t]{\textwidth}{
+	\titlepage
+    } 
+\end{frame}
+
+
+\end{document}
+
