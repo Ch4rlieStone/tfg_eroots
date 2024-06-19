@@ -181,7 +181,8 @@ Short and must include results.
 
 
 \textbf{Códigos MSC:} 90C11, 90C15, 90C29, 90C30, 90C59
-%\clearpage\null\newpage
+
+\clearpage\null\newpage
 
 \tableofcontents
 
@@ -223,18 +224,10 @@ he introduced me to the topic of design, sizing and optimization of the transmis
 group CITCEA-UPC has been working in this area \cite{paperbase} and further developement on this field was the breeding ground for this proposal.
 The topic inmediatly caught my attention and that is how I ended up as an intern at eRoots developing software solutions for the optimization of offshore wind power plants.
 
-
-\begin{figure}[H] %Recorda fixar la posició de les figures si no
-	\centering
-	\includegraphics[width=0.15\textwidth]{imatges/ETSEIB.png}
-	\caption{Una imatge del logo de l'ETSEIB}
-	\label{fig:ETSEIB} %Si es posen les etiquetes de forma ordenada, la vida es més fàcil...
-\end{figure}
-
-Per referir-se a la Fig.\ref{fig:ETSEIB}.
-Per no repetir informació és millor referir-se a altres apartats \ref{Optimization}.\par
-I recorda, sempre és important citar a la bibliografia \cite{paperbase}.\\
-La bibliografia ha d'estar ordenada, en teniu un exemple a la pàgina \pageref{biblio}
+%Per referir-se a la Fig.\ref{fig:ETSEIB}.
+%Per no repetir informació és millor referir-se a altres apartats \ref{Optimization}.\par
+%I recorda, sempre és important citar a la bibliografia \cite{paperbase}.\\
+%La bibliografia ha d'estar ordenada, en teniu un exemple a la pàgina \pageref{biblio}
 %------------------------------------------
 \section{Introduction}\label{Introduction}
 
@@ -255,28 +248,34 @@ This thesis is my modest and passionate contribution to provide sustainable solu
 
 \subsection{Scope}
 
-This work will limit its study to the optimal design of HVAC transmission systems, without considering the cost comparision with
-HVDC.  Moreover, it will limit its study to the steady-state of balanced three phase load systems, without considering unbalanced or transient states.
+This work will limit its study to :
+\begin{itemize}
+    \item The optimal design of HVAC transmission systems, without considering the comparison with HVDC.
+    \item Study the steady-state of balanced three phase load systems, without considering unbalanced or transient states.
+    \item We will consider constant power injection form the OWPP at its nominal value. In this sense, we are not including the wind speeds distribution that yields different 
+    power injections.
+    \item We will assume that the main grid we are supplying power to is completely stable, in the sense that it does not suffer voltage level perturbations.
+\end{itemize}
 \subsection{Objectives}
 
 The main objectives of the thesis are the following:
 \begin{itemize}
     \item Model all the elements of the transmission system of an offshore wind power plant and find its equivalent circuit.
     \item Implement a power flow solver with Python.
-    \item Formulate the optimization problem to minimize all types of costs taking into account the technical constraints of the system. 
-    \item Bencharmark different optimization algorithms thar find solutions faster than state of the art methods.
+    \item Formulate the optimization problem of the reactive power compensation and the transmission system design. 
+    \item Bencharmark different optimization algorithms that allow to find a Pareto Frontier of solutions and other advantatge with respect to the state of the art.
     \item Study some specific cases applicable to real offshore wind power plants.
   \end{itemize}
 
-\newpage
 
 \subsection{Outline}
 
 The thesis is structured as follows:
 \begin{itemize}
     \item Chapter \ref{Grid} introduces offshore wind power plants, the problem we want to tackle and models the elements that we find in a HVAC transmission system.
-    \item Chapter \ref{Minimization}  formulates the minimization problem, including objective functions and constraints. In this section we also
-    build the power flow solver that deals with the equality contraints and the algorithm for computing objective function values.
+    \item Chapter \ref{fulltransmission} presents the power flow analysis and builds the full transmission system model. 
+    \item Chapter \ref{Minimization}  formulates the minimization problem, including objective functions and constraints. In this section we describe
+    the algorithm structure that deals with the optimization formulation.
     \item Chapter \ref{Optimization} explains state of the art methods to solve the problem, its limitations, and our new approaches, involving
     genetic algorithms and  an optimal power flow approach.
     \item Chapter \ref{CaseStudies} showcases  the results for a specific case study and benchmarks the performance of the optimization algorithms.
@@ -298,7 +297,7 @@ losses and enhancing energy efficiency. The development of offshore wind technol
 of massive installations such as the Hornsea Project in the UK, the scale and capacity of these projects have grown significantly. Technological innovations, including larger turbines, floating foundations, and improved
 grid integration techniques, have further propelled the industry forward.
 
-\subsection{Transmission system: design and reactive power compensation problem}
+\subsection{Transmission system: design and reactive power compensation problem}\label{reactpowpresetation}
 
 When designing the transmission system of an OWPP, several factors must be considered to ensure optimal performance and efficiency. The system must be capable of transmitting the generated power from the wind turbines to the onshore grid
 while trying to be as energy and cost-efficient as possible. There are two main types of technologies that can bu used, HVDC and HVAC. In this thesis we will focus our study to the HVAC technology.\par
@@ -571,7 +570,32 @@ where $U_{AC-N}$ is the nominal transmission voltage in kV.
     C_{ss-AC} = 2.534 + 0.0887 \cdot P_{owf} \quad \left[M\euro\right]
 \end{equation}
 where $P_{owf}$ is the nominal power generated by the OWPP in MW.
-\newpage
+
+\subsubsection{AC power losses}
+Lastly, but probably one of the most important costs to consider, are the power losses in the transmission system. To able to compare this term with other investment costs related to the electric elements,
+it would be useful to express this term in monetary units. We will use the following equation to estimate the cost of power losses in the system:
+
+\begin{equation}\label{eq:lossescost}
+    C_{loss-AC} = 8760 \cdot t_{owf} \cdot C_{energy} \cdot P_{loss} \cdot 10^{-6} \quad \left[M\euro\right]
+\end{equation}
+where $8760$ is the number of hours in a year, $t_{owf}$ is the expected lifetime of the OWPP in years , $C_{energy}$ is the cost of energy in \euro/MWh and $P_{loss}$ is the power losses in the system in MW. We will be using the
+following estimated values from \cite{paperbase}:
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|c}
+    \hline
+    \textbf{Parameter} & \textbf{Value} \\
+    \hline
+    $t_{owf}$ & 30 years \\ 
+    $C_{energy}$ & 100 \euro/MWh  \\
+    \hline
+    \end{tabular}
+    \caption{Parameters for computing power losses cost \cite{paperbase}}
+    \label{tab:lossescost}
+\end{table}
+
+Now it remains to compute the power losses $P_{losses}$ in the system. This will derived in \ref{fulltransmission} as it will be trivial to get
+the power losses once we have the power flow solution.
 
 \section{Power flow analysis} \label{fulltransmission}
 
@@ -962,7 +986,14 @@ The N-R solver has been implemented in Python(check the \hyperref[Appendix]{Appe
     \end{algorithm}
 
 Finally note that close to the solution vector $\mathbf{x^{*}}$ it can be proven that N-R normally presents
-quadratic convergence \cite{convergenceNR}.
+quadratic convergence \cite{convergenceNR}. Moreover, in terms of computational time, Alogorithm 1 takes about $0.06$ s in average to solve the PF.
+
+Now we can observe that the PF is essential for computing the power losses (see \ref{eq:lossescost}) in the system, which will be in the objective function of the optimization problem. It is clear to see that $P_{losses}$ will be the difference between
+the injected  active power from the OWPP and the active power delivered to the slack bus, which is the main grid:
+
+\begin{equation}
+    P_{losses} = (P_{owf} - P_{6}) \cdot S_{base} \cdot 10^{-6} \quad \text{MW}
+\end{equation}
 
 
 \section{Optimization problem formulation}\label{Minimization}
@@ -970,15 +1001,15 @@ quadratic convergence \cite{convergenceNR}.
 Generally an optimization problem that involves equality and inequality constraints can be formulated as:
 \begin{equation}\label{optiprob}
     \begin{aligned}
-        \text{min} \quad & f(\mathbf{x}) \\
+        \text{min} \quad & \mathbf{f}(\mathbf{x})=(f_1(x),f_2(x),...,,f_k(x)) \\
         \text{subject to} \quad & \mathbf{H(x)} = 0 \\
         & \mathbf{G(x)} \leq 0
     \end{aligned}
 \end{equation}
 
 
-where $\mathbf{x} \in \mathbb{R}^n$ is the $n$ decision variables vector, $f(\mathbf{x})$ is the objective function to be minimized, $\mathbf{H(x)}$ are the equality constraints and $\mathbf{G(x)}$
-are the inequality constraints. 
+where $\mathbf{x} \in \mathbb{R}^n$ is the $n$ decision variables vector, $\mathbf{f}(\mathbf{x}) \in \mathbb{R}^k $ is set of objective functions to be minimized. Note we have presented the problem in its more general form, where the objective function can be a set of $n$-objectives to have to be optimized simultaneously and will
+be proved to be useful in \ref{objfun}. $\mathbf{H(x) = 0}$ are the equality constraints and $\mathbf{G(x) \leq 0}$ are the inequality constraints. 
 
 
 Now we have to decide which decision variables we include in the optimization problem. It is easy to see that we can include all the design varaibles in which the transmission system model depends, which are all included
@@ -999,20 +1030,32 @@ where:
     \item $n_{cables}$: Is an integer number that that represents the number of cables placed in parallel.
     \item $react_{bi_i} \quad i=1,...,5$: Is a binary variable (i.e. either 0 or 1) that tells if we place or not a reactor at position $i$.
     \item $react_{cont_i} \quad i=1,...,5$: Sizing of reactor at position $i$, therefore its $Y_{shi}$ in p.u.
-    \item $S_{trafo}$: Rated power of the transformer in MVA.
+    \item $S_{trafo}$: Rated power of the transformer in VA.
 \end{itemize}
 
 A very important remark with respect to the type of variables we have involves in the problem. Considering $\mathbf{x}$ we see that we have 
 binary, integer and continous variables. This  kind of problems are labeled as mixed-integer optimization and constraints the optimization 
 methods we can use as we will see in \ref{Optimization}.
 
-\subsection{Objective function: multiobjective and mixed-integer}
 
-Explicar pq separem en multiobjective pq aixi traiem PARETTO SET, ventages respsecvte solució tradicional
 \subsection{Constraints}
 \subsubsection{Equality: Power Flow}
 
-The equality constraints $ \mathbf{H(x)} = 0$ in the optimization problem in \ref{optiprob} are the imposed by the power flow equations. In fact, the power mismatch vector \ref{powermismatch} is the one that take this form
+The equality constraints $ \mathbf{H(x)} = 0$ in the optimization problem in \ref{optiprob} are the imposed by the power flow equations. In fact, the power mismatch vector \ref{powermismatch} is the one that take this form. therefore:
+
+\begin{equation}
+    \mathbf{H(x)} = \begin{bmatrix}
+    \mathbf{\Delta P(\mathbf{x})} \\
+    \mathbf{\Delta Q(\mathbf{x})}
+    \end{bmatrix} = \begin{bmatrix}
+    P_1(\mathbf{x}) - P_1 \\
+    \vdots \\
+    P_{n-1}(\mathbf{x}) - P_{n-1} \\
+    Q_1(\mathbf{x}) - Q_1 \\
+    \vdots \\
+    Q_{n-1}(\mathbf{x}) - Q_{n-1}
+    \end{bmatrix} = \mathbf{0}
+\end{equation}
 
 
 
@@ -1065,9 +1108,85 @@ possible to zero. Therefore we will set the limits as:
     L_{6}^{Ql} = Q_{min} - Q_{6} \leq 0
 \end{aligned}
 \end{equation}
-where $Q_{max}=Q_{min}=0$.
-\newpage
+where $Q_{max}=Q_{min}=0$. Also note that potentially the wind turbines could be used to absorbe reactive power, but we will not consider this in this case.
+
+
+\subsection{Objective function: multiobjective}\label{objfun}
+
+Probably one of the critical parts is to indentify the objective function we want to minimize and decide how we treat it. Now, we will describe the terms that we will include in the objective function
+and why we have decided to work with a multiobjective approach.\par
+
+\subsubsection{Why bi-objective?}
+
+Let us imagine you are an engineer of a firm that is planning to build and OWPP. You have to ensure both that the transmission system is reliable and robust in terms of operational constraints but also to make the
+investment as profitable as possible, therefore you want to minimize its investment cost. Given this scenario, you can expect that it exists a tradeofff between the two objectives, investing more money can make your transmission system more robust and yield smaller power losses and
+viceversa. In fact, in eRoots conversations with Acciona, they have shown interest on getting insights on how this two objectives interact with them and decide which option to go for given the relationship.\par
+
+Literature can offer solutions for this kind of scenarios. Multi-objective optimization, also known as Pareto optimization, deals with situations where optimal decision
+making needs to be taken in presence of various conflicting objectives.  Within this context, there is no guarantee that there exist a unique solution that minimizes both objectives.
+The main idea is to find the set of solutions that are not dominated by any other solution in the set; that is solution where no objective can be further minimized without worsening another. In this sense, any point found in this set can be considered optimal 
+and be regarded as a potential solution. This set is called the Pareto Frontier and the solutions are called Pareto optimal solutions.\par
+
+Using the formulation in \ref{optiprob}, let $ \mathbf{x^*} \in \mathbf{X}$, where $\mathbf{X}$ is the feasible set of solutions that satisfy the constraints, have its associated outcome vector $\mathbf{f}(\mathbf{x^*})$.
+Then a feasible solution $\mathbf{x_1}$ is said to (Pareto) dominate another solution $\mathbf{x_2}$ if: 
+
+\begin{equation}
+\begin{split}
+    & \forall i \in \{1, 2, ..., k\}, f_i(\mathbf{x_1}) \leq f_i(\mathbf{x_2}) \quad \text{(Condition 1)} \\
+    & \exists i \in \{1, 2, ..., k\}, f_i(\mathbf{x_1}) < f_i(\mathbf{x_2}) \quad \text{(Condition 2)}
+\end{split}    
+\end{equation}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imatges/binhorn_propi.png}
+        \caption{Pareto Front for Binh and Korn function}
+        \label{fig:paretobinhorn}
+    \end{subfigure}\hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imatges/domination.png}
+        \caption{Explanation of domination \cite{domination}}
+        \label{fig:domination}
+    \end{subfigure}
+    %\caption{Caption for both images}
+    \label{fig:both_images}
+\end{figure}
+
+In Fig. \ref{fig:paretobinhorn} you can see the Pareto Front of the Binh and Korn function \cite{binhorn}, a usual test function for multiobjective optimization.
+
+Now we can go back to our problem and decide how to define both objectives. Therefore we define the objective function as:
+\begin{equation}
+    \mathbf{f}(\mathbf{x}) =(f_{invest}(\mathbf{x}),f_{tech}(\mathbf{x}))
+\end{equation}
+where the definition of $f_{invest}(\mathbf{x})$ is quite straig-forward; the adddition of the cost of the elements in the transmission system:
+\begin{equation}
+    f_{invest}(\mathbf{x}) = C_{cables}(\mathbf{x}) + C_{tr}(\mathbf{x}) + C_{sh}(\mathbf{x}) + C_{gis-AC}(\mathbf{x}) + C_{ss-AC}(\mathbf{x})
+\end{equation}
+
+When it comes to how we handle  $f_{tech}(\mathbf{x})$ it becomes a little more tricky. We wanted this part to capture how optimal is the transmission system, in terms of steady-state operational conditions and power losses. In other words, this term has to measure if the inequality constraints, the ones related to operational
+limits, are being satisfied and try to minimize $C_{loss_AC}$. To do so we will use a penalty method to deal with the inequality contraints.\par
+
+Exhaustive development of this method can be found in \cite{penalty}, but the main idea is to expand the original feasible set of solutions, $ \mathbf{X}$, to all of $\mathbb{R}^n$, but a large cost or "penalty" is added to the objective function when the solution is not satisfying
+ $\mathbf{G(x)} \leq 0 $. Therefore:
+
+\begin{equation}
+    f_{tech}(\mathbf{x}) = C_{loss-AC}(\mathbf{x}) + c \cdot \mathbf{p(x)}
+\end{equation}
+
+where $c$ is the penalty factor and $\mathbf{p(x)}$ is the penalty function:
+
+\begin{equation}
+    \mathbf{p(x)} = \sum_{L_i^X \in G(x)} \max(0, \mathbf{L_i(x)})
+\end{equation}
+
 \subsection{Algorithm overview}
+
+Now we have setup all the elements that define the sequential process for finding the desired Pareto Front. Now it just remains
+to find the recurisve optimization method that that suits best our problem. Fig. \ref{fig:block_overview} shows the block diagram of the solver implemented in Python.
 
 \begin{figure}[h]
 \centering
@@ -1095,7 +1214,7 @@ where $Q_{max}=Q_{min}=0$.
     \node [block, below of=box6, yshift=-0.5cm] (box7) {Evaluate $\mathbf{f_{invest}(x)}$ and $\mathbf{f_{tech}(x)}$};
     \node [block, left of=box3, xshift=-2cm] (box3a) {Input OWPP parameters: $P_{owf}$, $Q_{owf}, l$};
     \node [block?, below of=box7] (box8) {Is $n_{evals} < n_{termination}$?};
-    \node [block, below of=box8] (box9) {Plot Paretto Set};
+    \node [block, below of=box8] (box9) {Plot Pareto Front};
     % Connect the nodes
     \draw [->] (box1) -- (box2);
     \draw [->] (box2) -- (box3);
@@ -1119,7 +1238,16 @@ where $Q_{max}=Q_{min}=0$.
 
 \section{Optimization methods}\label{Optimization}
 
+After what we have summarized in the previous section we want an optimization method that:
+\begin{itemize}
+    \item Can handle mixed-integer optimization problems, meanning that it can handel binary, integer and continous variables as decision vector $\mathbf{x}$.
+    \item Can handle bi-objective optimization problem with equality and inequaility constraints and can deal with a penalty function.
+    \item Can find the whole Pareto front to analyse the tradeoff between the two objectives, investment and technical.
+\end{itemize}
+
 \subsection{State of the art limitations: interior point method}
+
+In \cite{paperbase} they propose an iterative method for solving thre reactive power compensation problem.
 \subsection{NSGA-II: Genetic algorithm}\label{NSGAII}
 
 \begin{table}[h]
@@ -1129,8 +1257,8 @@ where $Q_{max}=Q_{min}=0$.
     \textbf{Parameter} & \textbf{Value} \\ \hline
     Population size & 300 \\ \hline
     Survival & Rank and Crowding $"cd"$ \\ \hline
-    Termination  & 300 evaluations \\ \hline
-    Seed & 1 \\ \hline
+    Termination  & 500 evaluations \\ \hline
+    Constrainy Violation (CV) penalty & 100 \\ \hline
     \end{tabular}
     \caption{Tuning parameters for the NSGA-II}
     \label{tab:NSGAII_parameters}
@@ -1139,8 +1267,16 @@ where $Q_{max}=Q_{min}=0$.
 
 
 \subsection{Optimal Power Flow approach for compensation sizing}
-h
-\section{Results: Case study}\label{CaseStudies}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imatges/opf_convergence.png}
+    \caption{OPF convergence}
+    \label{fig:opfconv}   
+\end{figure}
+
+
+\section{Case study}\label{CaseStudies}
 
 \subsection{500 MW OWPP}
 %\subsubsection{50km}
@@ -1154,7 +1290,14 @@ h
 
 %------------------------------------------
 \section{Conclusions}\label{Conclusions}
+
+
 \subsection{Outcome}
+
+\begin{itemize}
+    \item Algortime s'ha implementart i compleix els requisits i dona solucions q semblen ok.
+    \item Tenim Pareto Front, efectivament existeix trade-off.
+\end{itemize}
 \subsection{Future work}
 h
 %------------------------------------------
@@ -1174,8 +1317,11 @@ Figure \ref{fig:gantt} shows the time distribution for the tasks carried out in 
     \ganttbar{Power flow solver}{6}{8} \\
     \ganttlinkedbar{Optimization methods}{9}{18} \\
     %\ganttbar{Optimization methods}{9}{18} \\
-    \ganttbar{Case studies}{12}{18} \\
+    \ganttbar{Case study}{12}{18} \\
     \ganttbar{Thesis final writting}{17}{20}
+    \ganttlink{elem0}{elem3}
+    \ganttlink{elem3}{elem4}
+    \ganttlink{elem1}{elem2}
 \end{ganttchart}
 \caption{Thesis Gantt Chart}
 \label{fig:gantt}
@@ -1184,19 +1330,22 @@ Figure \ref{fig:gantt} shows the time distribution for the tasks carried out in 
 
 \subsection{Economic assessment}
 
+The budgeting for this work includes the equipment and human resources used during the develpment of the thesis.
+The total cost has been broken down with and without the Value Added Tax (VAT). The complete budgeting is shown in Table 
+\ref{tab:costs}.
 \begin{table}[h]
 \centering
-\begin{tabular}{l|c}
+\begin{tabular}{c c c c}
 \hline
-\textbf{Concept} & \textbf{Cost} \\
+\textbf{Concept} & \textbf{ Unit Cost} & \textbf{Quantity} & \textbf{ Total (\euro)} \\
 \hline
-Computer & \$XXX \\
-Working hours & \$XXX \\
-Tutor supervision & \$XXX \\
+Computer & 1000 \euro & 1 & 1000\\
+Working hours & 8 \euro/h  & 450 h & 3600 \\
+Tutor supervision & 25 \euro/h   &  50 h & 1250 \\
 \hline
-\textbf{Total without IVA} & \$600 \\
+\textbf{Total without VAT} & & & 5850 \\
 \hline
-\textbf{Total with IVA (21\%)} & \$720 \\
+\textbf{Total with VAT (21\%)} & & &  7078.5 \\
 \hline
 \end{tabular}
 \caption{Thesis Costs}
@@ -1205,7 +1354,9 @@ Tutor supervision & \$XXX \\
 
 \subsection{Environmental assessment}
 
-This environmental assessment evaluates the energy costs incurred during
+\subsubsection{Energy consumption}
+
+This environmental assessment evaluates the energy consumption costs incurred during
 the development of a thesis over five months, using a computer as the primary tool. The primary energy consumption arises
 from the computer's usage, which includes writing, research, data analysis, and communication.\par
 
@@ -1218,13 +1369,29 @@ Utilizing energy-efficient computers, enabling power-saving modes, and limiting 
 Additionally, adopting renewable energy sources, such as solar panels for charging devices, further reduces the carbon footprint,
 contributing to a more sustainable academic practice.
 
+\subsubsection{Potential impact}
+
+Optimizing transmission systems in OWPP can significantly enhance environmental impact by maximizing energy efficiency
+and reducing carbon emissions. Improved transmission reduces energy losses, ensuring that more clean energy reaches the grid, thereby displacing fossil
+fuel-based power generation. Additionally, optimization can lead to less intrusive infrastructure, minimizing harm to marine ecosystems and reducing the physical footprint of OWPP.
+Efficient transmission systems also facilitate the integration of larger amounts of renewable energy, supporting the transition to a sustainable energy future and helping to combat climate change by lowering
+greenhouse gas emissions.
+
+
+
+
+
+
+
+
+
 \subsection{Social and gender equality assessment}
 
 This assessment evaluates the social and gender equality aspects of a bachelor's thesis focused on developing a tool for optimizing renewable energy system design, authored by a 22-year-old white engineering student. While the thesis itself addresses a critical area in sustainable development, examining its social dimensions is essential to ensure inclusivity and equality.
 
 The demographic profile of the author reflects broader trends in STEM fields, where women and minority groups remain underrepresented. This lack of diversity can influence the perspectives and priorities embedded in the research. Ensuring diverse representation in such projects is crucial for incorporating a wide range of insights and addressing the needs of various communities.
 
-To promote social and gender equality, the research should consider the differential impacts of renewable energy systems on diverse populations. Inclusive design processes involve consulting with and incorporating feedback from women, marginalized communities, and other underrepresented groups. This approach ensures that the developed tools and technologies are accessible and beneficial to all segments of society.
+To promote social and gender equality, the research should consider the differential impacts of renewable energy systems on diverse populations. This approach ensures that the developed tools and technologies are accessible and beneficial to all segments of society.
 
 Moreover, educational institutions should encourage and support participation from diverse backgrounds in engineering and renewable energy fields. Mentorship programs, scholarships, and targeted recruitment can help bridge the gender and social gap, fostering an environment where innovative solutions for renewable energy are developed through diverse and inclusive contributions.
 %------------------------------------------
@@ -1287,9 +1454,31 @@ IEEE Power Energy Soc. General Meet.: Convers. Del. Elect. Energy the
 {ABB HIgh Voltage Cable Unit},
 \textit{"XLPE Submarine Cable Systems: Attachment to XLPE Land Cable Systems - User guide"}, ABB, Karlskrona, Sweden, 2010.
 
+\bibitem{nsgai}
+{Kalyanmoy Deb, N. Srinivas},
+\textit{"Multiobjective Optimization Using Nondominated Sorting in Genetic Algorithms}, Evolutionary Computation, Vol.2, Iss.3, Septemebr 1994.
 
+\bibitem{NSGAII}
+{Kalyanmoy Deb, Amrit Pratap, Sameer Agarwal, T. Meyarivan},
+\textit{"A Fast Elitist Non-Dominated Sorting Genetic Algorithm for Multi-Objective Optimization: NSGA-II"}, IEEE Transactions on Evolutionary Computation, Vol. 6, No. 2, April 2002.
 
+\bibitem{pymoo}
+{J. Blank, K. Deb},
+\textit{"pymoo: Multi-Objective Optimization in Python"},IEEE Access, vol.8, pp. 89497–89509, 2020. \href{https://ieeexplore.ieee.org/document/9078759}{doi:10.1109/ACCESS.2020.2990567}
 
+\bibitem{binhorn}
+{T. Binh, U. Korn},
+\textit{"MOBES: A Multiobjective Evolution Strategy for Constrained Optimization Problems"}, Proceedings of the Third International Conference on Genetic Algorithms, 
+pp. 176–182, Czech Republic, 1997
+
+\bibitem{domination}
+{Artur M. Schweidtmann et al.}
+\textit{Machine learning meets continuous flow chemistry: Automated
+optimization towards the Pareto front of multiple objectives"}, Chemical Engineering Journal, Vol. 352, Pg. 277-282, , 15 November 2018.
+
+\bibitem{penalty}
+{Robert M. Freund}
+\textit{"Penalty and Barrier Methods for Constrained Optimization"} Massachusetts Institute of Technology, 2004.
 \end{thebibliography}
  
 \section*{Appendix}\label{Appendix}

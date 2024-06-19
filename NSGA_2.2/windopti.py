@@ -329,7 +329,7 @@ class MixedVariableProblem(ElementwiseProblem):
             curr = np.zeros(nbus - 2)
             if k + 1 < max_iter:
                 end_time = time.time()
-                print(f"Time taken to compute power flow: {end_time - start_time} seconds")                
+                #print(f"Time taken to compute power flow: {end_time - start_time} seconds")                
                 solution_found = True
 
                 Iinj = Y_bus @ (V_wslack * np.exp(1j * angle_wslack))
@@ -476,7 +476,7 @@ class MixedVariableProblem(ElementwiseProblem):
             c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * 1
 
             # we want reactive power delivered to the grid to be as close as possible to 0
-            penalty = 10
+            penalty = 100
             c_react = 0
             if q_wslack[nbus-1] != 0:
                     c_react = abs(q_wslack[nbus-1]) * penalty
@@ -543,8 +543,10 @@ class MixedVariableProblem(ElementwiseProblem):
             
             
             
-            cost_invest = c_cab + c_gis + c_tr + c_reac + c_ss
+            #cost_invest = c_cab + c_gis + c_tr + c_reac + c_ss
             cost_tech = c_vol + c_curr + c_react + c_losses
+            cost_invest = c_cab + c_gis + c_tr + c_reac + c_ss 
+            #cost_tech = c_vol + c_curr + c_react + p_lossac*1e6
             cost_tech1 = c_vol
             cost_tech2 = c_curr
             cost_tech3 = c_react
