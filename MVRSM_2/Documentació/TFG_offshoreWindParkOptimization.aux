@@ -66,6 +66,7 @@
 \newlabel{tab:parameterscab}{{2}{18}{Parameters A, B, C for different rated voltages \cite {chalmers}}{table.caption.9}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.2}Transformers}{18}{subsubsection.3.4.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.3}Shunt reactor}{18}{subsubsection.3.4.3}\protected@file@percent }
+\newlabel{eq:shuntcost}{{13}{18}{Shunt reactor}{equation.3.13}{}}
 \citation{paperbase}
 \citation{paperbase}
 \citation{paperbase}
@@ -129,6 +130,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Objective function: multiobjective}{30}{subsection.5.2}\protected@file@percent }
 \newlabel{objfun}{{5.2}{30}{Objective function: multiobjective}{subsection.5.2}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Why bi-objective?}{30}{subsubsection.5.2.1}\protected@file@percent }
+\newlabel{biobjective}{{5.2.1}{30}{Why bi-objective?}{subsubsection.5.2.1}{}}
 \citation{binhorn}
 \citation{penalty}
 \newlabel{fig:paretobinhorn}{{10a}{31}{Pareto Front for Binh and Korn function}{figure.caption.17}{}}
@@ -140,37 +142,45 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Block diagram of the optimization algorithm}}{32}{figure.caption.18}\protected@file@percent }
 \newlabel{fig:block_overview}{{11}{32}{Block diagram of the optimization algorithm}{figure.caption.18}{}}
 \citation{paperbase}
+\citation{ipm}
+\citation{nsgai}
+\citation{NSGAII}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Optimization methods}{33}{section.6}\protected@file@percent }
 \newlabel{Optimization}{{6}{33}{Optimization methods}{section.6}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.1}State of the art limitations: interior point method}{33}{subsection.6.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.2}NSGA-II: Genetic algorithm}{33}{subsection.6.2}\protected@file@percent }
 \newlabel{NSGAII}{{6.2}{33}{NSGA-II: Genetic algorithm}{subsection.6.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Tuning parameters for the NSGA-II}}{33}{table.caption.19}\protected@file@percent }
-\newlabel{tab:NSGAII_parameters}{{8}{33}{Tuning parameters for the NSGA-II}{table.caption.19}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Optimal Power Flow approach for compensation sizing}{33}{subsection.6.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces OPF convergence}}{33}{figure.caption.20}\protected@file@percent }
-\newlabel{fig:opfconv}{{12}{33}{OPF convergence}{figure.caption.20}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Case study}{34}{section.7}\protected@file@percent }
-\newlabel{CaseStudies}{{7}{34}{Case study}{section.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}500 MW OWPP}{34}{subsection.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusions}{35}{section.8}\protected@file@percent }
-\newlabel{Conclusions}{{8}{35}{Conclusions}{section.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Outcome}{35}{subsection.8.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Future work}{35}{subsection.8.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {9}Planning and viability studies}{36}{section.9}\protected@file@percent }
-\newlabel{Planning}{{9}{36}{Planning and viability studies}{section.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Time Planning}{36}{subsection.9.1}\protected@file@percent }
+\newlabel{weightedsum}{{46}{33}{NSGA-II: Genetic algorithm}{equation.6.46}{}}
+\citation{pymoo}
+\citation{opfnotes}
+\citation{gridcal}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Tuning parameters for the NSGA-II}}{34}{table.caption.19}\protected@file@percent }
+\newlabel{tab:NSGAII_parameters}{{8}{34}{Tuning parameters for the NSGA-II}{table.caption.19}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Optimal Power Flow approach for compensation sizing}{34}{subsection.6.3}\protected@file@percent }
+\newlabel{eq:Qopf}{{48}{34}{Optimal Power Flow approach for compensation sizing}{equation.6.48}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Case study}{36}{section.7}\protected@file@percent }
+\newlabel{CaseStudies}{{7}{36}{Case study}{section.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}500 MW OWPP}{36}{subsection.7.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces OPF convergence}}{36}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:opfconv}{{12}{36}{OPF convergence}{figure.caption.20}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusions}{37}{section.8}\protected@file@percent }
+\newlabel{Conclusions}{{8}{37}{Conclusions}{section.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Outcome}{37}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Future work}{37}{subsection.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Planning and viability studies}{38}{section.9}\protected@file@percent }
+\newlabel{Planning}{{9}{38}{Planning and viability studies}{section.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Time Planning}{38}{subsection.9.1}\protected@file@percent }
 \gtt@chartextrasize{0}{117.2756pt}
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Thesis Gantt Chart}}{36}{figure.caption.21}\protected@file@percent }
-\newlabel{fig:gantt}{{13}{36}{Thesis Gantt Chart}{figure.caption.21}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Economic assessment}{36}{subsection.9.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Thesis Costs}}{36}{table.caption.22}\protected@file@percent }
-\newlabel{tab:costs}{{9}{36}{Thesis Costs}{table.caption.22}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Environmental assessment}{36}{subsection.9.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.3.1}Energy consumption}{36}{subsubsection.9.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.3.2}Potential impact}{37}{subsubsection.9.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Social and gender equality assessment}{37}{subsection.9.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Acknowledgements}{38}{subsection.9.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Thesis Gantt Chart}}{38}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:gantt}{{13}{38}{Thesis Gantt Chart}{figure.caption.21}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Economic assessment}{38}{subsection.9.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Thesis Costs}}{38}{table.caption.22}\protected@file@percent }
+\newlabel{tab:costs}{{9}{38}{Thesis Costs}{table.caption.22}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Environmental assessment}{38}{subsection.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.3.1}Energy consumption}{38}{subsubsection.9.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.3.2}Potential impact}{39}{subsubsection.9.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Social and gender equality assessment}{39}{subsection.9.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Acknowledgements}{40}{subsection.9.4}\protected@file@percent }
 \bibcite{SustGoal7}{1}
 \bibcite{paperbase}{2}
 \bibcite{ferranti}{3}
@@ -185,9 +195,12 @@
 \bibcite{pymoo}{12}
 \bibcite{binhorn}{13}
 \bibcite{domination}{14}
-\newlabel{biblio}{{9.4}{39}{}{subsection.9.4}{}}
-\@writefile{toc}{\contentsline {section}{Bibliography}{39}{subsection.9.4}\protected@file@percent }
+\newlabel{biblio}{{9.4}{41}{}{subsection.9.4}{}}
+\@writefile{toc}{\contentsline {section}{Bibliography}{41}{subsection.9.4}\protected@file@percent }
 \bibcite{penalty}{15}
-\newlabel{Appendix}{{9.4}{41}{}{subsection.9.4}{}}
-\@writefile{toc}{\contentsline {section}{Appendix}{41}{subsection.9.4}\protected@file@percent }
-\gdef \@abspage@last{43}
+\bibcite{ipm}{16}
+\bibcite{opfnotes}{17}
+\bibcite{gridcal}{18}
+\newlabel{Appendix}{{9.4}{43}{}{subsection.9.4}{}}
+\@writefile{toc}{\contentsline {section}{Appendix}{43}{subsection.9.4}\protected@file@percent }
+\gdef \@abspage@last{45}

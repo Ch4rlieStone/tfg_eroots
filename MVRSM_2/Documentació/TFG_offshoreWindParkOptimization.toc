@@ -43,19 +43,19 @@
 \contentsline {section}{\numberline {6}Optimization methods}{33}{section.6}%
 \contentsline {subsection}{\numberline {6.1}State of the art limitations: interior point method}{33}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}NSGA-II: Genetic algorithm}{33}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Optimal Power Flow approach for compensation sizing}{33}{subsection.6.3}%
-\contentsline {section}{\numberline {7}Case study}{34}{section.7}%
-\contentsline {subsection}{\numberline {7.1}500 MW OWPP}{34}{subsection.7.1}%
-\contentsline {section}{\numberline {8}Conclusions}{35}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Outcome}{35}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Future work}{35}{subsection.8.2}%
-\contentsline {section}{\numberline {9}Planning and viability studies}{36}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Time Planning}{36}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Economic assessment}{36}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}Environmental assessment}{36}{subsection.9.3}%
-\contentsline {subsubsection}{\numberline {9.3.1}Energy consumption}{36}{subsubsection.9.3.1}%
-\contentsline {subsubsection}{\numberline {9.3.2}Potential impact}{37}{subsubsection.9.3.2}%
-\contentsline {subsection}{\numberline {9.4}Social and gender equality assessment}{37}{subsection.9.4}%
-\contentsline {section}{Acknowledgements}{38}{subsection.9.4}%
-\contentsline {section}{Bibliography}{39}{subsection.9.4}%
-\contentsline {section}{Appendix}{41}{subsection.9.4}%
+\contentsline {subsection}{\numberline {6.3}Optimal Power Flow approach for compensation sizing}{34}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Case study}{36}{section.7}%
+\contentsline {subsection}{\numberline {7.1}500 MW OWPP}{36}{subsection.7.1}%
+\contentsline {section}{\numberline {8}Conclusions}{37}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Outcome}{37}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Future work}{37}{subsection.8.2}%
+\contentsline {section}{\numberline {9}Planning and viability studies}{38}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Time Planning}{38}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Economic assessment}{38}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Environmental assessment}{38}{subsection.9.3}%
+\contentsline {subsubsection}{\numberline {9.3.1}Energy consumption}{38}{subsubsection.9.3.1}%
+\contentsline {subsubsection}{\numberline {9.3.2}Potential impact}{39}{subsubsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.4}Social and gender equality assessment}{39}{subsection.9.4}%
+\contentsline {section}{Acknowledgements}{40}{subsection.9.4}%
+\contentsline {section}{Bibliography}{41}{subsection.9.4}%
+\contentsline {section}{Appendix}{43}{subsection.9.4}%

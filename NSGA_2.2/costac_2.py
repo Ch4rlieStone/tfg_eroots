@@ -161,8 +161,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         # 1.5 Grid connection
         scr = 50  # which value should we put here 5 or 50?
         xrr = 10
-        V_grid = 220e3  # V
-        zgridm = V_grid**2 / (scr * p_owf * Sbase)
+        zgridm = V_ref**2 / (scr * p_owf * Sbase)
         rgrid = np.sqrt(zgridm**2 / (xrr**2 + 1))
         xgrid = xrr * rgrid
         zgrid = rgrid + 1j * xgrid
@@ -455,27 +454,27 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         # without convertinb back to real Y using Y_base
         if react1_bi == 1:
             #  c_r1 = k_off * (abs(Y_l1) * (V[0])**2) + p_off
-            c_r1 = k_off * (abs(Y_l1) * Y_ref  * (V[0])**2) + p_off
+            c_r1 = k_off * (abs(Y_l1)  * (V[0])**2) + p_off
         else:
             c_r1 = 0
 
         if react2_bi == 1:
-            c_r2 = k_off * (abs(Y_l2) * Y_ref * (V[1])**2) + p_off
+            c_r2 = k_off * (abs(Y_l2) * (V[1])**2) + p_off
         else:
             c_r2 = 0
 
         if react3_bi == 1:
-            c_r3 = k_mid * (abs(Y_l3) * Y_ref  * (V[2])**2) + p_mid
+            c_r3 = k_mid * (abs(Y_l3)  * (V[2])**2) + p_mid
         else:
             c_r3 = 0
 
         if react4_bi == 1:
-            c_r4 = k_on * (abs(Y_l4) * Y_ref  * (V[3])**2) + p_on
+            c_r4 = k_on * (abs(Y_l4)  * (V[3])**2) + p_on
         else:
             c_r4 = 0
 
         if react5_bi == 1:
-            c_r5 = k_on * (abs(Y_l5) * Y_ref  * (V[4])**2) + p_on
+            c_r5 = k_on * (abs(Y_l5)  * (V[4])**2) + p_on
         else:
             c_r5 = 0
         

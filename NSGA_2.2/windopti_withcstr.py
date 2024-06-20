@@ -15,8 +15,8 @@ class MixedVariableProblem2(ElementwiseProblem):
             #"vol_level": Choice(options=["vol132","vol220"]),
             "vol_level": Choice(options=["vol220"]),
             #"vol_level": Choice(options=["vol132"]),
-            "n_cables": Integer(bounds=(2, 2)),
-            "S_rtr": Real(bounds=(657e6, 1000e6)),
+            "n_cables": Integer(bounds=(2, 4)),
+            "S_rtr": Real(bounds=(500e6, 1000e6)),
             "react1": Real(bounds=(0.0, 1.0)),
             "react2": Real(bounds=(0.0, 1.0)),
             "react3": Real(bounds=(0.0, 1.0)),
@@ -466,7 +466,7 @@ class MixedVariableProblem2(ElementwiseProblem):
             c_reac = (c_r1 + c_r2 + c_r3 + c_r4 + c_r5) * 1
 
             # we want reactive power delivered to the grid to be as close as possible to 0
-            penalty = 10
+            penalty = 1
             c_react = 0
             if q_wslack[nbus-1] != 0:
                     c_react = abs(q_wslack[nbus-1]) * penalty
@@ -528,11 +528,11 @@ class MixedVariableProblem2(ElementwiseProblem):
             g4_vol = (1 / 1.1) * (V[3] - 1.1)
             g5_vol = (1 / 1.1) * (V[4] - 1.1)
             # under voltages
-            g6_vol = -(1 / 0.9) * (-0.9 + V[0])
-            g7_vol = -(1 / 0.9) * (-0.9 + V[1])
-            g8_vol = -(1 / 0.9) * (-0.9 + V[2])
-            g9_vol = -(1 / 0.9) * (-0.9 + V[3])
-            g10_vol = -(1 / 0.9) * (-0.9 + V[4])
+            g6_vol = (1 / 0.9) * (0.9 - V[0])
+            g7_vol = (1 / 0.9) * (0.9 - V[1])
+            g8_vol = (1 / 0.9) * (0.9 - V[2])
+            g9_vol = (1 / 0.9) * (0.9 - V[3])
+            g10_vol = (1 / 0.9) * (0.9 - V[4])
 
             gvol = [g1_vol, g2_vol, g3_vol, g4_vol, g5_vol, g6_vol, g7_vol, g8_vol, g9_vol, g10_vol]
             #gs = [g1_vol, g2_vol, g3_vol, g4_vol, g5_vol, g6_vol, g7_vol, g8_vol, g9_vol, g10_vol, g1_octr, g2_octr, g3_oc, g4_oc]
@@ -590,8 +590,8 @@ class MixedVariableProblem2(ElementwiseProblem):
 
         cost_invest, cost_tech, gvol, gcur  = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, Y_ref, solution_found) 
         # print(cost_output)
-        
-        out["G"] = anp.column_stack([gvol[0], gvol[1], gvol[2], gvol[3], gvol[4], gvol[5], gvol[6], gvol[7], gvol[8], gvol[9], gcur[0], gcur[1], gcur[2], gcur[3]])
         out["F"] = [cost_invest, cost_tech]
+        #out["G"] = anp.column_stack([gvol[0], gvol[1], gvol[2], gvol[3], gvol[4], gvol[5], gvol[6], gvol[7], gvol[8], gvol[9], gcur[0], gcur[1], gcur[2], gcur[3]])
+        out["G"] = [gvol[0], gvol[1], gvol[2], gvol[3], gvol[4], gvol[5], gvol[6], gvol[7], gvol[8], gvol[9], gcur[0], gcur[1], gcur[2], gcur[3]]
         #return cost_invest, cost_tech
         

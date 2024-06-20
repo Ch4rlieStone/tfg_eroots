@@ -537,7 +537,7 @@ The parameters $A$, $B$ and $C$ are shown in Table \ref{tab:parameterscab}.
 where $S_{r-tr}$ is the rated power of the transformer.
 \subsubsection{Shunt reactor}
 
-\begin{equation}
+\begin{equation}\label{eq:shuntcost}
     C_{sh}= K \cdot Q_l \cdot + P = K \cdot Y_l\cdot U_{AC-N}^2 + P \quad \left[M\euro\right]
 \end{equation}
 
@@ -1116,7 +1116,7 @@ where $Q_{max}=Q_{min}=0$. Also note that potentially the wind turbines could be
 Probably one of the critical parts is to indentify the objective function we want to minimize and decide how we treat it. Now, we will describe the terms that we will include in the objective function
 and why we have decided to work with a multiobjective approach.\par
 
-\subsubsection{Why bi-objective?}
+\subsubsection{Why bi-objective?} \label{biobjective}
 
 Let us imagine you are an engineer of a firm that is planning to build and OWPP. You have to ensure both that the transmission system is reliable and robust in terms of operational constraints but also to make the
 investment as profitable as possible, therefore you want to minimize its investment cost. Given this scenario, you can expect that it exists a tradeofff between the two objectives, investing more money can make your transmission system more robust and yield smaller power losses and
@@ -1227,7 +1227,7 @@ to find the recurisve optimization method that that suits best our problem. Fig.
     \draw [->] (box8) -- node[midway, right] {NO} (box9);
     
     %\draw [->] (box7) to[bend right=80] node[midway,below,sloped] {Optimization method} (box2);
-    \draw [->] (box8) -- ++(5,0) node[midway, above] {YES}|-  node[pos=0.25,sloped] {Optimization method: NSGA-II [\ref{NSGAII}]} (box2);
+    \draw [->] (box8) -- ++(5,0) node[midway, above] {YES}|-  node[pos=0.25,sloped] {Optimization algorithm: NSGA-II [\ref{NSGAII}]} (box2);
     
 \end{tikzpicture}
 }
@@ -1247,8 +1247,34 @@ After what we have summarized in the previous section we want an optimization me
 
 \subsection{State of the art limitations: interior point method}
 
-In \cite{paperbase} they propose an iterative method for solving thre reactive power compensation problem.
+In \cite{paperbase} they propose an iterative method for solving thre reactive power compensation problem. This methodology solves the optimization
+for continous varaibles using an interior point method solver \cite{ipm} for every possible combination of integer variables. Then, they compare the total
+cost for all options and pick the one with smaller cost.\par 
+
+This method is not suitable for our case, as we want to find the whole Pareto Front and not just one optimal solution. Moreover, the number of possible combinations of integer variables
+can increase quickly in other cases, making the method computationally expensive.
+
+
 \subsection{NSGA-II: Genetic algorithm}\label{NSGAII}
+
+One of the traditional methods to solve multiobjective problems is to basicaly transform the problem into a single objective problem by using a weighted sum of the objectives \cite{nsgai}:
+\begin{equation}\label{weightedsum}
+    f(\mathbf{x}) = \sum_{i=1}^{k} w_i \cdot f_i(\mathbf{x}) \quad \text{where} \quad \mathbf{x} \in \mathbf{X} \text{ and } \sum_{i=1}^{k} w_i = 1
+\end{equation}
+
+From \ref{weightedsum} is clear that modifying the weights $w_i$ we change the relative importance we give to each objective. The main drawback of this approach, eben though that we can deal with more than one objectives at the same time, we
+still get just one solution for each combinations of weights, not a set of optimal solutions, i.e. the Pareto Front. Moreover, how do we choose this $w_i$? Optimal point is sensible to this weights, therefore you must have
+a clear understanding of you priorites between the objectives.\par
+
+This is were genetic algorithms (GA's) come into play. GA's are a class of optimization algorithms that are inspired by the process of natural selection that uses the principles of evolution to solve optimization problems. The main idea is that they start from a random
+population of candidate solutions and, in one single simulation run, they are able to find multiple Pareto optimal solutions. \par
+
+That is why we will use the NSGA-II algorithm \cite{NSGAII} to solve our problem. It accomplishes the requirements in \ref{Optimization} and potentially
+can fing good canddiate solutions in smaller computational time. Moreover, it allows us to treat inequaility contraints with penalty functions, as proposed in \ref{biobjective}.\par
+
+
+
+The algorithm has been implemented in pymoo \cite{pymoo}, a python library for multiobjective optimization. The tuning parameters for the NSGA-II are shown in Table \ref{tab:NSGAII_parameters}.
 
 \begin{table}[h]
     \centering
@@ -1256,8 +1282,8 @@ In \cite{paperbase} they propose an iterative method for solving thre reactive p
     \hline
     \textbf{Parameter} & \textbf{Value} \\ \hline
     Population size & 300 \\ \hline
-    Survival & Rank and Crowding $"cd"$ \\ \hline
-    Termination  & 500 evaluations \\ \hline
+    Survival & Rank and Crowding $"pcd"$ \\ \hline
+    Termination  & 100 evaluations \\ \hline
     Constrainy Violation (CV) penalty & 100 \\ \hline
     \end{tabular}
     \caption{Tuning parameters for the NSGA-II}
@@ -1268,14 +1294,28 @@ In \cite{paperbase} they propose an iterative method for solving thre reactive p
 
 \subsection{Optimal Power Flow approach for compensation sizing}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.6\textwidth]{imatges/opf_convergence.png}
-    \caption{OPF convergence}
-    \label{fig:opfconv}   
-\end{figure}
+In this section we propose a different approach based on the Optimal Power Flow (OPF) to validate the results obtained with NSGA-II, specifically the ones relates to
+the sizing of the reactive power compensation.\par 
+
+The idea is to take one optimal solution from NSGA-II, i.e. all the decision variables in $\mathbf{x}$, and recompute just the values of sizing of the shunt reactors $Y_{sh_i}$. The main idea is to compare how close is the 
+stochasic approach solutions of NSGA-II to the solutions given by a standard deterministic approach as the OPF. \par
 
 
+The traditional AC-OPF objective function \cite{opfnotes} minimizes de cost of generating active power:
+\begin{equation}
+    \underset{P_G}{\text{min}} \quad \mathbf{c^T} \mathbf{P_G} \quad \text{where} \quad \mathbf{c} = \begin{bmatrix} c_0 \\ c_1 \\ c_2 \end{bmatrix}
+\end{equation}
+where $\mathbf{P_G}$ is the vector of active power generated by the generators and $c_0$, $c_1$ and $c_2$ are the independent, linear and quadratic power generations costs repectively.
+
+As we saw in \ref{eq:shuntcost}, shunt reactors compensate a reactive power equivalent to $Q_{sh} = Y_{sh} \cdot U^2$. Therefore, finding the optimal size of the shunt reactors is equivalent
+to minimize the cost of the reactive power compensation. Therefore we can modify the objective function of the OPF to:
+
+\begin{equation}\label{eq:Qopf}
+\underset{Q_{sh}}{\text{min}} \quad \mathbf{c_{sh}^T} \mathbf{Q_{sh}} \quad \text{where} \quad \mathbf{c_{sh}} = \begin{bmatrix} K \\ P \\ 0 \end{bmatrix}
+\end{equation}
+where K and P are from \ref{tab:parametersshunt}.\par
+We have made this modifications implemented in the AC-OPF solver in Grical \cite{gridcal}, an open-source Python library for power systems analysis. Note that the derivatives of the objective functions, Jacobian and Hessian, have
+been modified according to the new objective function \ref{eq:Qopf}.
 \section{Case study}\label{CaseStudies}
 
 \subsection{500 MW OWPP}
@@ -1287,6 +1327,12 @@ In \cite{paperbase} they propose an iterative method for solving thre reactive p
 %\subsubsection{100km}
 %\subsubsection{150km}
 h
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imatges/opf_convergence.png}
+    \caption{OPF convergence}
+    \label{fig:opfconv}   
+\end{figure}
 
 %------------------------------------------
 \section{Conclusions}\label{Conclusions}
@@ -1479,8 +1525,22 @@ optimization towards the Pareto front of multiple objectives"}, Chemical Enginee
 \bibitem{penalty}
 {Robert M. Freund}
 \textit{"Penalty and Barrier Methods for Constrained Optimization"} Massachusetts Institute of Technology, 2004.
-\end{thebibliography}
+
+\bibitem{ipm}
+{Richard H. Byrd, Jorge Nocedal, Charles Gilbert}
+\textit{"A Trust Region Method Based on Interior Point Techniques for Nonlinear Programming"}, Mathematical Programming, Vol. 89, Iss. 2, Pg. 149-185, 2000.
  
+
+\bibitem{opfnotes}
+{S. Chatzivasileiadis}
+\textit{"Optimization in Modern Power Systems"}, Lecture Notes, Technical University of Denmark (DTU), September 2018
+
+\bibitem{gridcal}
+{S. Peñate}
+\textit{"GridCal: A Python Library for Power System Analysis"}, GitHub repository, 2021. [Online]. Available: \href{https://github.com/SanPen/GridCal}, 2019
+\end{thebibliography}
+
+
 \section*{Appendix}\label{Appendix}
 \addcontentsline{toc}{section}{Appendix}
 

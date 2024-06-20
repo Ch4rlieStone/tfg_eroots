@@ -17,7 +17,7 @@ class MixedVariableProblem(ElementwiseProblem):
             "vol_level": Choice(options=["vol220"]),
             #"vol_level": Choice(options=["vol132"]),
             "n_cables": Integer(bounds=(2, 2)),
-            "S_rtr": Real(bounds=(657e6, 1000e6)),
+            "S_rtr": Real(bounds=(400e6, 1000e6)),
             "react1": Real(bounds=(0.0, 1.0)),
             "react2": Real(bounds=(0.0, 1.0)),
             "react3": Real(bounds=(0.0, 1.0)),
@@ -415,7 +415,7 @@ class MixedVariableProblem(ElementwiseProblem):
             """
         #  We compute the AC power losses
             p_lossac = Sbase * (p_owf + p_wslack[5]) * 1e-6  # MW
-
+            
             #  Cable cost
             Sncab = np.sqrt(3) * u_i * I_rated
             eur_sek = 0.087  # 0.087 eur = 1 sek
