@@ -4,20 +4,15 @@ import numpy as np
 import cmath
 import pymoo.gradient.toolbox as anp
 import time
-class MixedVariableProblem(ElementwiseProblem):
+class MixedVariableProblem3(ElementwiseProblem):
 
     def __init__(self, **kwargs):
         vars = {
-            "react1_bi": Binary(),
-            "react2_bi": Binary(),
-            "react3_bi": Binary(),
-            "react4_bi": Binary(),
-            "react5_bi": Binary(),
             #"vol_level": Choice(options=["vol132","vol220"]),
             "vol_level": Choice(options=["vol220"]),
             #"vol_level": Choice(options=["vol132"]),
-            "n_cables": Integer(bounds=(2, 3)),
-            "S_rtr": Real(bounds=(500e6, 1000e6)),
+            "n_cables": Integer(bounds=(3, 3)),
+            "S_rtr": Real(bounds=(1000e6, 2000e6)),
             "react1": Real(bounds=(0.0, 1.0)),
             "react2": Real(bounds=(0.0, 1.0)),
             "react3": Real(bounds=(0.0, 1.0)),
@@ -30,11 +25,11 @@ class MixedVariableProblem(ElementwiseProblem):
 
     def _evaluate(self, X, out, *args, **kwargs):
 
-        react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, vol, n_cables, S_rtr, react1, react2, react3, react4, react5 = \
-        X["react1_bi"], X["react2_bi"], X["react3_bi"], X["react4_bi"], X["react5_bi"], X["vol_level"], X["n_cables"], X["S_rtr"],\
+        vol, n_cables, S_rtr, react1, react2, react3, react4, react5 = \
+        X["vol_level"], X["n_cables"], X["S_rtr"],\
         X["react1"], X["react2"], X["react3"], X["react4"], X["react5"]
 
-        def build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val, react4_val, react5_val):
+        def build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_val, react2_val, react3_val, react4_val, react5_val):
             """
             Build the admittance matrix of the grid and define the general data.
             :param Sbase: Base power of the grid
@@ -165,39 +160,27 @@ class MixedVariableProblem(ElementwiseProblem):
             Y_piserie = n_cables * (1 / Z_piserie)  / Y_ref 
             '''
             # 1.4 Compensator
-            if react1_bi:
-                Y_l1 =  - 1j * react1_val
-            else:
-                Y_l1 = 0
-                react1_bi = 0.0
+            
+            Y_l1 =  - 1j * react1_val
+        
+            
+        
+            Y_l2 =  - 1j * react2_val
+            
+        
 
-            if react2_bi:
-                Y_l2 =  - 1j * react2_val
-                
-            else:
-                Y_l2 = 0
-                react2_bi = 0.0
+        
+            Y_l3 =  - 1j * react3_val
+        
 
-            if react3_bi:
-                Y_l3 =  - 1j * react3_val
-            else:
-                Y_l3 = 0
-                react3_bi = 0.0
+            Y_l4 =  - 1j * react4_val
 
-            if react4_bi:
-                Y_l4 =  - 1j * react4_val
-            else:
-                Y_l4 = 0
-                react1_bi = 0.0
-
-            if react5_bi:
-                Y_l5 =  - 1j * react5_val
-            else:
-                Y_l5 = 0
-                react5_bi = 0.0
+        
+            Y_l5 =  - 1j * react5_val
+           
 
             # 1.5 Grid connection
-            scr = 15  # which value should we put here 5 or 50?
+            scr = 50  # which value should we put here 5 or 50?
             xrr = 10
             V_grid = 220e3  # V
             #zgridm = V_ref**2 / (scr * p_owf * Sbase)
@@ -467,28 +450,28 @@ class MixedVariableProblem(ElementwiseProblem):
             p_off = 1.244
 
         
-            if react1_bi:
+            if Y_l1 != 0: 
                 # c_r1 = k_off * (abs(Y_l1) * (V[0])**2) + p_off
                 c_r1 = k_off * (abs(Y_l1) * Y_ref * (V[0])**2) + p_off
             else:
                 c_r1 = 0
 
-            if react2_bi:
+            if Y_l1 != 0:
                 c_r2 = k_off * (abs(Y_l2) * Y_ref * (V[1])**2) + p_off
             else:
                 c_r2 = 0
 
-            if react3_bi:
+            if Y_l1 != 0:
                 c_r3 = k_mid * (abs(Y_l3) * Y_ref * (V[2])**2) + p_mid
             else:
                 c_r3 = 0
 
-            if react4_bi:
+            if Y_l1 != 0:
                 c_r4 = k_on * (abs(Y_l4) * Y_ref * (V[3])**2) + p_on
             else:
                 c_r4 = 0
 
-            if react5_bi:
+            if Y_l1 != 0:
                 c_r5 = k_on * (abs(Y_l5) * Y_ref * (V[4])**2) + p_on
             else:
                 c_r5 = 0
@@ -602,15 +585,15 @@ class MixedVariableProblem(ElementwiseProblem):
 
         Sbase = 100e6  # VA
         f = 50  # Hz
-        l = 100  #  distance to shore in km
-        p_owf = 5  # p.u,  5 is equivalent to 500 MW owf
+        l = 150  #  distance to shore in km
+        p_owf = 10  # p.u,  5 is equivalent to 500 MW owf
         q_owf = 0 # p.u, we assume no reactive power is generated at plant
 
-        Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, y_trserie, y_piserie, Y_ref = build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1, react2, react3, react4, react5)
+        Y_bus, p_owf, q_owf, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, A, B, C, y_trserie, y_piserie, Y_ref = build_grid_data(Sbase, f, l, p_owf, q_owf, vol, S_rtr, n_cables, react1, react2, react3, react4, react5)
 
         V_wslack, angle_wslack, curr, p_wslack, q_wslack, solution_found = run_pf(p_owf, q_owf, Y_bus, nbus, vslack, dslack, max_iter, epss, y_trserie, y_piserie)
 
-        cost_invest, cost_tech, gs, g1_vol, cost_full  = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, Y_ref, solution_found)
+        cost_invest, cost_tech, gs, g1_vol, cost_full  = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, Y_ref, solution_found)
         #cost_invest, cost_tech  = compute_costs(p_owf, p_wslack, q_wslack, V_wslack, curr, nbus, n_cables, u_i, I_rated, S_rtr, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, Y_l1, Y_l2, Y_l3, Y_l4, Y_l5, Y_ref, solution_found)  
         # print(cost_output)
         

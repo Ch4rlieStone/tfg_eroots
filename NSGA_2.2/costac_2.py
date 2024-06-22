@@ -52,22 +52,22 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         elif vol == 2:
             u_i = 132e3  # V
             R = 0.0067  # ohm/km
-            Cap = 0.19e-6  # F/km
-            L = 0.38e-3   # H/km
+            Cap = 0.25e-6  # F/km
+            L = 0.35e-3   # H/km
             A = 1.971e6
             B = 0.209e6
             C = 1.66
-            I_rated = 500  # A
+            I_rated = 825  # A
 
         elif vol == 3:
             u_i = 220e3  # V
             R = 0.0067  # ohm/km
-            Cap = 0.17e-6  # F/km
-            L = 0.40e-3   # H/km
+            Cap = 0.19e-6  # F/km
+            L = 0.38e-3   # H/km
             A = 3.181e6
             B = 0.11e6
             C = 1.16
-            I_rated = 540  # A
+            I_rated = 825  # A
 
         if vol == 4:
             u_i = 400e3  # V
@@ -159,7 +159,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             Y_l5 = 0
 
         # 1.5 Grid connection
-        scr = 50  # which value should we put here 5 or 50?
+        scr = 15  # which value should we put here 5 or 50?
         xrr = 10
         zgridm = V_ref**2 / (scr * p_owf * Sbase)
         rgrid = np.sqrt(zgridm**2 / (xrr**2 + 1))
@@ -415,7 +415,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         c_tr = (0.0427 * (S_rtr * 1e-6)**0.7513)  # S_rtr in MVA
 
         # Cost reactors
-        fact = 1e3
+        fact = 1
         #fact = 1
         k_on = 0.01049 * fact
         k_mid = 0.01576 * fact
@@ -537,7 +537,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         cost_tech3 = c_react
         cost_tech4 = c_losses
 
-        cost_full = [c_vol, c_curr, c_losses, c_react, cost_tech, c_cab, c_gis, c_tr, c_reac, cost_invest,c_volover, c_volunder]
+        cost_full = [c_vol, c_curr, c_losses, c_react, cost_tech, c_cab, c_gis, c_tr, c_reac, cost_invest,c_volover, c_volunder, c_ss]
             # pprint(cost_full)
 
         # return np.array([cost_invest, cost_tech1, cost_tech2, cost_tech3, cost_tech4])

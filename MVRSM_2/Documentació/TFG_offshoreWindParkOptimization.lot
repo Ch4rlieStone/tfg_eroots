@@ -1,11 +1,13 @@
 \babel@toc {english}{}\relax 
 \babel@toc {english}{}\relax 
 \contentsline {table}{\numberline {1}{\ignorespaces Comparison of Capacitance per unit length of Overhead and Underground Lines}}{13}{table.caption.1}%
-\contentsline {table}{\numberline {2}{\ignorespaces Parameters A, B, C for different rated voltages \cite {chalmers}}}{18}{table.caption.9}%
-\contentsline {table}{\numberline {3}{\ignorespaces Parameters K and P for different positions of the reactive power compensation \cite {paperbase}}}{19}{table.caption.10}%
-\contentsline {table}{\numberline {4}{\ignorespaces Parameters for computing power losses cost \cite {paperbase}}}{19}{table.caption.11}%
-\contentsline {table}{\numberline {5}{\ignorespaces Known and unknown variables for each type of bus}}{21}{table.caption.12}%
-\contentsline {table}{\numberline {6}{\ignorespaces Transmission system bus types}}{22}{table.caption.15}%
-\contentsline {table}{\numberline {7}{\ignorespaces Grid parameters \cite {paperbase}}}{24}{table.caption.16}%
-\contentsline {table}{\numberline {8}{\ignorespaces Tuning parameters for the NSGA-II}}{34}{table.caption.19}%
-\contentsline {table}{\numberline {9}{\ignorespaces Thesis Costs}}{38}{table.caption.22}%
+\contentsline {table}{\numberline {2}{\ignorespaces Electrical parameters of AC cables}}{16}{table.caption.6}%
+\contentsline {table}{\numberline {3}{\ignorespaces Parameters A, B, C for different rated voltages \cite {chalmers}}}{20}{table.caption.11}%
+\contentsline {table}{\numberline {4}{\ignorespaces Parameters K and P for different positions of the reactive power compensation \cite {paperbase}}}{21}{table.caption.12}%
+\contentsline {table}{\numberline {5}{\ignorespaces Parameters for computing power losses cost \cite {paperbase}}}{21}{table.caption.13}%
+\contentsline {table}{\numberline {6}{\ignorespaces Known and unknown variables for each type of bus}}{23}{table.caption.14}%
+\contentsline {table}{\numberline {7}{\ignorespaces Transmission system bus types}}{24}{table.caption.17}%
+\contentsline {table}{\numberline {8}{\ignorespaces Grid parameters \cite {paperbase}}}{26}{table.caption.18}%
+\contentsline {table}{\numberline {9}{\ignorespaces Tuning parameters for the NSGA-II}}{38}{table.caption.21}%
+\contentsline {table}{\numberline {10}{\ignorespaces Specifications (except reactors sizing) of the optimal solution}}{40}{table.caption.25}%
+\contentsline {table}{\numberline {11}{\ignorespaces Thesis Costs}}{45}{table.caption.31}%
