@@ -159,7 +159,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             Y_l5 = 0
 
         # 1.5 Grid connection
-        scr = 15  # which value should we put here 5 or 50?
+        scr = 50  # which value should we put here 5 or 50?
         xrr = 10
         zgridm = V_ref**2 / (scr * p_owf * Sbase)
         rgrid = np.sqrt(zgridm**2 / (xrr**2 + 1))
@@ -499,12 +499,12 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         
         c_volover = 0
         for i in range(nbus-1):
-            if V[i] > 1:
+            if V[i] > 1.1:
                 c_volover += abs(V[i] - 1) * penalty
 
         c_volunder = 0.0
         for i in range(nbus-1):
-            if V[i] < 1:
+            if V[i] < 0.9:
                 c_volunder += abs(1 - V[i]) * penalty
         # overcurrents
         #c_curr = 0

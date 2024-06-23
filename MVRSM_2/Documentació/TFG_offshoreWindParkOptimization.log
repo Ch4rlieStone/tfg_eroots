@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.4.25)  22 JUN 2024 18:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.4.25)  23 JUN 2024 21:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1106,12 +1106,12 @@ Package pdftex.def Info: imatges/ETSEIB.png  used on input line 330.
  [13
 
 ]
-<imatges/why_compensation.png, id=460, 462.528pt x 346.896pt>
+<imatges/why_compensation.png, id=471, 462.528pt x 346.896pt>
 File: imatges/why_compensation.png Graphic file (type png)
 <use imatges/why_compensation.png>
 Package pdftex.def Info: imatges/why_compensation.png  used on input line 342.
 (pdftex.def)             Requested size: 314.40001pt x 235.81204pt.
-<imatges/layout.png, id=463, 632.86438pt x 248.42813pt>
+<imatges/layout.png, id=474, 632.86438pt x 248.42813pt>
 File: imatges/layout.png Graphic file (type png)
 <use imatges/layout.png>
 Package pdftex.def Info: imatges/layout.png  used on input line 353.
@@ -1121,7 +1121,7 @@ File: imatges/ETSEIB.png Graphic file (type png)
 Package pdftex.def Info: imatges/ETSEIB.png  used on input line 357.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [14 <./imatges/why_compensation.png>]
-<imatges/cable shape.png, id=478, 157.08687pt x 361.85187pt>
+<imatges/cable shape.png, id=489, 157.08687pt x 361.85187pt>
 File: imatges/cable shape.png Graphic file (type png)
 <use imatges/cable shape.png>
 Package pdftex.def Info: imatges/cable shape.png  used on input line 377.
@@ -1161,26 +1161,31 @@ File: imatges/ETSEIB.png Graphic file (type png)
 Package pdftex.def Info: imatges/ETSEIB.png  used on input line 653.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [21]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 654.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [22]
 
-LaTeX Warning: Reference `eqconstr' on page 22 undefined on input line 657.
+LaTeX Warning: Reference `eqconstr' on page 23 undefined on input line 658.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 716.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 717.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
-[22
+[23
 
 ]
-<imatges/poss_position.png, id=569, 366.36874pt x 92.345pt>
+<imatges/poss_position.png, id=588, 366.36874pt x 92.345pt>
 File: imatges/poss_position.png Graphic file (type png)
 <use imatges/poss_position.png>
-Package pdftex.def Info: imatges/poss_position.png  used on input line 735.
+Package pdftex.def Info: imatges/poss_position.png  used on input line 736.
 (pdftex.def)             Requested size: 314.40001pt x 79.25027pt.
 
-Overfull \hbox (28.13286pt too wide) in paragraph at lines 789--790
+Overfull \hbox (30.53468pt too wide) in paragraph at lines 790--791
  [][] 
  []
 
@@ -1189,217 +1194,247 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 812.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 813.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
-[23 <./imatges/poss_position.png>]
+[24 <./imatges/poss_position.png>]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 829.
-(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [24]
-File: imatges/ETSEIB.png Graphic file (type png)
-<use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 893.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 830.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [25]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 927.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 894.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [26]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 995.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 928.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [27]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 1014.
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1046.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 996.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [28{C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/tex-gyre/q-ec-sc.enc}]
+ [28]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 1015.
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1052.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1047.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [29]
+ [29{C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/tex-gyre/q-ec-sc.enc}]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1053.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [30]
 
-LaTeX Warning: Reference `Grid elements' on page 30 undefined on input line 1069.
+LaTeX Warning: Reference `Grid elements' on page 31 undefined on input line 1070.
 
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1099.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1100.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
-[30
+[31
 
 ]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1158.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1159.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [31]
-<imatges/binhorn_propi.png, id=669, 578.16pt x 433.62pt>
+ [32]
+<imatges/binhorn_propi.png, id=687, 578.16pt x 433.62pt>
 File: imatges/binhorn_propi.png Graphic file (type png)
 <use imatges/binhorn_propi.png>
-Package pdftex.def Info: imatges/binhorn_propi.png  used on input line 1198.
+Package pdftex.def Info: imatges/binhorn_propi.png  used on input line 1199.
 (pdftex.def)             Requested size: 217.66211pt x 163.24228pt.
-<imatges/domination.png, id=670, 347.79938pt x 251.94125pt>
+<imatges/domination.png, id=688, 347.79938pt x 251.94125pt>
 File: imatges/domination.png Graphic file (type png)
 <use imatges/domination.png>
-Package pdftex.def Info: imatges/domination.png  used on input line 1204.
+Package pdftex.def Info: imatges/domination.png  used on input line 1205.
 (pdftex.def)             Requested size: 217.66211pt x 157.67047pt.
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1211.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1212.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [32]
+ [33]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1237.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1238.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [33 <./imatges/binhorn_propi.png> <./imatges/domination.png>]
+ [34 <./imatges/binhorn_propi.png> <./imatges/domination.png>]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1240.
-(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [34]
-File: imatges/ETSEIB.png Graphic file (type png)
-<use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1294.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1241.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
  [35]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1328.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1295.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [36
-
-]
+ [36]
+<imatges/paper_algo.png, id=729, 233.37187pt x 395.97937pt>
+File: imatges/paper_algo.png Graphic file (type png)
+<use imatges/paper_algo.png>
+Package pdftex.def Info: imatges/paper_algo.png  used on input line 1312.
+(pdftex.def)             Requested size: 193.47578pt x 328.30026pt.
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1361.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1321.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [37]
-<imatges/random_vs_nsga_all.png, id=738, 462.528pt x 346.896pt>
+ [37
+
+ <./imatges/paper_algo.png>]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1360.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [38]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1374.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [39]
+<imatges/random_vs_nsga_all.png, id=766, 462.528pt x 346.896pt>
 File: imatges/random_vs_nsga_all.png Graphic file (type png)
 <use imatges/random_vs_nsga_all.png>
-Package pdftex.def Info: imatges/random_vs_nsga_all.png  used on input line 1399.
+Package pdftex.def Info: imatges/random_vs_nsga_all.png  used on input line 1419.
 (pdftex.def)             Requested size: 338.58632pt x 253.95184pt.
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1403.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1423.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [38
+ [40
 
 ]
-<imatges/random_vs_nsga_zoom.png, id=743, 462.528pt x 346.896pt>
+<imatges/random_vs_nsga_zoom.png, id=771, 462.528pt x 346.896pt>
 File: imatges/random_vs_nsga_zoom.png Graphic file (type png)
 <use imatges/random_vs_nsga_zoom.png>
-Package pdftex.def Info: imatges/random_vs_nsga_zoom.png  used on input line 1406.
+Package pdftex.def Info: imatges/random_vs_nsga_zoom.png  used on input line 1426.
 (pdftex.def)             Requested size: 338.58632pt x 253.95184pt.
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1421.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1441.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [39 <./imatges/random_vs_nsga_all.png> <./imatges/random_vs_nsga_zoom.png>]
-<imatges/opf_convergence.png, id=751, 422.07687pt x 316.68312pt>
+ [41 <./imatges/random_vs_nsga_all.png> <./imatges/random_vs_nsga_zoom.png>]
+<imatges/opf_convergence.png, id=780, 422.07687pt x 316.68312pt>
 File: imatges/opf_convergence.png Graphic file (type png)
 <use imatges/opf_convergence.png>
-Package pdftex.def Info: imatges/opf_convergence.png  used on input line 1425.
+Package pdftex.def Info: imatges/opf_convergence.png  used on input line 1445.
 (pdftex.def)             Requested size: 290.22107pt x 217.75777pt.
-<imatges/opf_vs_nsga.png, id=754, 462.528pt x 346.896pt>
+<imatges/opf_vs_nsga.png, id=783, 462.528pt x 346.896pt>
 File: imatges/opf_vs_nsga.png Graphic file (type png)
 <use imatges/opf_vs_nsga.png>
-Package pdftex.def Info: imatges/opf_vs_nsga.png  used on input line 1452.
+Package pdftex.def Info: imatges/opf_vs_nsga.png  used on input line 1472.
 (pdftex.def)             Requested size: 362.77264pt x 272.09163pt.
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1456.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1476.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [40 <./imatges/opf_convergence.png>]
-<imatges/cost_nsga.png, id=761, 1387.584pt x 704.6325pt>
+ [42 <./imatges/opf_convergence.png>]
+<imatges/cost_nsga.png, id=790, 1387.584pt x 704.6325pt>
 File: imatges/cost_nsga.png Graphic file (type png)
 <use imatges/cost_nsga.png>
-Package pdftex.def Info: imatges/cost_nsga.png  used on input line 1463.
+Package pdftex.def Info: imatges/cost_nsga.png  used on input line 1483.
 (pdftex.def)             Requested size: 483.69687pt x 245.62515pt.
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1467.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1487.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [41 <./imatges/opf_vs_nsga.png>]
-<imatges/costs_nosh.png, id=768, 1387.584pt x 704.6325pt>
+ [43 <./imatges/opf_vs_nsga.png>]
+<imatges/costs_nosh.png, id=796, 1387.584pt x 704.6325pt>
 File: imatges/costs_nosh.png Graphic file (type png)
 <use imatges/costs_nosh.png>
-Package pdftex.def Info: imatges/costs_nosh.png  used on input line 1470.
+Package pdftex.def Info: imatges/costs_nosh.png  used on input line 1490.
 (pdftex.def)             Requested size: 483.69687pt x 245.62515pt.
-<imatges/cost_comparision.png, id=769, 462.528pt x 346.896pt>
+<imatges/cost_comparision.png, id=797, 462.528pt x 346.896pt>
 File: imatges/cost_comparision.png Graphic file (type png)
 <use imatges/cost_comparision.png>
-Package pdftex.def Info: imatges/cost_comparision.png  used on input line 1478.
+Package pdftex.def Info: imatges/cost_comparision.png  used on input line 1498.
 (pdftex.def)             Requested size: 338.58632pt x 253.95184pt.
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1482.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1502.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [42 <./imatges/cost_nsga.png> <./imatges/costs_nosh.png>]
-File: imatges/ETSEIB.png Graphic file (type png)
-<use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1484.
-(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [43 <./imatges/cost_comparision.png>]
+ [44 <./imatges/cost_nsga.png> <./imatges/costs_nosh.png>]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
 Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1504.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [44
+ [45 <./imatges/cost_comparision.png>]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1538.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [46
 
 ]
+<imatges/weibull.png, id=820, 394.47375pt x 123.96312pt>
+File: imatges/weibull.png Graphic file (type png)
+<use imatges/weibull.png>
+Package pdftex.def Info: imatges/weibull.png  used on input line 1541.
+(pdftex.def)             Requested size: 338.58632pt x 106.40002pt.
+<imatges/layouts.png, id=826, 380.92313pt x 316.18124pt>
+File: imatges/layouts.png Graphic file (type png)
+<use imatges/layouts.png>
+Package pdftex.def Info: imatges/layouts.png  used on input line 1567.
+(pdftex.def)             Requested size: 241.84843pt x 200.7439pt.
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1570.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [47 <./imatges/weibull.png>]
+File: imatges/ETSEIB.png Graphic file (type png)
+<use imatges/ETSEIB.png>
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1578.
+(pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
+ [48 <./imatges/layouts.png>]
 LaTeX Font Info:    Font shape `U/eurosym/b/n' in size <10.95> not available
-(Font)              Font shape `U/eurosym/bx/n' tried instead on input line 1540.
+(Font)              Font shape `U/eurosym/bx/n' tried instead on input line 1614.
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1563.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1637.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [45
+ [49
 
 ]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1600.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1674.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [46]
+ [50]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1611.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1685.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [47
+ [51
 
 ]
-Underfull \hbox (badness 1028) in paragraph at lines 1666--1668
+Underfull \hbox (badness 1028) in paragraph at lines 1745--1747
 []\T1/qpl/m/n/10.95 J. Blank, K. Deb, \T1/qpl/m/it/10.95 "py-moo: Multi-Objective Op-ti-miza-tion in Python"\T1/qpl/m/n/10.95 ,IEEE Ac-cess, vol.8, pp.
  []
 
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1678.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1752.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
-[48
+[52
 
 ]
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1719.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1800.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [49]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1723.
+ [53]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1804.
  (C:\Users\garri\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 File: imatges/ETSEIB.png Graphic file (type png)
 <use imatges/ETSEIB.png>
-Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1725.
+Package pdftex.def Info: imatges/ETSEIB.png  used on input line 1806.
 (pdftex.def)             Requested size: 35.83324pt x 45.16794pt.
- [50
+ [54
 
 {C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-super-t1.enc}] (TFG_offshoreWindParkOptimization.aux)
  ***********
@@ -1417,17 +1452,17 @@ Package rerunfilecheck Info: File `TFG_offshoreWindParkOptimization.out' has not
 (rerunfilecheck)             Checksum: C81A228A6C66CEC726A3C97E9F573E2F;9596.
  ) 
 Here is how much of TeX's memory you used:
- 52006 strings out of 474424
- 1217907 string characters out of 5741739
- 1999763 words of memory out of 5000000
- 73424 multiletter control sequences out of 15000+600000
+ 52043 strings out of 474424
+ 1218677 string characters out of 5741739
+ 2000348 words of memory out of 5000000
+ 73451 multiletter control sequences out of 15000+600000
  612041 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  110i,17n,117p,1355b,964s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/eurosym/feybr10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/eurosym/feymr10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplb.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplr.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplri.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on TFG_offshoreWindParkOptimization.pdf (52 pages, 1429025 bytes).
+Output written on TFG_offshoreWindParkOptimization.pdf (56 pages, 1691485 bytes).
 PDF statistics:
- 947 PDF objects out of 1000 (max. 8388607)
- 214 named destinations out of 1000 (max. 500000)
- 576 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1008 PDF objects out of 1200 (max. 8388607)
+ 224 named destinations out of 1000 (max. 500000)
+ 591 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -259,15 +259,15 @@ This work will limit its study to :
     power injections.
     \item We will assume that the main grid we are supplying power to is completely stable, in the sense that it does not suffer voltage level perturbations.
 \end{itemize}
-\subsection{Objectives}
+\subsection{Objectives}\label{objectives}
 
 The main objectives of the thesis are the following:
 \begin{itemize}
     \item Model all the elements of the transmission system of an offshore wind power plant and find its equivalent circuit.
     \item Implement a power flow solver with Python.
     \item Formulate the optimization problem of the reactive power compensation and the transmission system design. 
-    \item Bencharmark different optimization algorithms that allow to find a Pareto Frontier of solutions and other advantatge with respect to the state of the art.
-    \item Study some specific cases applicable to real offshore wind power plants.
+    \item Design and implement an optimization algorithm in Python that allows to find the Pareto Frontier of optimal solutions and compare its advantatges with respect to the state-of-the-art.
+    \item Study a specfic case study applicable to real offshore wind power plants.
   \end{itemize}
 
 
@@ -281,7 +281,7 @@ The thesis is structured as follows:
     the algorithm structure that deals with the optimization formulation.
     \item Chapter \ref{Optimization} explains state of the art methods to solve the problem, its limitations, and our new approaches, involving
     genetic algorithms and  an optimal power flow approach.
-    \item Chapter \ref{CaseStudies} showcases  the results for a specific case study and benchmarks the performance of the optimization algorithms.
+    \item Chapter \ref{CaseStudies} showcases  the results for a specific case study and analyses the performance and results of the optimization algorithm.
     and computational time.
     \item Chapter \ref{Conclusions} collects the main outcomes of the thesis and proposes future lines of work.
     \item Chapter \ref{Planning} presents the planning and viability studies for the project.
@@ -612,13 +612,14 @@ $Y_l$ is the admittance of the reactor and $U_{AC-N}$ is the nominal transmissio
     \end{table}
 \subsubsection{Switchgears}
 
+For switchears, costs are defined in \cite{switchcost} as:
 \begin{equation}
     C_{gis-AC} = 0.0117 \cdot U_{AC-N} + 0.0231 \quad \left[M\euro\right]
 \end{equation}
 
 where $U_{AC-N}$ is the nominal transmission voltage in kV.
 \subsubsection{Substation platform}
-
+For the substation platform, costs are presented in \cite{chalmers} as:
 \begin{equation}
     C_{ss-AC} = 2.534 + 0.0887 \cdot P_{owf} \quad \left[M\euro\right]
 \end{equation}
@@ -781,8 +782,8 @@ after the same transformer. For sake of generality, we will consider that any co
         \node at (15,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{5}$]{};
         \draw (15,0.4) -- (14,0.4);
         \draw (14,0.4) to [generic, l=$\underline{Y}_{sh5}$] (14,-2) node[ground]{};
-        \draw (15,0.75) to [generic, l=$\underline{z}_{g}$](17,0.75);
-        \draw (17,0.75) to[sV, l=$\underline{u}_{g}$] (17,-2) to (17,-2) node[ground]{};
+        \draw (15,0.75) to [generic, l=$\underline{Z}_{g}$](17,0.75);
+        \draw (17,0.75) to[sV, l=$\underline{U}_{g}$] (17,-2) to (17,-2) node[ground]{};
         \node at (17,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{6}$]{};
     
 
@@ -1241,7 +1242,7 @@ In practice, setting a big value for $c$ will make the optimization method to lo
 \subsection{Algorithm overview}
 
 Now we have setup all the elements that define the sequential process for finding the desired Pareto Front. Now it just remains
-to find the recurisve optimization method that that suits best our problem. Fig. \ref{fig:block_overview} shows the block diagram of the solver implemented in Python.
+to find the recurisve optimization method that that suits best our problem. Fig. \ref{fig:block_overview} shows the block diagram of the solver implemented in Python (check the \hyperref[Appendix]{Appendix}).
 
 \begin{figure}[h]
 \centering
@@ -1268,7 +1269,7 @@ to find the recurisve optimization method that that suits best our problem. Fig.
     \node [block, below of=box5, yshift=-0.5cm] (box6) {Compute operational limits deviations of $\mathbf{G(x)} \leq 0$ and penalize};
     \node [block, below of=box6, yshift=-0.5cm] (box7) {Evaluate $\mathbf{f_{invest}(x)}$ and $\mathbf{f_{tech}(x)}$};
     \node [block, left of=box3, xshift=-2cm] (box3a) {Input OWPP parameters: $P_{owf}$, $Q_{owf}, l$};
-    \node [block?, below of=box7] (box8) {Is $n_{evals} < n_{termination}$?};
+    \node [block?, below of=box7] (box8) {Is $n_{generations} < n_{generations_{max}}$?};
     \node [block, below of=box8] (box9) {Plot Pareto Front};
     % Connect the nodes
     \draw [->] (box1) -- (box2);
@@ -1304,22 +1305,32 @@ After what we have summarized in the previous section we want an optimization me
 
 In \cite{paperbase} they propose an iterative method for solving thre reactive power compensation problem. This methodology solves the optimization
 for continous varaibles using an interior point method solver \cite{ipm} for every possible combination of integer variables. Then, they compare the total
-cost for all options and pick the one with smaller cost.\par 
+cost for all options and pick the one with smaller cost. The algorithm is summarized in \ref{fig:paaperalgo}:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{imatges/paper_algo.png}
+    \caption{State-of-the-art algorithm for reactive power compensation optimization \cite{paperbase}}
+    \label{fig:paaperalgo}
+\end{figure}
+    
+
 
 This method is not suitable for our case, as we want to find the whole Pareto Front and not just one optimal solution. Moreover, the number of possible combinations of integer variables
-can increase quickly in other cases, making the method computationally expensive.
+can increase quickly in further expansions of the problem (for instance if you also consider the electrical collection system between turbines in the OWPP), making the method computationally expensive.
 
-
-\subsection{NSGA-II: Genetic algorithm}\label{NSGAII}
-
-One of the traditional methods to solve multiobjective problems is to basicaly transform the problem into a single objective problem by using a weighted sum of the objectives \cite{nsgai}:
+Another traditional method to solve multiobjective problems is to basicaly transform the problem into a single objective problem by using a weighted sum of the objectives \cite{nsgai}:
 \begin{equation}\label{weightedsum}
     f(\mathbf{x}) = \sum_{i=1}^{k} w_i \cdot f_i(\mathbf{x}) \quad \text{where} \quad \mathbf{x} \in \mathbf{X} \text{ and } \sum_{i=1}^{k} w_i = 1
 \end{equation}
 
-From \ref{weightedsum} is clear that modifying the weights $w_i$ we change the relative importance we give to each objective. The main drawback of this approach, eben though that we can deal with more than one objectives at the same time, we
+From \ref{weightedsum} is clear that modifying the weights $w_i$ we change the relative importance we give to each objective. The main drawback of this approach, even though that we can deal with more than one objectives at the same time, we
 still get just one solution for each combinations of weights, not a set of optimal solutions, i.e. the Pareto Front. Moreover, how do we choose this $w_i$? Optimal point is sensible to this weights, therefore you must have
-a clear understanding of you priorites between the objectives.\par
+a clear understanding of you priorites between the objectives which is something we do not want to impose in our approach.\par
+
+\subsection{NSGA-II: Genetic algorithm}\label{NSGAII}
+
+
 
 This is were genetic algorithms (GA's) come into play. GA's are a class of optimization algorithms that are inspired by the process of natural selection that uses the principles of evolution to solve optimization problems. The main idea is that they start from a random
 population of candidate solutions and, in one single simulation run, they are able to find multiple Pareto optimal solutions. \par
@@ -1358,11 +1369,18 @@ to minimize the cost of the reactive power compensation. Therefore we can modify
 where K and P are from \ref{tab:parametersshunt}.\par
 We have made this modifications implemented in the AC-OPF solver in Grical \cite{gridcal}, an open-source Python library for power systems analysis. Note that the derivatives of the objective functions, Jacobian and Hessian, have
 been modified according to the new objective function \ref{eq:Qopf}.
+
+
 \section{Case study}\label{CaseStudies}
 
+In this section we will study in depth the results that the algorithm yields for a specific design parameters
+of an OWPP. We will bencharmark the results obtained with NSGA-II with a "brute" force approoach using random search and compare the results of reactors sizing comparing with the OPF
+approach. Moreover, we will do an in-depth analysis of the optimal solution cost breakdown and compare it to optimal points without considering reactive power compensation to understand the need
+to include this in the optimization problem.
 
 
-The results obtained have been obtained in a computer with the following specifications:
+
+The results obtained have been computed in a laptop with the following specifications:
 \begin{itemize}
     \item Processor: Processor: Intel(R) Core(TM) i5-8365U CPU @ 1.60GHz
     \item RAM: 8 GB
@@ -1373,7 +1391,7 @@ The results obtained have been obtained in a computer with the following specifi
     \item GridCal version: 5.1.11
 \end{itemize}
 
-The tuning parameters used for the NSGA-II are shown in Table \ref{tab:NSGAII_parameters}.
+The tuning parameters used for the NSGA-II algorithm are shown in Table \ref{tab:NSGAII_parameters}.
 
 \begin{table}[h]
 \centering
@@ -1391,6 +1409,8 @@ The tuning parameters used for the NSGA-II are shown in Table \ref{tab:NSGAII_pa
 
 
 \subsection{500 MW, 100 km OWPP}
+
+We pick as case study a 500 MW OWPP located 100 km from shore. Results have been separated in different subsections to study specific results.
 
 \subsubsection{Random search compared to NSGA-II}
 
@@ -1483,23 +1503,77 @@ Now we can compare the cumulative total costs of NSGA-II optimal solution with t
 %------------------------------------------
 \section{Conclusions}\label{Conclusions}
 
+All the objectives proposed at the begginng at \ref{objectives} have beeen acomplished. This chapter summarizes
+the main conclusions of the work and presents some proposals to take into consideration for future
+related work.
 
 \subsection{Outcome}
 
+The main outcomes derived from the objectives met from each chapter of interest are:
 \begin{itemize}
-    \item Algortime s'ha implementart i compleix els requisits i dona solucions q semblen ok.
-    \item Tenim Pareto Front, efectivament existeix trade-off.
-    \item OOPF dona subport a que les solucions de NSGA-II son correctes.
-    \item Proposta innovadora de fer lapproach al problema mixed variables.
-    \item Amb mateix temps de computació, i menys, trobem tot un set de optimal solutions.
+    \item Chapter \ref{Minimization} covers the  mathematical fundations of the problem formulation and optimization approach. The analysis shows how the multiobjective approach helps us achive
+    the desire to obtain the full Pareto Front and how this aproximation becomes useful to undertand the underlying behaviour of the power flow analysis of the transmission system model.
+
+    \item Chapter \ref{Optimization} presents the state-of-the-art optimization algorithm and presents the different techniques that have been considered to be used.
+    It establishes the limitations that have been found and how the applications of a genetic algorithm such as NSGA-II
+    can help to overcome them and meet the requirments of the optimization problem. It presents some theoretical fundations of the algorithm used and the schematic of the recursive solver that has been implemented.
+
+    \item Chapter \ref{CaseStudies} applies the optimization algorithm to a specific case study of an OWPP. First, the algorithm implementation has been demostrated to be fully functional and meets the requirements in \ref{Optimization}.
+    The results show how we obtain a coherent Pareto Front and how the results obtained outperform any brute force approach, revealing a set on non-dominated optimal solutions. Moreover, the comparison with the OPF approach validates our results and shows that
+    NSGA-II is able to reach the "best" points using a stochastic approach given that OPF is unable to explore any dominating area below the Pareto Front. The cost breakdown and evolution of cots for different power injections give an intuitve 
+    explanation of the need for reactive power compensation.\par
+    All in all, it can be concluded that the innovative approach of using a GA for the optimization of the transmission system of an OWPP has been successful and it has promising properties as a potential powerful tool to deal with this kind of optimization
+    with reduced computational time.
+
 \end{itemize}
+
 \subsection{Future work}\label{futurework}
-\begin{itemize}
-    \item Desenvolupar bé el tema dels diferents winds. Proposta de com fer-ho i això permetria comparar resultats directament amb state-of-art.
-    \item Mirar afectarien varaicions de voltage level a al main grid we supply to.
-    \item Fer més casos d'estudi.
-    \item Implementar eel mètode a un software com podria ser Gridcal.
-\end{itemize}
+
+The implementation of NSGA-II for the optimization of OWPP transmission system design has potential to become a powerful tool. In this section we will propose a set of possible improvements
+that could enhance the overall quality of the proposed method and give new insights.\par 
+
+The main simplification and assumption through the development of the work has been assuming a constant power supplied by the OWPP
+at its nominal value, in other words, we are assuming a constant wind speed at the desired value. As shown in \ref{fig:whycomp} and in (), the need of reactive power compensation increases as the power injections of our plant descreases, i.e. low wind or no wind.
+The next and logical step is to let the proposed algorithm to consider different wind conditions. To be more accurate, we should consider a wind speed distribution, normally assumed to follow a Weibull distribution shown in \ref{fig:weibull}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{imatges/weibull.png}
+    \caption{Weibull distribution of wind speeds \cite{paperbase}}
+    \label{fig:weibull}
+\end{figure}
+
+To consider this distribution, we propose to create a set of N wind speeds $u_j$,  and associate a probability $p_j$ and power genearation $P_{owf_j}$ to each of them. Now it would just remain that the step on which we solve the power flow in \ref{fig:block_overview} to compute a 
+weighted average of the power injections of the OWPP, $P_{owf}$  with the probabilities $p_j$. Doing so, the objective funtion will be a weighted sum of the costs of the different wind conditions:
+\begin{equation}
+\begin{aligned}
+        f_{invest}(\mathbf{x}) &= \sum_{j=1}^{N} p_j \cdot  \left[ C_{cables}(\mathbf{x}) + C_{tr}(\mathbf{x}) + C_{sh}(\mathbf{x}) + C_{gis-AC}(\mathbf{x}) + C_{ss-AC}(\mathbf{x}) \right] \\
+        f_{tech}(\mathbf{x}) &= \sum_{j=1}^{N} p_j \left[ \cdot C_{loss-AC}(\mathbf{x}) + c \cdot \mathbf{p(x)} \right] \\       
+\end{aligned}   
+\end{equation}
+
+This approach will give a more realistic view of the system and allow to do a fair comparision between the state-of-the-art results in terms of reactive power compensation sizing for every different combination of $P_owf$ and $l$ for OWPP. \par
+
+Moreover, recall that we have limit our work to the HVAC technology, but HVDC technology should also be considered as an option.
+Literature \cite{paperbase} shows that after considering shunt reactors for reactive power compensation purpouses, after the break-even distance of around 150 km,
+using HVDC becomes cheaper than HVAC, for which power losses increase notably for high distances. Computing costs for HVDC would allow to extend the decision variables of the optimization to its full
+domain of posibilities.\par
+
+Moreover, further work could be to consider how disturbances of the voltage of the grid we are supplying to or the layout of the electrical collection system (see Figure \ref{layouts_shape}) inside the OWPP could affect the optimization problem. 
+Also, this work could be implemented in a software like Gridcal. Implementing this algorithm in an open-source software would allow to make it accesible to a wider audience, with a more user oriented interface and to be used in real-life projects.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{imatges/layouts.png}
+    \caption{Collection system for OWPP posible layouts: Radial(a), Single-sided ring(b), Double sided ring(c) and star(d) \cite{layouts_coll}}
+    \label{layouts_shape}
+\end{figure}
+
+Finally, one of the main criticisim to this work would be the validity of the cost functions used for the objective function. Finding and approximating this functions is no easy work,
+since costs associated to each element vary from manufacturer to manufacturer and cost analysis can be extended not just initial investment ones, but to other concepts such as maintanance, oparation and depreciation costs. Sudying more complex and accurate 
+versions of costs functions is a another potential line of work.\par
+
+All in all, the work developed in this thesis provides a good theoretical and practical basis for further research in the optimitization of transmission systems in OWPP. In fact, this thesis will be uesed as the the starting point for eRoots  and Acciona to implement an operative and complete version of the algorithm in GridCal.
 %------------------------------------------
 \section{Planning and viability studies}\label{Planning}
 
@@ -1650,6 +1724,11 @@ IEEE Power Energy Soc. General Meet.: Convers. Del. Elect. Energy the
 {Stefan Lundberg},
 \textit{"Performance comparision of wind park configurations"}, Chalmers University of Technology, 2003.
 
+\bibitem{switchcost}
+{Regional Group North Sea},
+\textit{“Offshore transmission technology”}, ENTSOE AISBL, Brussels, Belgium, Tech. Rep., Nov. 2011.
+
+
 \bibitem{ABB}
 {ABB HIgh Voltage Cable Unit},
 \textit{"XLPE Submarine Cable Systems: Attachment to XLPE Land Cable Systems - User guide"}, ABB, Karlskrona, Sweden, 2010.
@@ -1697,8 +1776,10 @@ optimization towards the Pareto front of multiple objectives"}, Chemical Enginee
 {L. P. Lazaridis}
 \textit{"Economic comparison of HVAC and HVDC solutions for large offshore wind farms under special consideration of reliability"}, Master thesis, KTH Royal Institute of Technology, 2015.
 
-
-
+\bibitem{layouts_coll}
+{P. Lakshmanan, R. Sun, J. Liang}
+\textit{"Electrical Collection Systems for Offshore Wind
+Farms: A Review"} CSEE JOURNAL OF POWER AND ENERGY SYSTEMS, Vol.7, No.5, September 2021
 
 
 

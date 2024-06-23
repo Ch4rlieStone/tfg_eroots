@@ -5,7 +5,7 @@ import costac_2
 
 
 
-trials = 50
+trials = 100
 ff = costac_2.costac_2
 random_check = np.zeros((trials,6))
 d = 13
@@ -16,15 +16,15 @@ num_int = 7
 lb = np.array([3, 2, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 450e6])  # Lower bound
 ub = np.array([3, 2, 1, 1, 1, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1000e6])  # Upper bound
 
-p_owf = 7
+p_owf = 5
 p_owflist = np.linspace(1, p_owf, trials)
 x_history = np.zeros((trials, d))
 
 
-xnsga = np.array([3, 2, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 700e6])
+#xnsga = np.array([3, 2, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 700e6])
 for i in range(trials):
         
-        x0 = np.array([3,2,1,1,1,1,1,0.8,0.0,0.9,0.0,0.5,600e6])
+        x0 = np.array([3, 2, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 509.72e6])
         x_history[i,:] = x0
         vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val,react4_val, react5_val, S_rtr = x0
         p_owf = p_owflist[i]
@@ -36,15 +36,7 @@ for i in range(trials):
 
 #plt.plot(p_owflist, cost_losses_no, label='Power losses with no compensation')
 for i in range(trials):
-        """
-        x0 = np.zeros(d) # Initial guess
-        x0[0:num_int] = np.round(np.random.rand(num_int)*(ub[0:num_int]-lb[0:num_int]) + lb[0:num_int]) # Random initial guess (integer)
-        x0[num_int:d] = np.random.rand(d-num_int)*(ub[num_int:d]-lb[num_int:d]) + lb[num_int:d] # Random initial guess (continuous)
-        x_history[i,:] = x0
-        h = np.copy(x0[0:num_int]).astype(int)
-        x_history[i,:] = x0
-        vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val,react4_val, react5_val, S_rtr = x0
-        """
+       
         x0 = np.array([3,2,1,1,1,1,1,0.4,0.0,0.8,0.0,0.4,600e6])
         x_history[i,:] = x0
         vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val,react4_val, react5_val, S_rtr = x0
@@ -53,6 +45,7 @@ for i in range(trials):
         cost_invest, cost_tech, cost_full = ff(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val,react4_val, react5_val, S_rtr, p_owf)
         #result = ff(h[0], h[1], h[2], h[3] ,h[4] , h[5] ,h[6], x0[7],x0[8],x0[9],x0[10],x0[11],x0[12])
         random_check[i,:] = [cost_invest, cost_tech, cost_full[10], cost_full[2], cost_full[3], cost_full[11]]
+
         cost_losses_yes = random_check[:,3]
 """      
 xnsga = np.array([3, 2, 1, 0, 0, 0, 1, 0.702, 0.0, 0.0, 0.0, 0.839, 666.31e6])

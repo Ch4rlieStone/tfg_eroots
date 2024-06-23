@@ -106,7 +106,7 @@ plot.add(res.F, facecolor="none", edgecolor="black")
 plot.add(res.F[I], color="red", s=50)
 print("Best solution found weigthed: \nX = %s\nF = %s" % (res.X[I], res.F[I]))
 print(res.F.shape)
-#plot.show()
+plot.show()
 
 """
 start_time2 = time.time()
@@ -163,6 +163,8 @@ plt.title("Set of solutions comparing NSGA and random search")
 
 plt.show()
 """
+
+"""
 ff = costac_2
 p_owf = 5
 x_opf = np.array([3, 2, 1, 1, 0, 1, 0, 0.519, 0.953, 0.0, 0.737, 0.0, 509.72e6])
@@ -187,3 +189,4 @@ plt.ylabel('Cost [M€]')
 plt.title('Breakdown of Full OPF Cost')
 plt.xticks(rotation=45)  # Rotate labels to avoid overlap
 plt.show()
+"""
