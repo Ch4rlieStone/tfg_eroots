@@ -66,6 +66,7 @@
 % tikz things
 \usetikzlibrary{shapes.geometric, arrows}
 \usetikzlibrary{shapes,arrows}
+\usetikzlibrary{shapes, arrows.meta, positioning}
 
 %------------------------------------------
 \renewcommand{\baselinestretch}{1.25} 
@@ -190,9 +191,10 @@ Short and must include results.
 
 \nomenclature{AC}{Alternating Current}
 \nomenclature{DC}{Direct Current}
+\nomenclature{GA}{Genetic Algorithm}
 \nomenclature{HVAC}{High Voltage Alternating Curent}
 \nomenclature{HVDC}{High Voltage Direct Current}
-\nomenclature{MVRSM}{Mixed-Variable ReLU-based Surrogate Modelling}
+%\nomenclature{MVRSM}{Mixed-Variable ReLU-based Surrogate Modelling}
 \nomenclature{N-R}{Newton-Raphson Method}
 \nomenclature{OPF}{Optimal Power Flow}
 \nomenclature{OSS}{Offshore Substation}
@@ -201,6 +203,7 @@ Short and must include results.
 \nomenclature{PF}{Power Flow}
 \nomenclature{SCR}{Short Circuit Ratio}
 \nomenclature{XLPE}{Cross-Linked Polyethylene}
+
 
 \printnomenclature
 
@@ -1002,7 +1005,8 @@ Now it just remain to find the step $\Delta \mathbf{x^v}$ to update $\mathbf{x}$
     \mathbf{J^k}\Delta \mathbf{x^k} = -\mathbf{f(x^k)}
 \end{equation}
 
-Now we update $\mathbf{x^{k+1}}=\mathbf{x^{k}}+\Delta \mathbf{x^k}$ and iterate until it converges. The convergence criteria is usually set as the maximum of the absolute value of the power mismatch vector, $\max(\mathbf{f(x)})$, is less than a tolerance, $tol$.
+Now we update $\mathbf{x^{k+1}}=\mathbf{x^{k}}+\Delta \mathbf{x^k}$ and iterate until it converges. The convergence criteria is usually set as the maximum of the absolute value of the power mismatch vector, $\max(\mathbf{f(x)})$, is less than a tolerance, $tol$, 
+which we have set to $10^{-6}$.
 
 
 
@@ -1242,7 +1246,8 @@ In practice, setting a big value for $c$ will make the optimization method to lo
 \subsection{Algorithm overview}
 
 Now we have setup all the elements that define the sequential process for finding the desired Pareto Front. Now it just remains
-to find the recurisve optimization method that that suits best our problem. Fig. \ref{fig:block_overview} shows the block diagram of the solver implemented in Python (check the \hyperref[Appendix]{Appendix}).
+to find the recurisve optimization method that that suits best our problem. Note that here we advance that we will use the genetic algorithm
+NSGA-II to solve the optimization problem (see section \ref{NSGAII}). Figure \ref{fig:block_overview} shows the block diagram of the solver implemented in Python (check the \hyperref[Appendix]{Appendix}).
 
 \begin{figure}[h]
 \centering
@@ -1268,8 +1273,8 @@ to find the recurisve optimization method that that suits best our problem. Fig.
     \node [block, below of=box4] (box5) {Run Power Flow $\mathbf{H(x)}=0$};
     \node [block, below of=box5, yshift=-0.5cm] (box6) {Compute operational limits deviations of $\mathbf{G(x)} \leq 0$ and penalize};
     \node [block, below of=box6, yshift=-0.5cm] (box7) {Evaluate $\mathbf{f_{invest}(x)}$ and $\mathbf{f_{tech}(x)}$};
-    \node [block, left of=box3, xshift=-2cm] (box3a) {Input OWPP parameters: $P_{owf}$, $Q_{owf}, l$};
-    \node [block?, below of=box7] (box8) {Is $n_{generations} < n_{generations_{max}}$?};
+    \node [block, left of=box1, xshift=-2cm] (box3a) {Input OWPP parameters: $P_{owf}$, $Q_{owf}, l$};
+    \node [block?, below of=box7] (box8) {Is NSGA-II (see \ref{NSGAII}) terminated?};
     \node [block, below of=box8] (box9) {Plot Pareto Front};
     % Connect the nodes
     \draw [->] (box1) -- (box2);
@@ -1278,12 +1283,12 @@ to find the recurisve optimization method that that suits best our problem. Fig.
     \draw [->] (box4) -- (box5);
     \draw [->] (box5) -- (box6);
     \draw [->] (box6) -- (box7);
-    \draw [->] (box3a) -- (box3); % New arrow
+    \draw [->] (box3a) -- (box1); % New arrow
     \draw [->] (box7) -- (box8);
-    \draw [->] (box8) -- node[midway, right] {NO} (box9);
+    \draw [->] (box8) -- node[midway, right] {YES} (box9);
     
     %\draw [->] (box7) to[bend right=80] node[midway,below,sloped] {Optimization method} (box2);
-    \draw [->] (box8) -- ++(5,0) node[midway, above] {YES}|-  node[pos=0.25,sloped] {Optimization algorithm: NSGA-II [\ref{NSGAII}]} (box2);
+    \draw [->] (box8) -- ++(5,0) node[midway, above] {NO}|-  node[pos=0.25,sloped] {Recursive algorithm: NSGA-II [\ref{fig:nsgasteps}]} (box2);
     
 \end{tikzpicture}
 }
@@ -1335,12 +1340,64 @@ a clear understanding of you priorites between the objectives which is something
 This is were genetic algorithms (GA's) come into play. GA's are a class of optimization algorithms that are inspired by the process of natural selection that uses the principles of evolution to solve optimization problems. The main idea is that they start from a random
 population of candidate solutions and, in one single simulation run, they are able to find multiple Pareto optimal solutions. \par
 
-That is why we will use the NSGA-II algorithm \cite{NSGAII} to solve our problem. It accomplishes the requirements in \ref{Optimization} and potentially
-can fing good canddiate solutions in smaller computational time. Moreover, it allows us to treat inequaility contraints with penalty functions, as proposed in \ref{biobjective}.\par
+That is why we will use the NSGA-II algorithm to solve our problem. It accomplishes the requirements in \ref{Optimization} and it has a time complexity of $\mathcal{O}(MN^2)$, where $M$ is the number of objectives and $N$ the population size.
+Moreover, it allows us to treat inequality contraints with penalty functions, as proposed in \ref{biobjective}.\par
+
+An exhaustive theoretical development of how NSGA-II works is out of the scope of this work, but a complete and formal description of the algorithm can be found in \cite{NSGAII}. Just for the sake of completness, one can simplify how NSGA-II works in the steps on Figure \ref{fig:nsgasteps}:
+
+\begin{figure}[H]
+    \centering
+    \scalebox{0.95}{
+    \begin{tikzpicture}[node distance=2cm, auto]
+        % Define the style for the boxes
+        \tikzstyle{block} = [rectangle, draw, fill=gray!20, 
+                            text centered, rounded corners, minimum height=3em, text width= 8em]
+    
+        \tikzstyle{block3a} = [rectangle, draw, fill=gray!20, 
+                            text centered, rounded corners, minimum height=3em, text width=6cm]
+    
+        % Define the style for the ellipses
+        \tikzstyle{block?} = [rectangle, draw, fill=gray!80, 
+                            text centered, rounded corners, minimum height=3em, text width=6cm]
+    
+    
+        % Define the nodes
+        \node [block] (box1) {Initialize NSGA-II parameters};
+        \node [block, below of=box1] (box2) {Generate random initial population $P_0$ of size $N$};
+        \node [block, below of=box2] (box3) {Compute $\mathbf{f_{invest}(x)}$ and $\mathbf{f_{tech}(x)}$ from \ref{fig:block_overview}};
+        \node [block, below of=box3] (box4) {Create offspring population $Q_t$ using crossover and mutation};
+        \node [block, below of=box4] (box5) {Start generation counter $t=1$};
+        \node [block, below of=box5] (box6) {Combine parent and offspring $R_t = P_t \cup Q_t$};
+        \node [block, below of=box6] (box7) {Non-dominated sorting};
+        \node [block, below of=box7] (box71) {Crowding distance sorting};
+        \node [block, below of=box71] (box72) {Create $P_{t+1}$ and $Q_{t+1}$};
+        \node [block, below of=box72] (box8) {Is $t<t_{max}$?};
+        \node [block, below of=box8] (box9) {End};
+        % Connect the nodes
+        \draw [->] (box1) -- (box2);
+        \draw [->] (box2) -- (box3);
+        \draw [->] (box3) -- (box4);
+        \draw [->] (box4) -- (box5);
+        \draw [->] (box5) -- (box6);
+        \draw [->] (box6) -- (box7);
+        \draw [->] (box7) -- (box71);
+        \draw [->] (box71) -- (box72);
+        \draw [->] (box72) -- (box8);
+
+        \draw [->] (box8) -- node[midway, right] {NO} (box9);
+        
+        %\draw [->] (box7) to[bend right=80] node[midway,below,sloped] {Optimization method} (box2);
+        \draw [->] (box8) -- ++(5,0) node[midway, above] {YES}|-  node[pos=0.25,sloped] {$t=t+1$} (box5);
+        
+    \end{tikzpicture}
+    }
+    \caption{Block diagram of NSGA-II}
+    \label{fig:nsgasteps}
+    \end{figure}
 
 
-
-The algorithm has been implemented in pymoo \cite{pymoo}, a python library for multiobjective optimization.
+The algorithm \ref{fig:block_overview} has been implemented in pymoo \cite{pymoo}, a Python library for multiobjective optimization that includes the NSGA-II algorithm \ref{fig:nsgasteps} and allows to formulate mixed-variable problems.
+It is worth mentioning that the proposed method \ref{fig:block_overview} is performed on a whole set of candidate solutions $\mathbf{x}$ from the population set $P$.
 
 
 
@@ -1399,7 +1456,7 @@ The tuning parameters used for the NSGA-II algorithm are shown in Table \ref{tab
     \hline
     \textbf{Parameter} & \textbf{Value} \\ \hline
     Population size & 150 \\ \hline
-    Survival & Rank and Crowding $"pcd"$ \\ \hline
+    Survival sorting & Rank and Crowding $"pcd"$ \\ \hline
     Termination  & 15 generations \\ \hline
     $"c"$, contraint penalty & 10e4 \\ \hline
     \end{tabular}

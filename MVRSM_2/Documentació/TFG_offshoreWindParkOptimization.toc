@@ -43,22 +43,22 @@
 \contentsline {section}{\numberline {6}Optimization methods}{37}{section.6}%
 \contentsline {subsection}{\numberline {6.1}State of the art limitations: interior point method}{37}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}NSGA-II: Genetic algorithm}{38}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Optimal Power Flow approach for compensation sizing}{38}{subsection.6.3}%
-\contentsline {section}{\numberline {7}Case study}{40}{section.7}%
-\contentsline {subsection}{\numberline {7.1}500 MW, 100 km OWPP}{40}{subsection.7.1}%
-\contentsline {subsubsection}{\numberline {7.1.1}Random search compared to NSGA-II}{41}{subsubsection.7.1.1}%
-\contentsline {subsubsection}{\numberline {7.1.2}OPF validation}{42}{subsubsection.7.1.2}%
-\contentsline {subsubsection}{\numberline {7.1.3}Cost breakdown}{44}{subsubsection.7.1.3}%
-\contentsline {section}{\numberline {8}Conclusions}{46}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Outcome}{46}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Future work}{46}{subsection.8.2}%
-\contentsline {section}{\numberline {9}Planning and viability studies}{49}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Time Planning}{49}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Economic assessment}{49}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}Environmental assessment}{49}{subsection.9.3}%
-\contentsline {subsubsection}{\numberline {9.3.1}Energy consumption}{49}{subsubsection.9.3.1}%
-\contentsline {subsubsection}{\numberline {9.3.2}Potential impact}{50}{subsubsection.9.3.2}%
-\contentsline {subsection}{\numberline {9.4}Social and gender equality assessment}{50}{subsection.9.4}%
-\contentsline {section}{Acknowledgements}{51}{subsection.9.4}%
-\contentsline {section}{Bibliography}{52}{subsection.9.4}%
-\contentsline {section}{Appendix}{54}{subsection.9.4}%
+\contentsline {subsection}{\numberline {6.3}Optimal Power Flow approach for compensation sizing}{40}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Case study}{41}{section.7}%
+\contentsline {subsection}{\numberline {7.1}500 MW, 100 km OWPP}{41}{subsection.7.1}%
+\contentsline {subsubsection}{\numberline {7.1.1}Random search compared to NSGA-II}{42}{subsubsection.7.1.1}%
+\contentsline {subsubsection}{\numberline {7.1.2}OPF validation}{43}{subsubsection.7.1.2}%
+\contentsline {subsubsection}{\numberline {7.1.3}Cost breakdown}{45}{subsubsection.7.1.3}%
+\contentsline {section}{\numberline {8}Conclusions}{47}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Outcome}{47}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Future work}{47}{subsection.8.2}%
+\contentsline {section}{\numberline {9}Planning and viability studies}{50}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Time Planning}{50}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Economic assessment}{50}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Environmental assessment}{50}{subsection.9.3}%
+\contentsline {subsubsection}{\numberline {9.3.1}Energy consumption}{50}{subsubsection.9.3.1}%
+\contentsline {subsubsection}{\numberline {9.3.2}Potential impact}{51}{subsubsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.4}Social and gender equality assessment}{51}{subsection.9.4}%
+\contentsline {section}{Acknowledgements}{52}{subsection.9.4}%
+\contentsline {section}{Bibliography}{53}{subsection.9.4}%
+\contentsline {section}{Appendix}{55}{subsection.9.4}%
