@@ -4,7 +4,7 @@
   \item [{AC}]\begingroup Alternating Current\nomeqref {0}\nompageref{6}
   \item [{DC}]\begingroup Direct Current\nomeqref {0}\nompageref{6}
   \item [{GA}]\begingroup Genetic Algorithm\nomeqref {0}\nompageref{6}
-  \item [{HVAC}]\begingroup High Voltage Alternating Curent\nomeqref {0}\nompageref{6}
+  \item [{HVAC}]\begingroup High Voltage Alternating Current\nomeqref {0}\nompageref{6}
   \item [{HVDC}]\begingroup High Voltage Direct Current\nomeqref {0}\nompageref{6}
   \item [{N-R}]\begingroup Newton-Raphson Method\nomeqref {0}\nompageref{6}
   \item [{OPF}]\begingroup Optimal Power Flow\nomeqref {0}\nompageref{6}
@@ -15,9 +15,36 @@
   \item [{SCR}]\begingroup Short Circuit Ratio\nomeqref {0}\nompageref{6}
   \item [{XLPE}]\begingroup Cross-Linked Polyethylene\nomeqref {0}\nompageref{6}
 \nomgroup{S}
-  \item [{$\underline{I}$}]\begingroup Complex current\nomeqref {0}\nompageref{6}
-  \item [{$\underline{V}$}]\begingroup Complex voltage\nomeqref {0}\nompageref{6}
-  \item [{$\underline{Y}$}]\begingroup Complex admittance\nomeqref {0}\nompageref{6}
-  \item [{$\underline{Z}$}]\begingroup Complex impedance\nomeqref {0}\nompageref{6}
+  \item [{$\mathbf{J}$}]\begingroup Jacobian matrix\nomeqref {0}\nompageref{6}
+  \item [{$\mathbf{L_i^x}$}]\begingroup Inequality constraint limit\nomeqref {0}\nompageref{6}
+  \item [{$\omega$}]\begingroup Angular frequency\nomeqref {0}\nompageref{6}
+  \item [{$\theta$}]\begingroup Voltage angle\nomeqref {0}\nompageref{6}
+  \item [{$\underline{\theta}$}]\begingroup Characteristic angle\nomeqref {0}\nompageref{6}
+  \item [{$\underline{Z_c}$}]\begingroup Characteristic impedance\nomeqref {0}\nompageref{6}
+  \item [{$B$}]\begingroup Susceptance\nomeqref {0}\nompageref{6}
+  \item [{$C$}]\begingroup Capacitance\nomeqref {0}\nompageref{6}
+  \item [{$c$}]\begingroup Penalty factor\nomeqref {0}\nompageref{6}
+  \item [{$G$}]\begingroup Conductance\nomeqref {0}\nompageref{6}
+  \item [{$I$}]\begingroup Complex current\nomeqref {0}\nompageref{6}
+  \item [{$i_o$}]\begingroup Open circuit current\nomeqref {0}\nompageref{6}
+  \item [{$I_{rated}$}]\begingroup Rated current of cables\nomeqref {0}\nompageref{6}
+  \item [{$L$}]\begingroup Inductance\nomeqref {0}\nompageref{6}
+  \item [{$n_{cables}$}]\begingroup Number of cables\nomeqref {0}\nompageref{6}
+  \item [{$P$}]\begingroup Active power\nomeqref {0}\nompageref{6}
+  \item [{$P_{Cu}^{loss}$}]\begingroup Cooper losses\nomeqref {0}\nompageref{6}
+  \item [{$P_{Fe}^{loss}$}]\begingroup Iron losses\nomeqref {0}\nompageref{6}
+  \item [{$p_{owf}$}]\begingroup Active power injection from the OWPP\nomeqref {0}\nompageref{6}
+  \item [{$Q$}]\begingroup Reactive power\nomeqref {0}\nompageref{6}
+  \item [{$q_{owf}$}]\begingroup Reactive power injection from the OWPP\nomeqref {0}\nompageref{6}
+  \item [{$R$}]\begingroup Resistance\nomeqref {0}\nompageref{6}
+  \item [{$S$}]\begingroup Complex power\nomeqref {0}\nompageref{6}
+  \item [{$S_n$}]\begingroup Rated power of cables\nomeqref {0}\nompageref{6}
+  \item [{$S_{r-tr}$}]\begingroup Rated power of the transformer\nomeqref {0}\nompageref{6}
+  \item [{$u_k$}]\begingroup Short-circuit voltage\nomeqref {0}\nompageref{6}
+  \item [{$U_{r-tr}$}]\begingroup Rated voltage of the transformer at the transmission system side\nomeqref {0}\nompageref{6}
+  \item [{$V$}]\begingroup Complex voltage\nomeqref {0}\nompageref{6}
+  \item [{$V_{rated}$}]\begingroup Rated voltage of cables\nomeqref {0}\nompageref{6}
+  \item [{$Y$}]\begingroup Admittance\nomeqref {0}\nompageref{6}
+  \item [{$Z$}]\begingroup Impedance\nomeqref {0}\nompageref{6}
 
 \end{thenomenclature}

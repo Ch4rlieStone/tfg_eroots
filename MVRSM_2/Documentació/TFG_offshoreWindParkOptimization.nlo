@@ -1,7 +1,7 @@
 \nomenclatureentry{AAC@[{AC}]\begingroup Alternating Current\nomeqref {0}|nompageref}{6}
 \nomenclatureentry{ADC@[{DC}]\begingroup Direct Current\nomeqref {0}|nompageref}{6}
 \nomenclatureentry{AGA@[{GA}]\begingroup Genetic Algorithm\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{AHVAC@[{HVAC}]\begingroup High Voltage Alternating Curent\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{AHVAC@[{HVAC}]\begingroup High Voltage Alternating Current\nomeqref {0}|nompageref}{6}
 \nomenclatureentry{AHVDC@[{HVDC}]\begingroup High Voltage Direct Current\nomeqref {0}|nompageref}{6}
 \nomenclatureentry{AN-R@[{N-R}]\begingroup Newton-Raphson Method\nomeqref {0}|nompageref}{6}
 \nomenclatureentry{AOPF@[{OPF}]\begingroup Optimal Power Flow\nomeqref {0}|nompageref}{6}
@@ -11,7 +11,34 @@
 \nomenclatureentry{APF@[{PF}]\begingroup Power Flow\nomeqref {0}|nompageref}{6}
 \nomenclatureentry{ASCR@[{SCR}]\begingroup Short Circuit Ratio\nomeqref {0}|nompageref}{6}
 \nomenclatureentry{AXLPE@[{XLPE}]\begingroup Cross-Linked Polyethylene\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{S$\underline{I}$@[{$\underline{I}$}]\begingroup Complex current\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{S$\underline{V}$@[{$\underline{V}$}]\begingroup Complex voltage\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{S$\underline{Z}$@[{$\underline{Z}$}]\begingroup Complex impedance\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{S$\underline{Y}$@[{$\underline{Y}$}]\begingroup Complex admittance\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$I$@[{$I$}]\begingroup Complex current\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$V$@[{$V$}]\begingroup Complex voltage\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$Z$@[{$Z$}]\begingroup Impedance\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$\underline{Z_c}$@[{$\underline{Z_c}$}]\begingroup Characteristic impedance\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$Y$@[{$Y$}]\begingroup Admittance\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$R$@[{$R$}]\begingroup Resistance\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$L$@[{$L$}]\begingroup Inductance\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$C$@[{$C$}]\begingroup Capacitance\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$\omega$@[{$\omega$}]\begingroup Angular frequency\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$\underline{\theta}$@[{$\underline{\theta}$}]\begingroup Characteristic angle\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$P_{Cu}^{loss}$@[{$P_{Cu}^{loss}$}]\begingroup Cooper losses\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$U_{r-tr}$@[{$U_{r-tr}$}]\begingroup Rated voltage of the transformer at the transmission system side\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$S_{r-tr}$@[{$S_{r-tr}$}]\begingroup Rated power of the transformer\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$u_k$@[{$u_k$}]\begingroup Short-circuit voltage\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$P_{Fe}^{loss}$@[{$P_{Fe}^{loss}$}]\begingroup Iron losses\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$i_o$@[{$i_o$}]\begingroup Open circuit current\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$p_{owf}$@[{$p_{owf}$}]\begingroup Active power injection from the OWPP\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$q_{owf}$@[{$q_{owf}$}]\begingroup Reactive power injection from the OWPP\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$n_{cables}$@[{$n_{cables}$}]\begingroup Number of cables\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$S_n$@[{$S_n$}]\begingroup Rated power of cables\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$I_{rated}$@[{$I_{rated}$}]\begingroup Rated current of cables\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$V_{rated}$@[{$V_{rated}$}]\begingroup Rated voltage of cables\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$P$@[{$P$}]\begingroup Active power\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$Q$@[{$Q$}]\begingroup Reactive power\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$\theta$@[{$\theta$}]\begingroup Voltage angle\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$S$@[{$S$}]\begingroup Complex power\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$G$@[{$G$}]\begingroup Conductance\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$B$@[{$B$}]\begingroup Susceptance\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$\mathbf{J}$@[{$\mathbf{J}$}]\begingroup Jacobian matrix\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$\mathbf{L_i^x}$@[{$\mathbf{L_i^x}$}]\begingroup Inequality constraint limit\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$c$@[{$c$}]\begingroup Penalty factor\nomeqref {0}|nompageref}{6}

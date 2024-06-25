@@ -1,13 +1,13 @@
 \babel@toc {english}{}\relax 
 \babel@toc {english}{}\relax 
-\contentsline {table}{\numberline {1}{\ignorespaces Comparison of Capacitance per unit length of overhead and underground Lines, \cite {ABB} and \cite {overhead}. }}{13}{table.caption.1}%
-\contentsline {table}{\numberline {2}{\ignorespaces Electrical parameters of AC cables.}}{17}{table.caption.6}%
-\contentsline {table}{\numberline {3}{\ignorespaces Parameters A, B, C for different rated voltages \cite {chalmers}.}}{20}{table.caption.11}%
-\contentsline {table}{\numberline {4}{\ignorespaces Parameters K and P for different positions of the reactive power compensation \cite {paperbase}.}}{21}{table.caption.12}%
-\contentsline {table}{\numberline {5}{\ignorespaces Parameters for computing power losses cost \cite {paperbase}.}}{21}{table.caption.13}%
-\contentsline {table}{\numberline {6}{\ignorespaces Known variables for each type of bus.}}{24}{table.caption.14}%
-\contentsline {table}{\numberline {7}{\ignorespaces Transmission system bus types.}}{25}{table.caption.17}%
-\contentsline {table}{\numberline {8}{\ignorespaces Grid parameters \cite {paperbase}.}}{27}{table.caption.18}%
-\contentsline {table}{\numberline {9}{\ignorespaces Tunning parameters NSGA-II.}}{42}{table.caption.24}%
-\contentsline {table}{\numberline {10}{\ignorespaces Specifications (excluding reactors sizing) of the optimal solution.}}{45}{table.caption.27}%
-\contentsline {table}{\numberline {11}{\ignorespaces Thesis Costs.}}{54}{table.caption.38}%
+\contentsline {table}{\numberline {1}{\ignorespaces Comparison of Capacitance per unit length of overhead and underground Lines, \cite {ABB} and \cite {overhead}. }}{15}{table.caption.1}%
+\contentsline {table}{\numberline {2}{\ignorespaces Electrical parameters of AC cables.}}{19}{table.caption.6}%
+\contentsline {table}{\numberline {3}{\ignorespaces Parameters A, B, C for different rated voltages \cite {chalmers}.}}{22}{table.caption.11}%
+\contentsline {table}{\numberline {4}{\ignorespaces Parameters K and P for different positions of the reactive power compensation \cite {paperbase}.}}{23}{table.caption.12}%
+\contentsline {table}{\numberline {5}{\ignorespaces Parameters for computing power losses cost \cite {paperbase}.}}{23}{table.caption.13}%
+\contentsline {table}{\numberline {6}{\ignorespaces Known variables for each type of bus.}}{26}{table.caption.14}%
+\contentsline {table}{\numberline {7}{\ignorespaces Transmission system bus types.}}{27}{table.caption.17}%
+\contentsline {table}{\numberline {8}{\ignorespaces Grid parameters \cite {paperbase}.}}{29}{table.caption.18}%
+\contentsline {table}{\numberline {9}{\ignorespaces Tuning parameters NSGA-II.}}{44}{table.caption.24}%
+\contentsline {table}{\numberline {10}{\ignorespaces Specifications (excluding reactors sizing) of the optimal solution.}}{47}{table.caption.27}%
+\contentsline {table}{\numberline {11}{\ignorespaces Thesis Costs.}}{56}{table.caption.38}%
