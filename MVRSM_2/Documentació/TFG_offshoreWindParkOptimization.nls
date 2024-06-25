@@ -3,9 +3,9 @@
 \nomgroup{A}
   \item [{AC}]\begingroup Alternating Current\nomeqref {0}\nompageref{6}
   \item [{DC}]\begingroup Direct Current\nomeqref {0}\nompageref{6}
+  \item [{GA}]\begingroup Genetic Algorithm\nomeqref {0}\nompageref{6}
   \item [{HVAC}]\begingroup High Voltage Alternating Curent\nomeqref {0}\nompageref{6}
   \item [{HVDC}]\begingroup High Voltage Direct Current\nomeqref {0}\nompageref{6}
-  \item [{MVRSM}]\begingroup Mixed-Variable ReLU-based Surrogate Modelling\nomeqref {0}\nompageref{6}
   \item [{N-R}]\begingroup Newton-Raphson Method\nomeqref {0}\nompageref{6}
   \item [{OPF}]\begingroup Optimal Power Flow\nomeqref {0}\nompageref{6}
   \item [{OSS}]\begingroup Offshore Substation\nomeqref {0}\nompageref{6}
@@ -14,5 +14,10 @@
   \item [{PF}]\begingroup Power Flow\nomeqref {0}\nompageref{6}
   \item [{SCR}]\begingroup Short Circuit Ratio\nomeqref {0}\nompageref{6}
   \item [{XLPE}]\begingroup Cross-Linked Polyethylene\nomeqref {0}\nompageref{6}
+\nomgroup{S}
+  \item [{$\underline{I}$}]\begingroup Complex current\nomeqref {0}\nompageref{6}
+  \item [{$\underline{V}$}]\begingroup Complex voltage\nomeqref {0}\nompageref{6}
+  \item [{$\underline{Y}$}]\begingroup Complex admittance\nomeqref {0}\nompageref{6}
+  \item [{$\underline{Z}$}]\begingroup Complex impedance\nomeqref {0}\nompageref{6}
 
 \end{thenomenclature}

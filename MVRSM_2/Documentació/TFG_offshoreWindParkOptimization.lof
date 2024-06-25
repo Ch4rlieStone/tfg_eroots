@@ -1,25 +1,26 @@
 \babel@toc {english}{}\relax 
 \babel@toc {english}{}\relax 
 \contentsline {figure}{\numberline {1}{\ignorespaces Power losses comparision when including mid-cable reactive power compensation}}{14}{figure.caption.2}%
-\contentsline {figure}{\numberline {2}{\ignorespaces HVAC transmission system layout for an OWPP with reactive power compensation\cite {paperbase}}}{15}{figure.caption.3}%
-\contentsline {figure}{\numberline {3}{\ignorespaces three-corre XLPE cable cross-section \cite {ABB}}}{15}{figure.caption.4}%
+\contentsline {figure}{\numberline {2}{\ignorespaces HVAC transmission system layout for an OWPP with reactive power compensation\cite {paperbase}.}}{15}{figure.caption.3}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Three-core XLPE cable cross-section \cite {ABB}.}}{16}{figure.caption.4}%
 \contentsline {figure}{\numberline {4}{\ignorespaces $\pi $-model transmission line}}{16}{figure.caption.5}%
 \contentsline {figure}{\numberline {5}{\ignorespaces Transformer model}}{17}{figure.caption.7}%
 \contentsline {figure}{\numberline {6}{\ignorespaces Shunt reactor model}}{18}{figure.caption.8}%
-\contentsline {figure}{\numberline {7}{\ignorespaces Main grid model}}{18}{figure.caption.9}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Main grid model}}{19}{figure.caption.9}%
 \contentsline {figure}{\numberline {8}{\ignorespaces Power plant}}{19}{figure.caption.10}%
 \contentsline {figure}{\numberline {9}{\ignorespaces Possible locations for the shunt reactors \cite {paperbase}}}{24}{figure.caption.15}%
 \contentsline {figure}{\numberline {10}{\ignorespaces Transmission system model and buses}}{25}{figure.caption.16}%
 \contentsline {figure}{\numberline {12}{\ignorespaces Block diagram of the optimization algorithm}}{36}{figure.caption.20}%
 \contentsline {figure}{\numberline {13}{\ignorespaces State-of-the-art algorithm for reactive power compensation optimization \cite {paperbase}}}{37}{figure.caption.21}%
 \contentsline {figure}{\numberline {14}{\ignorespaces Block diagram of NSGA-II}}{39}{figure.caption.22}%
-\contentsline {figure}{\numberline {15}{\ignorespaces Random search (black) compared to NSGA-II (red)}}{42}{figure.caption.24}%
-\contentsline {figure}{\numberline {16}{\ignorespaces Zoom on the Pareto Front area}}{42}{figure.caption.25}%
-\contentsline {figure}{\numberline {17}{\ignorespaces OPF convergence}}{43}{figure.caption.26}%
-\contentsline {figure}{\numberline {18}{\ignorespaces NSGA-II vs OPF for reactors sizing}}{44}{figure.caption.28}%
-\contentsline {figure}{\numberline {19}{\ignorespaces NSGAII optimal solution cost breakdown}}{45}{figure.caption.29}%
-\contentsline {figure}{\numberline {20}{\ignorespaces No compensation solution cost breakdown}}{45}{figure.caption.30}%
-\contentsline {figure}{\numberline {21}{\ignorespaces NSGA-II optimal solution and no-compensation total cost comparison}}{46}{figure.caption.31}%
-\contentsline {figure}{\numberline {22}{\ignorespaces Weibull distribution of wind speeds \cite {paperbase}}}{48}{figure.caption.32}%
-\contentsline {figure}{\numberline {23}{\ignorespaces Collection system for OWPP posible layouts: Radial(a), Single-sided ring(b), Double sided ring(c) and star(d) \cite {layouts_coll}}}{49}{figure.caption.33}%
-\contentsline {figure}{\numberline {24}{\ignorespaces Thesis Gantt Chart}}{50}{figure.caption.34}%
+\contentsline {figure}{\numberline {15}{\ignorespaces Visualization of steps 4 and 5 \cite {NSGAII}}}{40}{figure.caption.23}%
+\contentsline {figure}{\numberline {16}{\ignorespaces Random search (black) compared to NSGA-II (red)}}{43}{figure.caption.25}%
+\contentsline {figure}{\numberline {17}{\ignorespaces Zoom on the Pareto Front area}}{43}{figure.caption.26}%
+\contentsline {figure}{\numberline {18}{\ignorespaces OPF convergence}}{44}{figure.caption.27}%
+\contentsline {figure}{\numberline {19}{\ignorespaces NSGA-II vs OPF for reactors sizing}}{45}{figure.caption.29}%
+\contentsline {figure}{\numberline {20}{\ignorespaces NSGAII optimal solution cost breakdown}}{46}{figure.caption.30}%
+\contentsline {figure}{\numberline {21}{\ignorespaces No compensation solution cost breakdown}}{46}{figure.caption.31}%
+\contentsline {figure}{\numberline {22}{\ignorespaces NSGA-II optimal solution and no-compensation total cost comparison}}{47}{figure.caption.32}%
+\contentsline {figure}{\numberline {23}{\ignorespaces Weibull distribution of wind speeds \cite {paperbase}}}{49}{figure.caption.33}%
+\contentsline {figure}{\numberline {24}{\ignorespaces Collection system for OWPP posible layouts: Radial(a), Single-sided ring(b), Double sided ring(c) and star(d) \cite {layouts_coll}}}{50}{figure.caption.34}%
+\contentsline {figure}{\numberline {25}{\ignorespaces Thesis Gantt Chart}}{51}{figure.caption.35}%

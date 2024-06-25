@@ -1,13 +1,17 @@
-\nomenclatureentry{aAC@[{AC}]\begingroup Alternating Current\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{aDC@[{DC}]\begingroup Direct Current\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{aGA@[{GA}]\begingroup Genetic Algorithm\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{aHVAC@[{HVAC}]\begingroup High Voltage Alternating Curent\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{aHVDC@[{HVDC}]\begingroup High Voltage Direct Current\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{aN-R@[{N-R}]\begingroup Newton-Raphson Method\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{aOPF@[{OPF}]\begingroup Optimal Power Flow\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{aOSS@[{OSS}]\begingroup Offshore Substation\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{aOWF@[{OWF}]\begingroup Offshore Wind Farm\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{aOWPP@[{OWPP}]\begingroup Offshore Wind Power Plant\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{aPF@[{PF}]\begingroup Power Flow\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{aSCR@[{SCR}]\begingroup Short Circuit Ratio\nomeqref {0}|nompageref}{6}
-\nomenclatureentry{aXLPE@[{XLPE}]\begingroup Cross-Linked Polyethylene\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{AAC@[{AC}]\begingroup Alternating Current\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{ADC@[{DC}]\begingroup Direct Current\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{AGA@[{GA}]\begingroup Genetic Algorithm\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{AHVAC@[{HVAC}]\begingroup High Voltage Alternating Curent\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{AHVDC@[{HVDC}]\begingroup High Voltage Direct Current\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{AN-R@[{N-R}]\begingroup Newton-Raphson Method\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{AOPF@[{OPF}]\begingroup Optimal Power Flow\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{AOSS@[{OSS}]\begingroup Offshore Substation\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{AOWF@[{OWF}]\begingroup Offshore Wind Farm\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{AOWPP@[{OWPP}]\begingroup Offshore Wind Power Plant\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{APF@[{PF}]\begingroup Power Flow\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{ASCR@[{SCR}]\begingroup Short Circuit Ratio\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{AXLPE@[{XLPE}]\begingroup Cross-Linked Polyethylene\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$\underline{I}$@[{$\underline{I}$}]\begingroup Complex current\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$\underline{V}$@[{$\underline{V}$}]\begingroup Complex voltage\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$\underline{Z}$@[{$\underline{Z}$}]\begingroup Complex impedance\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{S$\underline{Y}$@[{$\underline{Y}$}]\begingroup Complex admittance\nomeqref {0}|nompageref}{6}

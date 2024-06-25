@@ -1,11 +1,11 @@
 \babel@toc {english}{}\relax 
 \babel@toc {english}{}\relax 
-\contentsline {section}{\nonumberline Nomenclature}{7}{Doc-Start}%
+\contentsline {section}{\nonumberline Abbreviations and Symbols}{7}{Doc-Start}%
 \contentsline {section}{\numberline {1}Preface}{10}{section.1}%
 \contentsline {section}{\numberline {2}Introduction}{11}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Motivation}{11}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Scope}{11}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Objectives}{11}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.3}Objectives}{12}{subsection.2.3}%
 \contentsline {subsection}{\numberline {2.4}Outline}{12}{subsection.2.4}%
 \contentsline {section}{\numberline {3}Technical background: grid to study}{13}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Offshore wind power plants}{13}{subsection.3.1}%
@@ -13,7 +13,7 @@
 \contentsline {subsection}{\numberline {3.3}Grid elements}{15}{subsection.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.1}Cables}{15}{subsubsection.3.3.1}%
 \contentsline {subsubsection}{\numberline {3.3.2}Transformers}{17}{subsubsection.3.3.2}%
-\contentsline {subsubsection}{\numberline {3.3.3}Shunt reactor: reactive power compensation}{17}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.3}Shunt reactor: reactive power compensation}{18}{subsubsection.3.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.4}Main grid}{18}{subsubsection.3.3.4}%
 \contentsline {subsubsection}{\numberline {3.3.5}Power plant}{19}{subsubsection.3.3.5}%
 \contentsline {subsection}{\numberline {3.4}Costs modelling}{20}{subsection.3.4}%
@@ -39,26 +39,26 @@
 \contentsline {subsubsection}{\numberline {5.1.2}Inequality: Technical constraints}{32}{subsubsection.5.1.2}%
 \contentsline {subsection}{\numberline {5.2}Objective function: multiobjective}{33}{subsection.5.2}%
 \contentsline {subsubsection}{\numberline {5.2.1}Why bi-objective?}{33}{subsubsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.3}Algorithm overview}{36}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.3}Algorithm overview}{35}{subsection.5.3}%
 \contentsline {section}{\numberline {6}Optimization methods}{37}{section.6}%
 \contentsline {subsection}{\numberline {6.1}State of the art limitations: interior point method}{37}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}NSGA-II: Genetic algorithm}{38}{subsection.6.2}%
 \contentsline {subsection}{\numberline {6.3}Optimal Power Flow approach for compensation sizing}{40}{subsection.6.3}%
-\contentsline {section}{\numberline {7}Case study}{41}{section.7}%
-\contentsline {subsection}{\numberline {7.1}500 MW, 100 km OWPP}{41}{subsection.7.1}%
-\contentsline {subsubsection}{\numberline {7.1.1}Random search compared to NSGA-II}{42}{subsubsection.7.1.1}%
-\contentsline {subsubsection}{\numberline {7.1.2}OPF validation}{43}{subsubsection.7.1.2}%
-\contentsline {subsubsection}{\numberline {7.1.3}Cost breakdown}{45}{subsubsection.7.1.3}%
-\contentsline {section}{\numberline {8}Conclusions}{47}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Outcome}{47}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Future work}{47}{subsection.8.2}%
-\contentsline {section}{\numberline {9}Planning and viability studies}{50}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Time Planning}{50}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Economic assessment}{50}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}Environmental assessment}{50}{subsection.9.3}%
-\contentsline {subsubsection}{\numberline {9.3.1}Energy consumption}{50}{subsubsection.9.3.1}%
-\contentsline {subsubsection}{\numberline {9.3.2}Potential impact}{51}{subsubsection.9.3.2}%
-\contentsline {subsection}{\numberline {9.4}Social and gender equality assessment}{51}{subsection.9.4}%
-\contentsline {section}{Acknowledgements}{52}{subsection.9.4}%
-\contentsline {section}{Bibliography}{53}{subsection.9.4}%
-\contentsline {section}{Appendix}{55}{subsection.9.4}%
+\contentsline {section}{\numberline {7}Case study}{42}{section.7}%
+\contentsline {subsection}{\numberline {7.1}500 MW, 100 km OWPP}{42}{subsection.7.1}%
+\contentsline {subsubsection}{\numberline {7.1.1}Random search compared to NSGA-II}{43}{subsubsection.7.1.1}%
+\contentsline {subsubsection}{\numberline {7.1.2}OPF validation}{44}{subsubsection.7.1.2}%
+\contentsline {subsubsection}{\numberline {7.1.3}Cost breakdown}{46}{subsubsection.7.1.3}%
+\contentsline {section}{\numberline {8}Conclusions}{48}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Outcome}{48}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Future work}{48}{subsection.8.2}%
+\contentsline {section}{\numberline {9}Planning and viability studies}{51}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Time Planning}{51}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Economic assessment}{51}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Environmental assessment}{52}{subsection.9.3}%
+\contentsline {subsubsection}{\numberline {9.3.1}Energy consumption}{52}{subsubsection.9.3.1}%
+\contentsline {subsubsection}{\numberline {9.3.2}Potential impact}{52}{subsubsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.4}Social and gender equality assessment}{52}{subsection.9.4}%
+\contentsline {section}{Acknowledgements}{54}{subsection.9.4}%
+\contentsline {section}{Bibliography}{55}{subsection.9.4}%
+\contentsline {section}{Appendix}{57}{subsection.9.4}%
