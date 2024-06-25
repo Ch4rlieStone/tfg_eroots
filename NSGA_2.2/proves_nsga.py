@@ -108,7 +108,6 @@ print("Best solution found weigthed: \nX = %s\nF = %s" % (res.X[I], res.F[I]))
 print(res.F.shape)
 plot.show()
 
-"""
 start_time2 = time.time()
 trials = 700
 ff = costac_2
@@ -162,7 +161,6 @@ plt.ylabel("Technical cost [M€]")
 plt.title("Set of solutions comparing NSGA and random search")
 
 plt.show()
-"""
 
 """
 ff = costac_2

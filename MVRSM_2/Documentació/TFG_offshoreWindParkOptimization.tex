@@ -256,7 +256,23 @@ Se concluye que el algoritmo propuesto es aplicable, cumple los requisitos impue
 
 
 \section{Preface}
-h
+
+The purpose of an Offshore Wind Power Plant (OWPP) is to capture and convert wind power energy into electrical energy and transmit it to the electrical grid.
+Therefore, a transmission system is needed to connect the OWPP to the grid. 
+
+Designing and sizing the transmission system is a non-trivial problem that has to be approached carefully. Your goal is to minimize investment costs while ensuring the system to respect a set of technical constraints. Having insights on the tradeoff between these two different objectives
+is crucial to make informed decisions. To do so, a mathematical optimization problem can be formulated, allowing to find a set of optimal solutions that represent the relationship between the two objectives and at the same time respect the set of technical constraints.
+The power flow analysis is key to understand the steady-state behavior of the system and to formulate the optimization. Power flow equations are non-linear, and we need to solve them iteratively using numerical methods. 
+
+To put in context the relevance of this topic, the work and software developed in this thesis will be used
+as the breeding-ground of a partnership between eRoots and Acciona, a leading infrastructure company in Spain that has shown interest in developing a tool for the optimal design
+of OWPP's transmission systems.
+
+All this concepts will be developed in this work and the reader should be able to understand the problem to its full extent through the reading of the thesis.
+
+
+
+
 
 
 %Per referir-se a la Fig.\ref{fig:ETSEIB}.
@@ -277,7 +293,7 @@ contacted Oriol Gomis to explore thesis topics within this field.\par
 He introduced me diverse research areas and also eRoots, a spin-off from the UPC-CITCEA
 that develops software solutions for modern grid modelling, analyis and optimization. Then Josep Fanals, my supervisor
 and eRoots CEO, presented to my various topics that they would be potenitially interested to develop a thesis on. This is when 
-he introduced me to the topic of design, sizing and optimization of the transmission system of OWPPs (Offshore Wind Power Plant) . The research 
+he introduced me to the topic of design, sizing and optimization of the transmission system of OWPPs. The research 
 group CITCEA-UPC has been working in this area \cite{paperbase} and further developement on this field was the breeding ground for this proposal.
 The topic inmediatly caught my attention and that is how I ended up as an intern at eRoots developing software solutions for the optimization of OWPP.
 
@@ -327,9 +343,9 @@ The thesis is structured as follows:
     \item Chapter \ref{Planning} presents the planning and viability studies for the project.
 \end{itemize}
 %------------------------------------------
-\section{Technical background: grid to study}\label{Grid}
+\section{Technical Background and Modelling}\label{Grid}
 
-\subsection{Offshore wind power plants}
+\subsection{Offshore Wind Power Plant}
 As global energy demands surges and the pressing need for sustainable development becomes ever more urgent, 
 the quest for renewable energy sources has intensified. Among these, wind power has emerged as a frontrunner due to its potential to generate substantial amounts of clean electricity.
 While onshore wind farms have been widely implemented, their offshore counterparts are gaining increasing attention for their ability to harness the stronger and more consistent winds found over the oceans.\par
@@ -337,17 +353,13 @@ While onshore wind farms have been widely implemented, their offshore counterpar
 Offshore wind power, defined as the use of wind turbines located in bodies of water to generate electricity, presents several advantages over onshore installations. The primary benefit lies in the higher wind speeds
 and lower turbulence experienced offshore, which contribute to greater energy yields. Additionally, offshore wind farms can be situated closer to urban centers located along coastlines, thereby reducing transmission
 losses and enhancing energy efficiency. The development of offshore wind technology has seen rapid advancements in recent years. From the deployment of the first offshore wind farm in Denmark in 1991 to the establishment
-of massive installations such as the Hornsea Project in the UK, the scale and capacity of these projects have grown significantly. Technological innovations, including larger turbines, floating foundations, and improved
+of massive installations such as the Hornsea Project in the UK \cite{Hornsea}, the scale and capacity of these projects have grown significantly. Technological innovations, including larger turbines, floating foundations, and improved
 grid integration techniques, have further propelled the industry forward.
 
-\subsection{Transmission system: design and reactive power compensation problem}\label{reactpowpresetation}
+\subsection{Transmission System: Design and Reactive Power Compensation}\label{reactpowpresetation}
 
 When designing the transmission system of an OWPP, several factors must be considered to ensure optimal performance and efficiency. The system must be capable of transmitting the generated power from the wind turbines to the onshore grid
 while trying to be as energy and cost-efficient as possible. There are two main types of technologies that can bu used, HVDC and HVAC. In this thesis we will focus our study to the HVAC technology.\par
-
-To put in context the relevance of this topic, the work and software developed in this thesis will be used
-as the breeding-ground of a parternship between eRoots and Acciona, a leading infrastructre company in Spain that has shown interest in developing a tool for the optimal design
-of OWPP's transmission systems.
 
 One drawback of using HVAC cables is the high shunt capcitance they have, which is even larger in underground cables,
 which are the ones used for OWPP.
@@ -366,40 +378,40 @@ which are the ones used for OWPP.
     \end{table}
 
 The charging current of this capacitance limits the active power tranfer capacity of the line and increases
-power losses and voltage across the line due to the Ferranti effect\cite{ferranti}. This effect can be described by the voltage difference between the sending and reciving end of transmission line under no-load conditions:
+power losses and voltage across the line due to the Ferranti effect \cite{ferranti}. This effect can be described by the voltage difference between the sending and reciving end of transmission line under no-load conditions:
 \begin{equation}
     \frac{V_{o} - V_{i}}{V_{o}} = \omega^2CL\frac{l^2}{2}
 \end{equation}
 where $V_{o}$ and $V_{i}$ are the receiving and sending end voltages respectively, $\omega$ is the frequency, $C$ is the capacitance per unit length, $L$ is the inductance per unit length and $l$ is the length of the line. Note that the voltage difference is
 proportional to the square of the length of the line which leads to overvoltages for long transmission lines.\par
 
-However, the possbility to include reactive power compensation elements helps reduce the reactive power generation. Figure \ref{fig:whycomp} shows how including
+However, the possbility to include reactive power compensation elements helps reduce the reactive power generation. Fig. \ref{fig:whycomp} shows how including
 this compensation reduces power losses, especially when we approach the no-load condition, which is equivalent to not having any type of active power injection from
 the OWPP, i.e. the wind speed is very low.
 \begin{figure}[h] %Recorda fixar la posició de les figures si no
 	\centering
 	\includegraphics[width=0.65\textwidth]{imatges/why_compensation.png}
-	\caption{Power losses comparision when including mid-cable reactive power compensation}
+	\caption{Power losses comparision when including mid-cable reactive power compensation.}
 	\label{fig:whycomp} %Si es posen les etiquetes de forma ordenada, la vida es més fàcil...
 \end{figure}
 
 The goal of the project is to determine where this compensation has to be placed  and how to size it. But this is only part of the design carachteristics we want to optimize. A full descrption of the optimitization variables will be
 presented in Chapter \ref{Minimization}.
 
-Taking all this into consderation, a HVAC transmission system layout for an OWPP with reactive power compensation looks like the one in Figure \ref{fig:fulltransmission}.
+Taking all this into consderation, a HVAC transmission system layout for an OWPP with reactive power compensation looks like the one in Fig. \ref{fig:fulltransmission}.
 \begin{figure}[H] %Recorda fixar la posició de les figures si no
     \centering
     \includegraphics[width=0.75\textwidth]{imatges/layout.png}
-    \caption{HVAC transmission system layout for an OWPP with reactive power compensation\cite{paperbase}.}
+    \caption{HVAC transmission system layout for an OWPP with reactive power compensation \cite{paperbase}.}
     \label{fig:fulltransmission} %Si es posen les etiquetes de forma ordenada, la vida es més fàcil...
 \end{figure}
 
 From this general layout we will be able to create the network model using the equivalent circuits of the  elements involved.
 
-\subsection{Grid elements}
+\subsection{Elements Modelling}\label{elementsmodelling}
 
 To be able to do a steady-state analysis of the transmission system we need to model all the elements in the grid. This section models this elements and presents
-some important concepts to understand the grid.
+some important concepts to understand the system.
 
 
 
@@ -410,7 +422,7 @@ Cables are an essential part of HVAC transmission systems, since they are in cha
 shore and are the main source of active power losses and reactive power generation. We will consider  three-core cross-linked Polyethylene (XLPE) cables, which are the most common type of cables used in  AC OWPP's since they are
 specifically designed for underwater applications and they have lower dielectric losses than EPR (Ethylene Propylene Rubber) or fluid-filled cables \cite{ABB2}.  \par
 
-Three-core XPLE cables (see Figure \ref{fig:cableshape}) have a steel wire armour and can have either copper or aluminum as conductor. We will consider the cooper ones since they have higher curent rating at the same cross-section \cite{ABB}. 
+Three-core XPLE cables (see Fig. \ref{fig:cableshape}) have a steel wire armour and can have either copper or aluminum as conductor. We will consider the cooper ones since they have higher curent rating at the same cross-section \cite{ABB}. 
 
 \begin{figure}[H]
     \centering
@@ -421,7 +433,7 @@ Three-core XPLE cables (see Figure \ref{fig:cableshape}) have a steel wire armou
 Recall, as seen in \ref{tab:capacitance_comparison}, that the capacitance of underground cables is quite large, which leads to high reactive power generation. Reactive power compensation will
 help us mitigate this effect.\par
 
-Foir the equivalent circuit of a long transmission cables, we can use the following $\pi$-model, shown in Figure \ref{fig:piline}.
+Foir the equivalent circuit of a long transmission cables, we can use the following $\pi$-model, shown in Fig. \ref{fig:piline}.
 
 \begin{figure}[h]
 \centering
@@ -431,7 +443,7 @@ Foir the equivalent circuit of a long transmission cables, we can use the follow
     \draw (5,0) to [generic, l=$\underline{Y}_{\pi}$] (5,-2);
     \draw (0,-2) -- (6,-2);
 \end{circuitikz}
-\caption{$\pi$-model transmission line}
+\caption{$\pi$-model transmission line.}
 \label{fig:piline} 
 \end{figure}   
 
@@ -471,7 +483,7 @@ $L \quad \left[\frac{H}{\text{km}}\right]$ & Inductance per unit length \\
 $C \quad \left[\frac{F}{\text{km}}\right]$ & Capacitance per unit length \\
 \hline
 \end{tabular}
-\caption{Electrical parameters of AC cables}
+\caption{Electrical parameters of AC cables.}
 \label{tab:parameters}
 \end{table} 
 
@@ -493,7 +505,7 @@ reducing the efficiency and reliability of the electrical supply. Thus, transfor
 In our OWPP transmisssion system we will need to employ transformers to step up the voltage of the power generated by the wind turbines to the nominal voltage of the transmission system and another one at onshore to set
 the voltage required by the main grid we are supplying to.
 
-We will use the the model in Figure \ref{fig:transformer} to represent the transformer:
+We will use the the model in Fig. \ref{fig:transformer} to represent the transformer:
 \begin{figure}[H]
 \centering
 \begin{circuitikz}
@@ -501,7 +513,7 @@ We will use the the model in Figure \ref{fig:transformer} to represent the trans
     \draw (1,0) to [generic, l=$\underline{Y}_{tr}$] (1,-2);
     \draw (0,-2) -- (6,-2);
 \end{circuitikz}
-\caption{Transformer model}
+\caption{Transformer model.}
 \label{fig:transformer}
 \end{figure}
 
@@ -521,9 +533,9 @@ where $P_{Cu}^{loss}$ are the copper losees, $U_{r-tr}$ the rated  voltage of th
 $u_k$ the short-circuit voltage, $P_{Fe}^{loss}$ the iron losses and $i_o$ the open circuit current.
 
 
-\subsubsection{Shunt reactor: reactive power compensation}
+\subsubsection{Shunt Reactors: Reactive Power Compensation}
 To compensate reactive power generation we will use shunt reactors. They are reactive power absorvers and in our case will be connected from
-the line directly to the ground. The equivalent circuit is shown in Figure \ref{fig:shuntreactor}.
+the line directly to the ground. The equivalent circuit is shown in Fig. \ref{fig:shuntreactor}.
 \begin{equation}
     \underline{y}_{sh} = \frac{1}{j\omega L}
 \end{equation}
@@ -534,13 +546,13 @@ where $L$ is the inductance of the reactor.
     \draw (0,0) to [generic, l=$\underline{y}_{sh}$] (0,-3) node[ground]{};
     
 \end{circuitikz}
-\caption{Shunt reactor model}
+\caption{Shunt reactor model.}
 \label{fig:shuntreactor}
 \end{figure}
 
 We will consider the possibility to include 5 different shunt reactors in the system. Further development on the reasoning of this scheme on Chapter \ref{fulltransmission}.
 
-\subsubsection{Main grid}
+\subsubsection{Main Grid}
 The main grid is the distribution grid we are supplying power to fit the OWPP.
 We will model the grid we are connected to using a Thévenin equivalent circuit where $\underline{U}_{g}$ is the
 Thévenin voltage and $\underline{Z}_{g}$ is the Thévenin impedance:
@@ -550,14 +562,14 @@ Thévenin voltage and $\underline{Z}_{g}$ is the Thévenin impedance:
         \draw (0,0) to[sV, l=$\underline{U}_{g}$] (0,-3) to (0,-3) node[ground]{};
         \draw (0,0) to [generic, l=$\underline{Z}_{g}$](-2,0);   
     \end{circuitikz}
-    \caption{Main grid model}
+    \caption{Main grid model.}
     \label{fig:maingrid}
     \end{figure}  
 \begin{subequations}\label{maingrideq}
 \begin{align}
-    \underline{Z}_{g} = R_g + jX_g \\
-    R_g = \sqrt{\frac{\frac{U_{g}^2}{SCR} \, p_{owf}S_{base}}{(\frac{X_g}{R_g})^2+1}}
-    X_g = R_g \frac{X_g}{R_g}
+    \underline{Z}_{g} &= R_g + jX_g \\
+    R_g &= \sqrt{\frac{\frac{U_{g}^2}{SCR} \, p_{owf}S_{base}}{(\frac{X_g}{R_g})^2+1}} \\
+    X_g &= R_g \frac{X_g}{R_g}
 \end{align}
 \end{subequations}
 where $U_{g}$ is the rated voltage of the grid, $SCR$ the short-circuit ratio and $\frac{X_g}{R_g}$ the ratio of the system reactance.
@@ -568,7 +580,7 @@ where $U_{g}$ is the rated voltage of the grid, $SCR$ the short-circuit ratio an
 \end{itemize}
 
 
-\subsubsection{Power plant}
+\subsubsection{Offshore Wind Power Plant}
 We will model our OWPP as a simple power injection at one end of the transmission line. For our
 analysis we will consider that there is no reactive power generation, therefore $q_{owf} = 0$. $p_{owf}$ will be the active power generation that will depend 
 on the wind conditions of the plant. The reach of the work will limit its analysis to a fix power generation.
@@ -583,13 +595,13 @@ on the wind conditions of the plant. The reach of the work will limit its analys
     \draw[->] (3,1.5) -- (5.5,1.5);
     \node at (4.3,1.5)[label ={[font=\bfseries] above:$p_{owf}+jq_{owf}$}]{};
 \end{tikzpicture}
-\caption{Power plant}
+\caption{ Offshore Wind Power Plant.}
 \label{fig:powerplant}
 \end{figure}
-Further development on how considering different wind conditions could be implemented in our work, check \ref{futurework}.
+Further development on how considering different wind conditions could be implemented in our work, check section \ref{futurework}.
 
 
-\subsection{Costs modelling}
+\subsection{Costs Modelling}
 
 In this section we will derive the cost equations for the different elements of our transmission system. This costs function will be essential for our optimization problem since
 the will be the objective function to minimize and the parameters on which thwey depend will be the vector of decision variables we want to get.
@@ -613,7 +625,7 @@ The parameters $A$, $B$ and $C$ are shown in Table \ref{tab:parameterscab}:
     220 & 3.181 & 0.11 & 1.16 \\
     \hline
     \end{tabular}
-    \caption{Parameters A, B, C for different rated voltages \cite{chalmers}}
+    \caption{Parameters A, B, C for different rated voltages \cite{chalmers}.}
     \label{tab:parameterscab}
     \end{table}
 We will consider the tranmission voltage levels presented in Table \ref{tab:parameterscab} as decision variables in our optimization.
@@ -626,13 +638,13 @@ For the transformers, costs are defined in \cite{costraf} as:
 \end{equation}
 where $S_{r-tr}$ is the rated power of the transformer in MVA.
 
-\subsubsection{Shunt reactor}
+\subsubsection{Shunt Reactors}
 Cost functions for shunt reactors are presented in \cite{paperbase} as:
 \begin{equation}\label{eq:shuntcost}
     C_{sh}= K \cdot Q_l \cdot + P = K \cdot Y_l\cdot U_{AC-N}^2 + P \quad \left[M\euro\right]
 \end{equation}
 
-where $K$ and $P$ are constants that depends on the location of the reactor and can be found in Figure \ref{tab:parametersshunt}, $Q_l = Y_l\cdot U_{AC-N}^2$ is the reactive power absorbed by the reactor in MVA,
+where $K$ and $P$ are constants that depends on the location of the reactor and can be found in Fig. \ref{tab:parametersshunt}, $Q_l = Y_l\cdot U_{AC-N}^2$ is the reactive power absorbed by the reactor in MVAr,
 $Y_l$ is the admittance of the reactor and $U_{AC-N}$ is the nominal transmission voltage where the compensation is placed.
 
 
@@ -647,7 +659,7 @@ $Y_l$ is the admittance of the reactor and $U_{AC-N}$ is the nominal transmissio
     Mid cable & 0.01576 & 12.44 \\
     \hline
     \end{tabular}
-    \caption{Parameters K and P for different positions of the reactive power compensation \cite{paperbase}}
+    \caption{Parameters K and P for different positions of the reactive power compensation \cite{paperbase}.}
     \label{tab:parametersshunt}
     \end{table}
 \subsubsection{Switchgears}
@@ -658,14 +670,14 @@ For switchears, costs are defined in \cite{switchcost} as:
 \end{equation}
 
 where $U_{AC-N}$ is the nominal transmission voltage in kV.
-\subsubsection{Substation platform}
+\subsubsection{Substation Platform}
 For the substation platform, costs are presented in \cite{chalmers} as:
 \begin{equation}
     C_{ss-AC} = 2.534 + 0.0887 \cdot P_{owf} \quad \left[M\euro\right]
 \end{equation}
 where $P_{owf}$ is the nominal power generated by the OWPP in MW.
 
-\subsubsection{AC power losses}
+\subsubsection{AC Power Losses}
 Lastly, but probably one of the most important costs to consider, are the power losses in the transmission system. To able to compare this term with other investment costs related to the electric elements,
 it would be useful to express this term in monetary units. We will use the following equation to estimate the cost of power losses in the system:
 
@@ -684,20 +696,20 @@ following estimated values from \cite{paperbase}:
     $C_{energy}$ & 100 \euro/MWh  \\
     \hline
     \end{tabular}
-    \caption{Parameters for computing power losses cost \cite{paperbase}}
+    \caption{Parameters for computing power losses cost \cite{paperbase}.}
     \label{tab:lossescost}
 \end{table}
 
-Now it remains to compute the power losses $P_{losses}$ in the system. This will derived in \ref{fulltransmission} as it will be trivial to get
+Now it remains to compute the power losses $P_{losses}$ in the system. This will derived in section \ref{fulltransmission} as it will be trivial to get
 the power losses once we have the power flow solution.
 
-\section{Power flow analysis} \label{fulltransmission}
+\section{Power Flow Analysis} \label{fulltransmission}
 
 Now we can fully define the power flow analysis.  This approach will allow as to model the transmission system as a set of buses (or nodes)
 interconnected by transmission links. This will allow as to solve for the steady-state powers and voltages of the system. This step is crucial to latter on
-formulate our optimization since power flow equations will be the equality constraint of the optimization problem, \ref{equality}, and the objective function will also depend on the solution of the power flow (PF).
+formulate our optimization since power flow equations will be the equality constraint of the optimization problem,  see section \ref{equality}, and the objective function will also depend on the solution of the power flow (PF).
 
-\subsection{Types of buses}
+\subsection{Types of Buses}
 
 In this section we will briefly describe what is a bus and what types we have.\par
 Buses are points of the grid which either supplied by generators, \textit{generator buses}, or those without generators, \textit{load buses}. More formally, a $n$-bus system, $N=\{B_1,...,B_i,...,B_n\}$ where $N$ is the set of $n$-nodes, is defined as:
@@ -742,7 +754,7 @@ In summary:
         Reactive Power ($Q_i$) & No & Yes & No \\
         \hline
     \end{tabular}
-    \caption{Known variables for each type of bus}
+    \caption{Known variables for each type of bus.}
     \label{tab:bus_variables}
 \end{table}
 
@@ -750,7 +762,7 @@ In summary:
 
 
 
-\subsection{Per unit system (p.u.)}
+\subsection{Per Unit System (p.u.)}
 
 In power systems analysis, it is common to use the per unit system to normalize the magnitudes of the variables. This is very useful when we are dealing with several transformers and voltage levels. 
 The per unit system is defined as:
@@ -766,15 +778,15 @@ In our case we will use $S_{base} =100 \text{ MVA}$ and $V_{base} = \text{ trans
     \end{cases}
 \end{equation}
 
-Using the per unit system will be particularly useful for analyzing the results and for dealing with the inequality constraints \ref{inequality}.
+Using the per unit system will be particularly useful for analyzing the results and for dealing with the inequality constraints in section \ref{inequality}.
 
-\subsection{Grid model}
+\subsection{Full Transmission System Model}
 
-Now we have all the information neeeded to build our full model. In \cite{paperbase} they consider five possible postions for the shunt reactors, as seen in Figure \ref{fig:poss_position}. 
+Now we have all the information neeeded to build our full model. In \cite{paperbase} they consider five possible postions for the shunt reactors, as seen in Fig. \ref{fig:poss_position}. 
 \begin{figure}[H]
     \centering
 	\includegraphics[width=0.65\textwidth]{imatges/poss_position.png}
-	\caption{Possible locations for the shunt reactors \cite{paperbase}}
+	\caption{Possible locations for the shunt reactors \cite{paperbase}.}
     \label{fig:poss_position}
 \end{figure}
 
@@ -828,7 +840,7 @@ after the same transformer. For sake of generality, we will consider that any co
     
 
     \end{tikzpicture}
-    \caption{Transmission system model and buses}
+    \caption{Transmission system model and buses.}
     \label{fig:fullgrid}
     \end{figure}
 
@@ -847,7 +859,7 @@ Now we choose where we want to define our buses and which type they are. We clas
 6 & Slack \\
 \hline
 \end{tabular}
-\caption{ Transmission system bus types}
+\caption{Transmission system bus types.}
 \label{table:bus_types}
 \end{table}
 
@@ -859,7 +871,7 @@ A brief explanation of the bus types is exposed:
     \item \textbf{Bus 6:} We will use this one as the slack bus. Note that this bus power flow solution for $P_6$ will allow us to compute the losses in the system
     and will be essential part of the optimization problem. Also, since we define it as the slack bus, it will be the reference for the voltage angles and in charge of balacing the power in the transmission system. 
 \end{itemize}
-\subsection{Admittance matrix}
+\subsection{Admittance Matrix}
 
 The admittance matrix encodes all the information of the passive elements of the grid and the relationship between them and allows us to perform the steady-state 
 analysis of the grid.
@@ -910,7 +922,7 @@ Some properties of the admittance matrix are:
     For instance, in a 1000-bus system, the matrix approximately is 99\% sparse. You can take advantage (and it will be essential to do it for very big networks) of this sparsity using computational techniques \cite{sparcity}.
 \end{itemize}
 
-\subsection{Grid parameters}
+\subsection{Transmission System Parameters}
 
 We will use the following set of grid elements parameters for the transformers and the main grid:
 \begin{table}[h]
@@ -928,16 +940,16 @@ We will use the following set of grid elements parameters for the transformers a
     $i_o$ & 1.2 \% \\
     \hline
     \end{tabular}
-    \caption{Grid parameters \cite{paperbase}}
+    \caption{Grid parameters \cite{paperbase}.}
     \label{tab:gridparameters}
     \end{table}
 
 
-\subsection{Power flow }
-\subsubsection{Power flow equations}
+\subsection{Power Flow }
+\subsubsection{Power Flow Equations}
 
 We first going to derive an expression for the PF equations.
-From \ref{eq:kirchhoff} we can get the injected current for the $i$-th component:
+From Eq. \ref{eq:kirchhoff} we can get the injected current for the $i$-th component:
 \begin{equation}
     I_i = \sum_{j=1}^{n} Y_{ik}V_k \quad i = 1,2,...,n
 \end{equation}
@@ -968,7 +980,7 @@ After solving the system, from  Eq. \ref{powerflowP} and Eq. \ref{powerflowQ} we
 
 To solve a set of non-linear equations, numerical methods are the standalone way to go. For the PF, on of the most used methods is the Newton-Raphson (N-R) method \cite{NRusual}. A brief description of this method will be presented for the $n$-dimentional case, but further description can be found in \cite{llibrebase}.
 
-We will descibe the process considering an $n$-bus system with all PQ buses except one slack bus. Note that in our specific case this conditions are met and $n = 6$. Once we strip away the slack bus, it remains to find the unknowns in the right side of equations \ref{powerflowP} and \ref{powerflowQ}. Therefore it will be convinient to
+We will descibe the process considering an $n$-bus system with all PQ buses except one slack bus. Note that in our specific case this conditions are met and $n = 6$. Once we strip away the slack bus, it remains to find the unknowns in the right side of Eqs. \ref{powerflowP} and \ref{powerflowQ}. Therefore it will be convinient to
 define the following vectors of unknowns of PQ-buses:
 \begin{equation}
 \begin{aligned}
@@ -1083,7 +1095,7 @@ The N-R solver has been implemented in Python(check the \hyperref[Appendix]{Appe
 Finally note that close to the solution vector $\mathbf{x^{*}}$ it can be proven that N-R normally presents
 quadratic convergence \cite{convergenceNR}. Moreover, in terms of computational time, Algorithm 1 takes about $0.06$ s in average to solve the PF.
 
-Now we can observe that the PF is essential for computing the power losses (see \ref{eq:lossescost}) in the system, which will be in the objective function of the optimization problem. It is clear to see that $P_{losses}$ will be the difference between
+Now we can observe that the PF is essential for computing the power losses (see Eq. \ref{eq:lossescost}) in the system, which will be in the objective function of the optimization problem. It is clear to see that $P_{losses}$ will be the difference between
 the injected  active power from the OWPP and the active power delivered to the slack bus, which is the main grid:
 
 \begin{equation}
@@ -1091,7 +1103,7 @@ the injected  active power from the OWPP and the active power delivered to the s
 \end{equation}
 
 
-\section{Optimization problem formulation}\label{Minimization}
+\section{Optimization Problem Formulation}\label{Minimization}
 
 Generally an optimization problem that involves equality and inequality constraints can be formulated as:
 \begin{equation}\label{optiprob}
@@ -1104,7 +1116,7 @@ Generally an optimization problem that involves equality and inequality constrai
 
 
 where $\mathbf{x} \in \mathbb{R}^n$ is the $n$ decision variables vector, $\mathbf{f}(\mathbf{x}) \in \mathbb{R}^k $ is set of objective functions to be minimized. Note we have presented the problem in its more general form, where the objective function can be a set of $n$-objectives to have to be optimized simultaneously and will
-be proved to be useful in \ref{objfun}. $\mathbf{H(x) = 0}$ are the equality constraints and $\mathbf{G(x) \leq 0}$ are the inequality constraints. 
+be proved to be useful in section \ref{objfun}. $\mathbf{H(x) = 0}$ are the equality constraints and $\mathbf{G(x) \leq 0}$ are the inequality constraints. 
 
 
 Now we have to decide which decision variables we include in the optimization problem. It is easy to see that we can include all the design varaibles in which the transmission system model depends, which are all included
@@ -1121,7 +1133,7 @@ in the cost function and therefore have a direct impact in the cost of the syste
 where the size of $\mathbf{x}$ is ($1$ x $13$), i.e. we have 13 decision variables. Each term is defined as follows:
 \begin{itemize}
     \item $vol_{tr}$: Is the voltage level of the transmission cables. Note that this will be an integer variable, where you can choose one voltage level
-    given by manufacturers with its associated parameters and cost. Check table \ref{tab:parameterscab} to see available options considered.
+    given by manufacturers with its associated parameters and cost. Check Table \ref{tab:parameterscab} to see available options considered.
     \item $n_{cables}$: Is an integer number that that represents the number of cables placed in parallel.
     \item $react_{bi_i} \quad i=1,...,5$: Is a binary variable (i.e. either 0 or 1) that tells if we place or not a reactor at position $i$.
     \item $react_{cont_i} \quad i=1,...,5$: Sizing of reactor at position $i$, therefore its $Y_{shi}$ in p.u.
@@ -1136,7 +1148,7 @@ methods we can use as we will see in \ref{Optimization}.
 \subsection{Constraints}
 \subsubsection{Equality: Power Flow}\label{equality}
 
-The equality constraints $ \mathbf{H(x)} = 0$ in the optimization problem in \ref{optiprob} are the imposed by the power flow equations. In fact, the power mismatch vector \ref{powermismatch} is the one that take this form. therefore:
+The equality constraints $ \mathbf{H(x)} = 0$ in the optimization problem in  Eq. \ref{optiprob} are the imposed by the power flow equations. In fact, the power mismatch vector in Eq. \ref{powermismatch} is the one that take this form. therefore:
 
 \begin{equation}
     \mathbf{H(x)} = \begin{bmatrix}
@@ -1169,10 +1181,10 @@ The equality constraints $ \mathbf{H(x)} = 0$ in the optimization problem in \re
 
 
 
-\subsubsection{Inequality: Technical constraints}\label{inequality}
+\subsubsection{Inequality: Technical Constraints}\label{inequality}
 
 The operational constraints are the ones that ensure the system operates within the limits of the equipment. This constraints of inequaility nature, setting 
-upper and lower bounds for certain varaibles. This constraints will be the the inequality constraints $\mathbf{G(x)} \leq 0$ in the optimization problem in \ref{optiprob}. We will
+upper and lower bounds for certain varaibles. This constraints will be the the inequality constraints $\mathbf{G(x)} \leq 0$ in the optimization problem in  Eq. \ref{optiprob}. We will
 denote as $\mathbf{L_i^X}$ each different limit at bus $i$ and for the sake of coherence we will express the constraints in the $\mathbf{G(x)} \leq 0$ form.\par
 Note that all the following limits can be based on grid code requirements, but we will use some standard values.
 
@@ -1206,12 +1218,12 @@ possible to zero. Therefore we will set the limits as:
 where $Q_{max}=Q_{min}=0$. Also note that potentially the wind turbines could be used to absorbe reactive power, but we will not consider this option in our work.
 
 
-\subsection{Objective function: multiobjective}\label{objfun}
+\subsection{Objective Function}\label{objfun}
 
 Probably one of the critical parts is to indentify the objective function we want to minimize and decide how we treat it. Now, we will describe the terms that we will include in the objective function
 and why we have decided to work with a multiobjective approach.\par
 
-\subsubsection{Why bi-objective?} \label{biobjective}
+\subsubsection{Why Bi-objective?} \label{biobjective}
 
 Let us imagine you are an engineer of a firm that is planning to build and OWPP. You have to ensure both that the transmission system is reliable and robust in terms of operational constraints but also to make the
 investment as profitable as possible, therefore you want to minimize its investment cost. Given this scenario, you can expect that it exists a tradeofff between the two objectives, investing more money can make your transmission system more robust and yield smaller power losses and
@@ -1222,7 +1234,7 @@ making needs to be taken in presence of various conflicting objectives.  Within 
 The main idea is to find the set of solutions that are not dominated by any other solution in the set; that is solutions where no objective can be further minimized without worsening another. In this sense, any point found in this set can be considered optimal 
 and be regarded as a potential solution. This set is called the Pareto Frontier and the solutions are called Pareto optimal solutions.\par
 
-Using the formulation in \ref{optiprob}, let $ \mathbf{x^*} \in \mathbf{X}$, where $\mathbf{X}$ is the feasible set of solutions that satisfy the constraints, have its associated outcome vector $\mathbf{f}(\mathbf{x^*})$.
+Using the formulation in Eq. \ref{optiprob}, let $ \mathbf{x^*} \in \mathbf{X}$, where $\mathbf{X}$ is the feasible set of solutions that satisfy the constraints, have its associated outcome vector $\mathbf{f}(\mathbf{x^*})$.
 Then a feasible solution $\mathbf{x_1}$ is said to (Pareto) dominate another solution $\mathbf{x_2}$ \cite{nsgai} if: 
 
 \begin{equation} \label{paretodomination}
@@ -1244,7 +1256,7 @@ Then a feasible solution $\mathbf{x_1}$ is said to (Pareto) dominate another sol
     \begin{subfigure}{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imatges/domination.png}
-        \caption{Explanation of domination \cite{domination}}
+        \caption{Explanation of domination \cite{domination}.}
         \label{fig:domination}
     \end{subfigure}
     %\caption{Caption for both images}
@@ -1279,11 +1291,11 @@ where $c$ is the penalty factor and $\mathbf{p(x)}$ is the penalty function:
 \end{equation}
 
 In practice, setting a big value for $c$ will make the optimization method to look for solutions that satisfy the constraints.
-\subsection{Algorithm overview}
+\subsection{Algorithm Overview}
 
 Now we have setup all the elements that define the sequential process for finding the desired Pareto Front. Now it just remains
 to find the recurisve optimization method that that suits best our problem. Note that here we advance that we will use the genetic algorithm
-NSGA-II to solve the optimization problem (see section \ref{NSGAII}). Figure \ref{fig:block_overview} shows the block diagram of the solver implemented in Python (check the \hyperref[Appendix]{Appendix}).
+NSGA-II to solve the optimization problem (see section \ref{NSGAII}). Fig. \ref{fig:block_overview} shows the block diagram of the solver implemented in Python (check the \hyperref[Appendix]{Appendix}).
 
 \begin{figure}[h]
 \centering
@@ -1324,16 +1336,16 @@ NSGA-II to solve the optimization problem (see section \ref{NSGAII}). Figure \re
     \draw [->] (box8) -- node[midway, right] {YES} (box9);
     
     %\draw [->] (box7) to[bend right=80] node[midway,below,sloped] {Optimization method} (box2);
-    \draw [->] (box8) -- ++(5,0) node[midway, above] {NO}|-  node[pos=0.25,sloped] {Recursive algorithm: NSGA-II [\ref{fig:nsgasteps}]} (box2);
+    \draw [->] (box8) -- ++(5,0) node[midway, above] {NO}|-  node[pos=0.25,sloped] {Recursive algorithm: NSGA-II [see \ref{fig:nsgasteps}]} (box2);
     
 \end{tikzpicture}
 }
-\caption{Block diagram of the optimization algorithm}
+\caption{Block diagram of the optimization algorithm.}
 \label{fig:block_overview}
 \end{figure}
 
 
-\section{Optimization methods}\label{Optimization}
+\section{Optimization Methods}\label{Optimization}
 
 After what we have summarized in the previous section we want an optimization method that:
 \begin{itemize}
@@ -1342,16 +1354,16 @@ After what we have summarized in the previous section we want an optimization me
     \item Can find the whole Pareto front to analyse the tradeoff between the two objectives, investment and technical.
 \end{itemize}
 
-\subsection{State of the art limitations: interior point method}
+\subsection{State-of-the-art Limitations: Interior Point Method}\label{stateofart}
 
 In \cite{paperbase} they propose an iterative method for solving the reactive power compensation problem. This methodology solves the optimization
 for continous varaibles using an interior point method solver \cite{ipm} for every possible combination of integer variables. Then, they compare the total
-cost for all options and pick the one with smaller cost. The algorithm is summarized in \ref{fig:paaperalgo}:
+cost for all options and pick the one with smaller cost. The algorithm is summarized in Fig. \ref{fig:paaperalgo}:
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{imatges/paper_algo.png}
-    \caption{State-of-the-art algorithm for reactive power compensation optimization \cite{paperbase}}
+    \caption{State-of-the-art algorithm for reactive power compensation optimization \cite{paperbase}.}
     \label{fig:paaperalgo}
 \end{figure}
     
@@ -1365,21 +1377,21 @@ Another traditional method to solve multiobjective problems is to basicaly trans
     f(\mathbf{x}) = \sum_{i=1}^{k} w_i \cdot f_i(\mathbf{x}) \quad \text{where} \quad \mathbf{x} \in \mathbf{X} \text{ and } \sum_{i=1}^{k} w_i = 1
 \end{equation}
 
-From \ref{weightedsum} is clear that modifying the weights $w_i$ we change the relative importance we give to each objective. The main drawback of this approach, even though that we can deal with more than one objectives at the same time, we
+From Eq. \ref{weightedsum} is clear that modifying the weights $w_i$ we change the relative importance we give to each objective. The main drawback of this approach, even though that we can deal with more than one objectives at the same time, we
 still get just one solution for each combinations of weights, not a set of optimal solutions, i.e. the Pareto Front. Moreover, how do we choose this $w_i$? The optimal point is sensible to this weights, therefore you must have
 a clear understanding of you priorites between the objectives which is something we do not want to impose in our approach.\par
 
-\subsection{NSGA-II: Genetic algorithm}\label{NSGAII}
+\subsection{NSGA-II: Genetic Algorithm}\label{NSGAII}
 
 
 
 This is were genetic algorithms (GA's) come into play. GA's are a class of optimization algorithms that are inspired by the process of natural selection that uses the principles of evolution to solve optimization problems. The main idea is that they start from a random
 population of candidate solutions and, in one single simulation run, they are able to find multiple Pareto optimal solutions. \par
 
-That is why we will use the Nondominated Sorting GA II (NSGA-II) algorithm to solve our problem. It accomplishes the requirements in \ref{Optimization} and it has a time complexity of $\mathcal{O}(MN^2)$, where $M$ is the number of objectives and $N$ the population size.
-Moreover, it allows us to treat inequality contraints with penalty functions, as proposed in \ref{biobjective}.\par
+That is why we will use the Nondominated Sorting GA II (NSGA-II) algorithm to solve our problem. It accomplishes the requirements in  section \ref{Optimization}.
+Moreover, it allows us to treat inequality contraints with penalty functions, as proposed in section \ref{biobjective}.\par
 
-An exhaustive theoretical development of how NSGA-II works is out of the scope of this work, but a complete and formal description of the algorithm can be found in \cite{NSGAII}. Just for the sake of completness, one can simplify how NSGA-II works in the recursive steps of Figure \ref{fig:nsgasteps}:
+An exhaustive theoretical development of how NSGA-II works is out of the scope of this work, but a complete and formal description of the algorithm can be found in \cite{NSGAII}. Just for the sake of completness, one can simplify how NSGA-II works in the recursive steps of Fig. \ref{fig:nsgasteps}:
 
 \begin{figure}[H]
     \centering
@@ -1431,15 +1443,15 @@ An exhaustive theoretical development of how NSGA-II works is out of the scope o
     \label{fig:nsgasteps}
     \end{figure}
 
-Regarding the description of the algorithm in Figure. \ref{fig:nsgasteps}:
+Regarding the description of the algorithm in Fig. \ref{fig:nsgasteps}:
 \begin{enumerate}
-    \item Initially a random population $P_0$ of size $N$ is created. This population is sorted according to non-dominantion (which is an equivalent name for Pareto dominance) described in \ref{paretodomination}.
+    \item Initially a random population $P_0$ of size $N$ is created. This population is sorted according to non-dominantion (which is an equivalent name for Pareto dominance) described in  Eq. \ref{paretodomination}.
     \item A new offspring population $Q_t$ is created by applying crossover and mutation operators to the population $P_t$. Crossover combines two solutions $\mathbf{x}$'s to create a new one and mutations introduce small random changes, or mutations, to $\mathbf{x}$.
     This part is were the inspiration for the name of GA's comes from. Check \cite{NSGAII} for further explanation.
     \item The offspring population $Q_t$ is combined with the parent population $P_t$ to create a new population $R_t$ of size $2N$. This population is sorted again according to non-dominantion.
     \item Non-dominanted sorting creates non-dominated sets $F_i$ of solutions where $i$ is the non domination level.
     The first set $F_1$ contains the non-dominated solutions, the second set $F_2$ contains the solutions that are dominated only by the solutions in $F_1$ and so on.
-    \item Crowding dsitance sorting basically creates the new $P_{t+1}$ by selecting the best solutions in the non-dominated sets $F_i$ until you arrive to size of $N$ for the new population.
+    \item Crowding distance sorting basically creates the new $P_{t+1}$ by selecting the best solutions in the non-dominated sets $F_i$ until you arrive to size of $N$ for the new population.
     \item The algorithm iterates until the maximum number of generations $t_{max}$ is reached, which will be the terminantion condition.
 
 \end{enumerate}
@@ -1447,17 +1459,17 @@ Regarding the description of the algorithm in Figure. \ref{fig:nsgasteps}:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{imatges/proces_nsga.png}
-    \caption{Visualization of steps 4 and 5 \cite{NSGAII}}
+    \caption{Visualization of steps 4 and 5 \cite{NSGAII}.}
     \label{fig:stpesnsga}
 \end{figure}
 
-The algorithm in Figure. \ref{fig:block_overview} has been implemented in pymoo \cite{pymoo}, a Python library for multiobjective optimization that includes the NSGA-II algorithm \ref{fig:nsgasteps} and allows to formulate mixed-variable problems.
-It is worth mentioning that the proposed method \ref{fig:block_overview} is performed on a whole set of $N$ candidate solutions $\mathbf{x}$ from the population set $P$.
+The algorithm in Fig. \ref{fig:block_overview} has been implemented in pymoo \cite{pymoo}, a Python library for multiobjective optimization that includes the NSGA-II algorithm \ref{fig:nsgasteps} and allows to formulate mixed-variable problems.
+It is worth mentioning that the proposed method in Fig. \ref{fig:block_overview} is performed on a whole set of $N$ candidate solutions $\mathbf{x}$ from the population set $P$.
 
 
 
 
-\subsection{Optimal Power Flow approach for compensation sizing}
+\subsection{Optimal Power Flow Approach for Compensation Optimal Sizing}
 
 In this section we propose a different approach based on the Optimal Power Flow (OPF) to validate the results obtained with NSGA-II, specifically the ones relates to
 the sizing of the reactive power compensation.\par 
@@ -1472,18 +1484,18 @@ The traditional AC-OPF objective function \cite{opfnotes} minimizes de cost of g
 \end{equation}
 where $\mathbf{P_G}$ is the vector of active power generated by the generators and $c_0$, $c_1$ and $c_2$ are the independent, linear and quadratic power generations costs repectively.
 
-As we saw in \ref{eq:shuntcost}, shunt reactors compensate a reactive power equivalent to $Q_{sh} = Y_{sh} \cdot U^2$. Therefore, finding the optimal size of the shunt reactors is equivalent
+As we saw in Eq. \ref{eq:shuntcost}, shunt reactors compensate a reactive power equivalent to $Q_{sh} = Y_{sh} \cdot U^2$. Therefore, finding the optimal size of the shunt reactors is equivalent
 to minimize the cost of the reactive power compensation. Therefore we can modify the objective function of the OPF to:
 
 \begin{equation}\label{eq:Qopf}
 \underset{Q_{sh}}{\text{min}} \quad \mathbf{c_{sh}^T} \mathbf{Q_{sh}} \quad \text{where} \quad \mathbf{c_{sh}} = \begin{bmatrix} K \\ P \\ 0 \end{bmatrix}
 \end{equation}
-where K and P are from \ref{tab:parametersshunt}.\par
+where K and P are from Table \ref{tab:parametersshunt}.\par
 We have made this modifications implemented in the AC-OPF solver in Grical \cite{gridcal}, an open-source Python library for power systems analysis. Note that the derivatives of the objective functions, Jacobian and Hessian, have
 been modified according to the new objective function \ref{eq:Qopf}.
 
 
-\section{Case study}\label{CaseStudies}
+\section{Case Study}\label{CaseStudies}
 
 In this section we will study in depth the results that the algorithm yields for a specific design parameters
 of an OWPP. We will bencharmark the results obtained with NSGA-II with a "brute" force approoach using random search and compare the results of reactors sizing comparing with the OPF
@@ -1515,53 +1527,61 @@ The tunning parameters used for initalizing the NSGA-II algorithm are shown in T
     Termination, $t_{max}$  & 15 generations \\ \hline
     constraint penalty, $c$ & 10e4 \\ \hline
     \end{tabular}
-    \caption{Tunning parameters for the NSGA-II}
+    \caption{Tunning parameters NSGA-II.}
     \label{tab:NSGAII_parameters}
 \end{table}
+
+it is worth mentioning that NSGA-II has a time complexity of $\mathcal{O}(MN^2)$, where $M$ is the number of objectives and $N$ the population size. With $M=2$ and setting $N=150$ and $t_{max}=15$,
+it takes the algortihm about $10$ s to terminate. To put this performance in persepective , the method proposed in \cite{paperbase} and described in section \ref{stateofart} needs between $45$ and $140$ s to find the optimal solution.
 
 
 \subsection{500 MW, 100 km OWPP}
 
 We pick as case study a 500 MW OWPP located 100 km from shore. Results have been separated in different subsections to study specific results.
 
-\subsubsection{Random search compared to NSGA-II}
+\subsubsection{Random Search compared to NSGA-II}
 
+In this section we compare the results obtained with NSGA-II with a brute force approach. This simply means that we generate a random population of solutions within a certain bounds that gurantee power flow convergence on most of the cases and evaluate the objective function with those solutions.
+For the sake of a fair comparision, we showcase the results obtained with the two methods at the same computation time of around $10$ s, which corresponds to 700 random evaluations.
+
+In Fig. \ref{fig:searchall} we can see how both the NSGA-II and the random search are distributed in the objective function $\mathbf{f(x)}$ 2-D space. To give some intuition on what we see, each set of black points (random evaluations) is caractherized by a dominant term in the investment cost value, normally the number of cables or the placing 
+of a shunt reactor mid-cable both of which introduce big changes in the investment cost. The red points (NSGA-II) is the set of Pareto dominanting solutions.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{imatges/random_vs_nsga_all.png}
-    \caption{Random search (black) compared to NSGA-II (red)}
+    \caption{Random search (black) compared to NSGA-II (red).}
     \label{fig:searchall}
 \end{figure}
-    
+
+From the results in Fig. \ref{fig:searchall} and the zoom on the Pareto area on Fig. \ref{fig:paretpnsga} we can see that:
+\begin{itemize}
+    \item NSGA-II is able to find the set of optimal solutions in the region closer to the utopia point, i.e. where both objectives are equal to 0.
+    \item The Pareto front is well defined and the solutions are well distributed.
+    \item NSGA-II is able to find solutions that are non-dominated by the random search. This means that the algorithm effectively outperforms any kind of brute force approach
+    since it reveals a  set of solutions $F_1$ that dominates all the random search points.
+\end{itemize}
+
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{imatges/random_vs_nsga_zoom.png}
-    \caption{Zoom on the Pareto Front area}
+    \caption{Zoom on the Pareto Front area, random search (black) compared to NSGA-II (red).}
     \label{fig:paretpnsga}
 \end{figure}
-%\subsubsection{50km}
-%\subsubsection{100km}
-%\subsubsection{150km}
-%\subsection{1000 MW OWPP}
-%\subsubsection{50km}
-%\subsubsection{100km}
-%\subsubsection{150km}
-\subsubsection{OPF validation}
 
-Now we showcase how the OPF can help to validate the results obtained with NSGA-II. We pick one point from the Pareto Set and  take its solution for all the varaibles in $\mathbf{x}$
-except for the continous variables of the sizing of the reactors, $Y_{sh_i}$. We run the OPF proposed in \ref{eq:Qopf} and compare the results.
+Note in Fig. \ref{fig:paretpnsga} we see a weird behaviour on the upper-left side of the Pareto front. It seems that in that region, the one corresponding to not including any shunt reactor, there are some random search points that dominate the NSGA-II
+results. This should not be the case and our hypotesis is that that it is related to the random sampling of binary variables (the one corresponding to the locations of the shunt reactors) of the intial population $P_0$ and how is unable to generate a well-distributed population of candidate solutions.
+Future work should focus on how to improve the initial population sampling of all types of variables and hopefully solve this issue. 
 
-First, we check the convergence and running time of the OPF:
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{imatges/opf_convergence.png}
-    \caption{OPF convergence}
-    \label{fig:opfconv}   
-\end{figure}
-Figure \ref{fig:opfconv} shows how the OPF converges to the optimal solution in about 12 iterations and it takes about 1.5 seconds. For comparison, running the traditional PF in \ref{NRsolver} takes around 0.06 s.
-That makes OPF around 25 times slower than the traditional PF.
 
-To do so, from the Pareto Front, we take a random point, chosen to be the one minimizing both objectives with equal weights. The vector of solutions we get is:
+\subsubsection{OPF Validation}
+
+Now we showcase how the OPF approach helps to validate the results obtained with NSGA-II. We pick one point from the Pareto Set and  take its solution for all the variables in $\mathbf{x}$
+except for the continous variables of the sizing of the reactors, $Y_{sh_i}$.
+
+We will use a random point of the non-dimanted set, aribitrarly chosen to be the one minimizing both objectives with equal weights. This esentially is converting the multiobjective problem into a single objective one using the method proposed in section \ref{stateofart} with $w_{invest} = w_{tech} = 0.5$. The optimal solution we get from NSGA-II is
+presented in Table \ref{table:optimalvaluesdicrete}:
+
 \begin{table}[H]
     \centering
     \begin{tabular}{l l}
@@ -1574,48 +1594,104 @@ To do so, from the Pareto Front, we take a random point, chosen to be the one mi
     Rated power of the transformer & 509.72 MVA \\
     \hline
     \end{tabular}
-    \caption{Specifications (except reactors sizing) of the optimal solution}
+    \caption{Specifications (excluding reactors sizing) of the optimal solution.}
     \label{table:optimalvaluesdicrete}
     \end{table}
 
-Now we pass this values to the OPF and see how the new values of the compensation afect the objective function:
+Now, we run the OPF proposed in Eq. \ref{eq:Qopf} and implemented in GridCal and compare the results. Initially, we check the convergence and running time of the OPF:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{imatges/opf_convergence.png}
+    \caption{OPF convergence}
+    \label{fig:opfconv}   
+\end{figure}
+
+Fig. \ref{fig:opfconv} shows how the OPF converges to the optimal solution in 12 iterations and it takes about 1.5 seconds. For comparison, running the traditional PF in \ref{NRsolver} takes around 0.06 s.
+That makes OPF around 25 times slower than the traditional PF.
+
+
+
+Afterwards, we check the values $Y_{sh}$ obtained from the OPF and see how they affect the objective function:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{imatges/opf_vs_nsga.png}
-    \caption{NSGA-II vs OPF for reactors sizing}
+    \caption{NSGA-II vs OPF for reactors sizing.}
     \label{fig:opfvsnsga}   
 \end{figure}
-As we see in Fig. \ref{fig:opfvsnsga}, the OPF gives a solution that is very close to the one obtained with NSGA-II. This validates the results obtained with NSGA-II, since OPF, which is a strictly traditional opimization method, does fall on the same Pareto Set, meaning that it has not found a combination of reactors sizing that Pareto 
+
+As we see in Fig. \ref{fig:opfvsnsga}, the OPF gives a solution that is very close to the one obtained with NSGA-II and most importantly, the OPF solution does not dominate the NSGA-II solution. The fact that the point is not exactly the same is because OPF and NSGA-II penalization costs are defined differently and
+cannot be compared directly. Nevertheless, the important property is that both solutions fall in the same Pareto front.
+
+This validates the results obtained with NSGA-II since OPF, which is a strictly traditional opimization method, does fall on the same non-dominated set $F_1$, meaning that it has not found a combination of reactors sizing that Pareto 
 dominates the solutions from NSGA-II.
 
-\subsubsection{Cost breakdown}
+\subsubsection{Costs Breakdown}
+
+In this section we will breakdown the investment costs terms of the optimal solution presented in Table \ref{table:optimalvaluesdicrete} and compare it to the same solution eliminating the reactive power compensation given by the shunt reactors. The idea is to quantify to effect of reactive power compensation
+in the power losses of the transmission system and the need to include it in the optimization problem. The results are presented in Fig. \ref{fig:nsgacosts} and Fig. \ref{fig:noshcosts}:
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{imatges/cost_nsga.png}
-    \caption{NSGAII optimal solution cost breakdown}
+    \caption{NSGA-II optimal solution cost breakdown.}
     \label{fig:nsgacosts}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{imatges/costs_nosh.png}
-    \caption{No compensation solution cost breakdown}
+    \caption{No compensation solution cost breakdown.}
     \label{fig:noshcosts}
 \end{figure}
-
-Now we can compare the cumulative total costs of NSGA-II optimal solution with the one of no compensation:
+Note the different scales in the y-axis of Fig. \ref{fig:nsgacosts} and Fig. \ref{fig:noshcosts} and how power losses, cables and substation cost are the dominant ones. For the sake of clarity 
+we can compare both cumulative total costs in the same plot as seen in Fig. \ref{fig:coparativecosts}:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{imatges/cost_comparision.png}
-    \caption{NSGA-II optimal solution and no-compensation total cost comparison}
-    \label{fig:noshcosts}
+    \caption{NSGA-II optimal solution and no-compensation total cost comparison.}
+    \label{fig:coparativecosts}
 \end{figure}
+
+The main conclusions we can extract from the results in Fig. \ref{fig:coparativecosts} is that the cost of including shunt reactors is very profitable since an extra
+$ 3.35 M\euro$ in investment cost is translated into a $ 93.2 M\euro$ reduction in the power losses costs, an impressive $ 39 \% $ reduction.
+
+From this section the need of reactive power compensation is clear. Moreover, future work presented in the next section \ref{injectionevol} and in section \ref{futurework} will showcase how this compensation becomes even more important when we consider 
+a variable power injection from the OWPP.
+
+\subsubsection{Power Losses and Overvoltage with Variable Power Injection} \label{injectionevol}
+
+This section will serve as a breeding ground for future work, check \ref{futurework}. We want see how the power losses and overvoltages evolve with power injections below the nominal value using the optimal solution we have found considering that $P_{owf} = 500$ MW always. Also, we will check what happens if we eliminate the reactive power compensation to 
+compare how effective is to include these shunt reactors in the optimization problem.  The results are presented in
+Fig. \ref{fig:lossesevol} and Fig. \ref{fig:overvoltevol}:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{imatges/losses evolution.png}
+    \caption{Power losses evolution with variable power injection.}
+    \label{fig:lossesevol}
+\end{figure}
+
+From Fig. \ref{fig:lossesevol} we see how the power losses increase exponentially as we reduce $P_{owf}$ when no reactive power
+compensation is considered. This is due to the fact that the power losses are directly proportional to the square of the current in the transmission lines and the reactive power compensation helps to reduce it when $p_{owf}$ descreases.
+As to the optimal compensation solution we observe that power losses (as expected from \ref{fig:whycomp}) are kept relatively low for all power injections considered, showcasing how useful shunt reactors are for limiting power losses in presence of variability of
+the power injection.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{imatges/overvoltageplot.png}
+    \caption{Overvoltage evolution with variable power injection.}
+    \label{fig:overvoltevol}
+\end{figure}
+
+From Fig. \ref{fig:overvoltevol} we see that reducing the power injection also increases $V_{avg}$, which is the average of all nodes in the transmission system voltage level in p.u. Again, shunt reactors effectively manage to keep $V_{avg}$ below the limit of $1.1$ p.u. (which no compensation cannot do) but up to a certain point where the power injection is so low that the shunt reactors are not able to compensate the reactive power enough to keep the voltage level below the technical limit. It
+is clear from the optimization in Eq. \ref{optiprob} that if we want to satisfy operational limits, we need to increase the reactive power compensation in the optimal solution if lower $P_{owf}$ are considered.
+
+Considering a distribuition for the wind speed, as proposed in section \ref{futurework}, will include this distribution of power injections below the nominal value and will give a more realistic view of the system and the need for reactive power compensation.
+
 
 %------------------------------------------
 \section{Conclusions}\label{Conclusions}
 
-All the objectives proposed at the beggining at \ref{objectives} have been acomplished. This chapter summarizes
+All the objectives proposed at the beggining in section \ref{objectives} have been acomplished. This chapter summarizes
 the main conclusions of the work and presents some proposals to take into consideration for future
 related work.
 
@@ -1630,7 +1706,7 @@ The main outcomes derived from the objectives met from each chapter of interest 
     It establishes the limitations that have been found and how the applications of a genetic algorithm such as NSGA-II
     can help to overcome them and meet the requirments of the optimization problem. It presents some theoretical fundations of the algorithm used and the schematic of the recursive solver that has been implemented.
 
-    \item Chapter \ref{CaseStudies} applies the optimization algorithm to a specific case study of an OWPP. First, the algorithm implementation has been demostrated to be fully functional and meets the requirements in \ref{Optimization}.
+    \item Chapter \ref{CaseStudies} applies the optimization algorithm to a specific case study of an OWPP. First, the algorithm implementation has been demostrated to be fully functional and meets the requirements in section \ref{Optimization}.
     The results show how we obtain a coherent Pareto Front and how the results obtained outperform any brute force approach, revealing a set on non-dominated optimal solutions. Moreover, the comparison with the OPF approach validates our results and shows that
     NSGA-II is able to reach the "best" points using a stochastic approach given that OPF is unable to explore any dominating area below the Pareto Front. The cost breakdown and evolution of cots for different power injections give an intuitve 
     explanation of the need for reactive power compensation.\par
@@ -1639,23 +1715,23 @@ The main outcomes derived from the objectives met from each chapter of interest 
 
 \end{itemize}
 
-\subsection{Future work}\label{futurework}
+\subsection{Future Work}\label{futurework}
 
 The implementation of NSGA-II for the optimization of OWPP transmission system design has potential to become a powerful tool. In this section we will propose a set of possible improvements
 that could enhance the overall quality of the proposed method and give new insights.\par 
 
 The main simplification and assumption through the development of the work has been assuming a constant power supplied by the OWPP
-at its nominal value, in other words, we are assuming a constant wind speed at the desired value. As shown in \ref{fig:whycomp} and in (), the need of reactive power compensation increases as the power injections of our plant descreases, i.e. low wind or no wind.
-The next and logical step is to let the proposed algorithm to consider different wind conditions. To be more accurate, we should consider a wind speed distribution, normally assumed to follow a Weibull distribution shown in \ref{fig:weibull}.
+at its nominal value, in other words, we are assuming a constant wind speed at the desired value. As shown in Fig. \ref{fig:whycomp} and in section \ref{injectionevol}, the need of reactive power compensation increases as the power injections of our plant descreases, i.e. low wind or no wind.
+The next and logical step is to let the proposed algorithm to consider different wind conditions. To be more accurate, we should consider a wind speed distribution, normally assumed to follow a Weibull distribution shown in Fig. \ref{fig:weibull}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{imatges/weibull.png}
-    \caption{Weibull distribution of wind speeds \cite{paperbase}}
+    \caption{Weibull distribution of wind speeds \cite{paperbase}.}
     \label{fig:weibull}
 \end{figure}
 
-To consider this distribution, we propose to create a set of N wind speeds $u_j$,  and associate a probability $p_j$ and power genearation $P_{owf_j}$ to each of them. Now it would just remain that the step on which we solve the power flow in \ref{fig:block_overview} to compute a 
+To consider this distribution, we propose to create a set of N wind speeds $u_j$,  and associate a probability $p_j$ and power genearation $P_{owf_j}$ to each of them. Now it would just remain that the step on which we solve the power flow in Fig. \ref{fig:block_overview} to compute a 
 weighted average of the power injections of the OWPP, $P_{owf}$  with the probabilities $p_j$. Doing so, the objective funtion will be a weighted sum of the costs of the different wind conditions:
 \begin{equation}
 \begin{aligned}
@@ -1671,13 +1747,13 @@ Literature \cite{paperbase} shows that after considering shunt reactors for reac
 using HVDC becomes cheaper than HVAC, for which power losses increase notably for high distances. Computing costs for HVDC would allow to extend the decision variables of the optimization to its full
 domain of posibilities.\par
 
-Moreover, further work could be to consider how disturbances of the voltage of the grid we are supplying to or the layout of the electrical collection system (see Figure \ref{layouts_shape}) inside the OWPP could affect the optimization problem. 
+Moreover, further work could be to consider how disturbances of the voltage of the grid we are supplying to or the layout of the electrical collection system (see Fig. \ref{layouts_shape}) inside the OWPP could affect the optimization problem. 
 Also, this work could be implemented in a software like Gridcal. Implementing this algorithm in an open-source software would allow to make it accesible to a wider audience, with a more user oriented interface and to be used in real-life projects.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{imatges/layouts.png}
-    \caption{Collection system for OWPP posible layouts: Radial(a), Single-sided ring(b), Double sided ring(c) and star(d) \cite{layouts_coll}}
+    \caption{Collection system for some OWPP posible layouts: Radial(a), Single-sided ring(b), Double sided ring(c) and star(d) \cite{layouts_coll}.}
     \label{layouts_shape}
 \end{figure}
 
@@ -1687,11 +1763,11 @@ versions of costs functions is a another potential line of work.\par
 
 All in all, the work developed in this thesis provides a good theoretical and practical basis for further research in the optimitization of transmission systems in OWPP. In fact, this thesis will be used as the the starting point for eRoots  and Acciona to implement an operative and complete version of the algorithm in GridCal.
 %------------------------------------------
-\section{Planning and viability studies}\label{Planning}
+\section{Planning and Viability Studies}\label{Planning}
 
 \subsection{Time Planning}
 
-Figure \ref{fig:gantt} shows the time distribution for the tasks carried out in the thesis.
+Fig. \ref{fig:gantt} shows the time distribution for the tasks carried out in the thesis.
 \begin{figure}[h]
 \begin{center}
 \begin{ganttchart}[hgrid, vgrid]{1}{20}
@@ -1709,16 +1785,15 @@ Figure \ref{fig:gantt} shows the time distribution for the tasks carried out in 
     \ganttlink{elem3}{elem4}
     \ganttlink{elem1}{elem2}
 \end{ganttchart}
-\caption{Thesis Gantt Chart}
+\caption{Thesis Gantt Chart.}
 \label{fig:gantt}
 \end{center}
 \end{figure}
 
-\subsection{Economic assessment}
+\subsection{Economic Assessment}
 
 The budgeting for this work includes the human resources used during the develpment of the thesis. We have considered the working hours devoted to the project under the internship agreement, as well as an average of 2.5 hours per week of tutor supervision.
-The total cost has been broken down with and without the Value Added Tax (VAT). The complete budgeting is shown in Table 
-\ref{tab:costs}.
+The total cost has been broken down with and without the Value Added Tax (VAT). The complete budgeting is shown in Table \ref{tab:costs}.
 \begin{table}[h]
 \centering
 \begin{tabular}{c c c c}
@@ -1733,15 +1808,15 @@ Tutor supervision & 25 \euro/h   &  50 h & 1250 \\
 \textbf{Total with VAT (21\%)} & & &  5868.5 \\
 \hline
 \end{tabular}
-\caption{Thesis Costs}
+\caption{Thesis Costs.}
 \label{tab:costs}
 \end{table}
 
 Note that the computer used for the development of the thesis has not been included in the budgeting, as it was already owned by the author and well-beyond its amortization period.
 
-\subsection{Environmental assessment}
+\subsection{Environmental Assessment}
 
-\subsubsection{Energy consumption}
+\subsubsection{Energy Consumption}
 
 This environmental assessment evaluates the energy consumption costs incurred during
 the development of a thesis over five months, using a computer as the primary tool. The primary energy consumption arises
@@ -1756,7 +1831,7 @@ Utilizing energy-efficient computers, enabling power-saving modes, and limiting 
 Additionally, adopting renewable energy sources, such as solar panels for charging devices, further reduces the carbon footprint,
 contributing to a more sustainable academic practice.
 
-\subsubsection{Potential impact}
+\subsubsection{Potential Impact}
 
 Optimizing transmission systems in OWPP can significantly enhance environmental impact by maximizing energy efficiency
 and reducing carbon emissions. Improved transmission reduces energy losses, ensuring that more clean energy reaches the grid, thereby displacing fossil
@@ -1772,7 +1847,7 @@ greenhouse gas emissions.
 
 
 
-\subsection{Social and gender equality assessment}
+\subsection{Social and Gender Equality Assessment}
 
 This assessment evaluates the social and gender equality aspects of a bachelor's thesis focused on developing a tool for optimizing renewable energy system design, authored by a 22-year-old white engineering student. While the thesis itself addresses a critical area in sustainable development, examining its social dimensions is essential to ensure inclusivity and equality.
 
@@ -1809,6 +1884,12 @@ Finalment, agraïr a la meva família i a la Mire el seu suport incondicional ca
  Mid-cable Reactive Power Compensation: Optimal Design and Comparison to VSC-HVDC transmission"}, \textit{IEEE Trans. Power Del.}, vol. 36,
  no. 5, pp. 2814–2824, Oct. 2021.
  %\texttt{Consultat \emph{quotiens necesse est}} 
+
+\bibitem{Hornsea}
+{Orsted},
+\textit{"Hornsea project"}, Orsted, 2024. [Online]. Available: \href{https://hornseaproject3.co.uk/about-the-project}{Hornsea Project Three}
+
+
  \bibitem{ferranti} 
  {W. Wiechowski and P. B. Eriksen},
 \textit{“Selected studies on offshore wind farm

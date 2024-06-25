@@ -54,7 +54,7 @@ plt.bar(labels, costs_opf, color='skyblue')
 plt.ylabel('Cost [M€]')
 plt.title('Breakdown of costs of NSGA-II solution')
 plt.xticks(rotation=20, fontsize=18)  # Rotate labels to avoid overlap
-plt.show()
+#plt.show()
 
 x_nosh = np.array([3, 2, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 509.72e6])
 vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_bi, react1_val, react2_val, react3_val,react4_val, react5_val, S_rtr = x_nosh

@@ -159,7 +159,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
             Y_l5 = 0
 
         # 1.5 Grid connection
-        scr = 50  # which value should we put here 5 or 50?
+        scr = 15  # which value should we put here 5 or 50?
         xrr = 10
         zgridm = V_ref**2 / (scr * p_owf * Sbase)
         rgrid = np.sqrt(zgridm**2 / (xrr**2 + 1))
@@ -496,6 +496,8 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
                 c_vol += (V[i] - 1.1) * penalty
             elif V[i] < 0.9:
                 c_vol += (0.9 - V[i]) * penalty
+
+        average_v = sum(V) / len(V)
         
         c_volover = 0
         for i in range(nbus-1):
@@ -537,7 +539,7 @@ def costac_2(vol, n_cables, react1_bi, react2_bi, react3_bi, react4_bi, react5_b
         cost_tech3 = c_react
         cost_tech4 = c_losses
 
-        cost_full = [c_vol, c_curr, c_losses, c_react, cost_tech, c_cab, c_gis, c_tr, c_reac, cost_invest,c_volover, c_volunder, c_ss]
+        cost_full = [c_vol, c_curr, c_losses, c_react, cost_tech, c_cab, c_gis, c_tr, c_reac, cost_invest,c_volover, c_volunder, c_ss, average_v]
             # pprint(cost_full)
 
         # return np.array([cost_invest, cost_tech1, cost_tech2, cost_tech3, cost_tech4])
