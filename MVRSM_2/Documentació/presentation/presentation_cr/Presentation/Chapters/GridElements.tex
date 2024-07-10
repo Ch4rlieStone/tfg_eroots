@@ -1,351 +1,183 @@
-\section{Transmission system model}
+\section{Transmission System Design}
 
 
 \begin{frame}{}
     \tableofcontents[currentsection]
 \end{frame}
 
+\begin{frame}{HVAC transmission system for an OWPP}
 
+What we want to design?
+\begin{figure}[H] %Recorda fixar la posició de les figures si no
+  \centering
+  \includegraphics[width=0.75\textwidth]{imatges/layout.png}
+  \caption{HVAC transmission system layout for an OWPP with reactive power compensation [\textit{check memory for citation}] .}
+  \label{fig:fulltransmission} %Si es posen les etiquetes de forma ordenada, la vida es més fàcil...
+\end{figure}
 
-\begin{frame}{Transmission system design}
-  Converters are prone to be saturated during short-circuits ($I_{max}$ is reached). 
+\end{frame}
+\subsection{Reactive Power Compensation}
 
-\begin{table}[!htb]\centering
-  \caption{Possible operating states of the converters in grid-following mode.}
-  \begin{tabular}{ccc}
-    \hline
-    \textbf{Converter State} & \textbf{PQ} & \textbf{PV} \\
-    \hline
-    \hline
-    USS & $P$, $Q$ & $P$, $V$ \\
-    PSS & $Q$, $I_{max}$ & $V$, $I_{max}$ \\
-    FSS & $P=0$, $I_{max}$ & $P=0$, $I_{max}$ \\
-    DIS & $P=0$, $Q=0$ & $P=0$, $Q=0$ \\
-    \hline
+\begin{frame}{Reactive power compensation}
+  
+Underground HVAC cables have high capacitance, reactive power generation becomes a problem.
+\begin{table}[h]
+  \centering
+  \begin{tabular}{c|c|c}
+  \hline
+   & Overhead Lines & Underground Lines \\
+   \hline
+  Capacitance Per Unit Length ($\mu$F/km) & 0.01 - 0.02  & 0.3 - 0.6 \\
+  \hline
   \end{tabular}
-  \label{tab:convs1}
-\end{table}
+  \caption{Comparison of Capacitance Per Unit Length of Overhead and Underground Lines.}
+  \label{tab:capacitance_comparison}
+  \end{table}
 
-\end{frame}
+Reactive power compensation helps overcoming associated issues.
 
-\subsection{Elements modelling}
-
-
-\begin{frame}{Elements modelling}
-Traditional power flow:
-\begin{equation}
-  \begin{pmatrix}
-    \bm{\Delta f}_P \\
-    \bm{\Delta f}_Q \\
-  \end{pmatrix} = -
-  \begin{pmatrix}
-    \frac{d \bm{f}_P}{d \bm{\theta}} & \frac{d \bm{f}_P}{d \bm{\nu}} \\
-    \frac{d \bm{f}_Q}{d \bm{\theta}} & \frac{d \bm{f}_Q}{d \bm{\nu}} \\
-  \end{pmatrix}
-  \begin{pmatrix}
-    \bm{\Delta \theta} \\
-    \bm{\Delta \nu} \\
-  \end{pmatrix}.
-  \label{eq:syst2xx}
-\end{equation}
-
-Extended Newton-Raphson considering current saturation:
-\begin{equation}
-  \begin{pmatrix}
-    \bm{\Delta f_P} \\
-    \bm{\Delta f_Q} \\
-    \bm{\Delta f_{I^2}} \\
-  \end{pmatrix} = -
-  \begin{pmatrix}
-    \frac{d \bm{f_P}}{d \bm{\theta}} & \frac{d \bm{f_P}}{d \bm{\nu}} \\
-    \frac{d \bm{f_Q}}{d \bm{\theta}} & \frac{d \bm{f_Q}}{d \bm{\nu}} \\
-    \frac{d \bm{f_{I^2}}}{d \bm{\theta}} & \frac{d \bm{f_{I^2}}}{d \bm{\nu}} \\
-  \end{pmatrix}
-  \begin{pmatrix}
-    \bm{\Delta \theta} \\
-    \bm{\Delta \nu} \\
-  \end{pmatrix},
-  \label{eq:systfin}
-\end{equation}
-where the residuals are:
-\begin{equation}
-  \begin{cases}
-    \bm{\Delta f_P} = -\bm{P}_\text{set} + \Re([\bm{V}]\bm{Y}^*\bm{V}^*),\\
-    \bm{\Delta f_Q} = -\bm{Q}_\text{set} + \Im([\bm{V}]\bm{Y}^*\bm{V}^*),\\
-  \bm{\Delta f}_{I^2} =  \bm{I_c} \bm{I_c}^* = - \bm{I}_{c,max}^2 + (\bm{Y}\bm{V} - [\bm{V}^*]^{-1} \bm{S}^* - \bm{I_l}) \cdot (\bm{Y}\bm{V} - [\bm{V}^*]^{-1} \bm{S}^* - \bm{I}_l)^*.
-\end{cases}
-\end{equation}
-\end{frame}
-
-\begin{frame}{New bus types}
-New categories of buses emerge:
-
-\begin{table}[!htb]\centering
-  \caption{Traditional types of buses and mapping to new buses depending on the converter state.}
-  \begin{tabular}{ccc}
-    \hline
-    \textbf{Converter State} & \textbf{PQ Control} & \textbf{PV Control} \\
-    \hline
-    \hline
-    USS & PQ & PV \\
-    PSS & QI & VI \\
-    FSS & PI & PI \\
-    DIS & PQ & PQ \\
-    \hline
-  \end{tabular}
-  \label{tab:stat}
-\end{table}
-
-\end{frame}
-
-
-
-\subsection{Cost modelling}
-
-\begin{frame}{Costs}
-
-\begin{figure}[!htb]\centering
-\incfig{texas3}
-\caption{Approximate location of the three converters.}
-\label{fig:texas}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.400\textwidth]{imatges/why_compensation.png}
+  \caption{Effect of including reactive power compensation.}
 \end{figure}
 
 \end{frame}
 
+\begin{frame}{Shunt reactors}
 
-\begin{frame}{Summary}
-\begin{table}[!htb]\centering \footnotesize
-  \caption{Power flow results for the converters under normal conditions.}
-  \begin{tabular}{cccccccc}
-    \hline
-    \textbf{VSC} & \textbf{State} & $\bm{\nu}$ & $\bm{\theta}$ ($^{\circ}$) & $|\bm{I}|$ & $\bm{P}$ & $\bm{Q}$ & $|\bm{S}|$ \\
-    \hline
-    \hline
-    vsc1 & \cellcolor{gray!40}USS & 1.0073 & -40.7924 & \cellcolor{gray!40}5.8017 & -5.0000 & 3.0260 & 5.8443 \\
-    vsc2 & \cellcolor{gray!40}USS & 1.0050 & -63.9565 & \cellcolor{gray!40}1.3882 & -1.0000 & 0.9731 & 1.3953 \\
-    vsc3 & \cellcolor{gray!40}USS & 1.0200 & -48.6301 & \cellcolor{gray!40}6.0529 & 6.0000 & 1.4580 & 6.1746 \\
-    \hline
-  \end{tabular}
-  \label{tab:2000_1}
-\end{table}
-
-\begin{table}[!htb]\centering \footnotesize
-  \caption{Short-circuit results for the converters with $\underline{Z}_f=0.002j$.}
-  \begin{tabular}{cccccccc}
-    \hline
-    \textbf{VSC} & \textbf{State} & $\bm{\nu}$ & $\bm{\theta}$ ($^{\circ}$) & $|\bm{I}|$ & $\bm{P}$ & $\bm{Q}$ & $|\bm{S}|$ \\
-    \hline
-    \hline
-    vsc1 & \cellcolor{gray!40}FSS & 0.0633 & -14.1576 & \cellcolor{gray!40}7.0000 & 0.0000 & 0.4431 & 0.4431 \\
-    vsc2 & \cellcolor{gray!40}USS & 0.9997 & -63.3836 & \cellcolor{gray!40}1.3958 & -1.0000 & 0.9732 & 1.3954 \\
-    vsc3 & \cellcolor{gray!40}USS & 0.9997 & -46.1701 & \cellcolor{gray!40}6.1764 & 6.0000 & 1.4582 & 6.1746 \\
-    \hline
-  \end{tabular}
-  \label{tab:2000_2}
-\end{table}
-
-\begin{table}[!htb]\centering \footnotesize
-  \caption{Short-circuit results for the converters with $\underline{Z}_f=0.05j$.}
-  \begin{tabular}{cccccccc}
-    \hline
-    \textbf{VSC} & \textbf{State} & $\bm{\nu}$ & $\bm{\theta}$ ($^{\circ}$) & $|\bm{I}|$ & $\bm{P}$ & $\bm{Q}$ & $|\bm{S}|$ \\
-    \hline
-    \hline
-    vsc1 & \cellcolor{gray!40}PSS & 0.6423 & -34.1962 & \cellcolor{gray!40}7.0000 & -3.1009 & 3.2557 & 4.4962 \\
-    vsc2 & \cellcolor{gray!40}USS & 1.0050 & -63.9565 & \cellcolor{gray!40}1.3882 & -1.0000 & 0.9696 & 1.3928 \\
-    vsc3 & \cellcolor{gray!40}USS & 1.0200 & -48.6301 & \cellcolor{gray!40}6.0529 & 6.0000 & 1.4453 & 6.1716 \\
-    \hline
-  \end{tabular}
-  \label{tab:2000_3}
-\end{table}
-\end{frame}
-
-\begin{frame}{Results validation}
- \begin{figure}[!htb]\centering
-  \begin{subfigure}{0.45\textwidth}
-    \includegraphics[width=6.0cm]{Data/psim_z0002.pdf}
-    \caption{VSC1 power injections.}
-  \end{subfigure}
-  \begin{subfigure}{0.45\textwidth}
-    \includegraphics[width=6.0cm]{Data/usim_z0002.pdf}
-    \caption{Fault voltage.}
-  \end{subfigure}
-	\caption{Dynamic simulation with PSS/E for a severe fault with $\underline{Z}_{f}=j0.002$ pu.}
-    \label{fig:dyn1}
-\end{figure}   
-\end{frame}
-
-\begin{frame}{Comparison with PSS/E}
-  Steady-state calculations:
-\begin{table}[!htb]\centering\footnotesize
-	\caption{Steady-state short-circuit results with the proposed method and PSS/E.}
-	\begin{tabular}{cccc}
-        \hline
-        \backslashbox{$\bm{\underline{Z}_{f}}$}{$\bm{I_{sc}}$} & \textbf{Proposed method} & \textbf{PSS/E VSCs as generators} & \textbf{PSS/E VSCs as FACTS} \\
-        \hline
-        \hline
-        $j0.05$ & \cellcolor{green!30}12.75 & \cellcolor{red!30}13.40 & \cellcolor{red!30}12.17 \\
-		$j0.002$ & \cellcolor{green!30}31.40 & \cellcolor{red!30}32.57 & \cellcolor{red!30}25.91 \\
-        \hline
-	\end{tabular}
-	\label{tab:valid}
-\end{table}
-PSS/E dynamic simulation:
-	\begin{table}[!htb]\centering\footnotesize
-			\caption{Comparison of efficiency with PSS/E dynamic simulation.}
-			% \begin{tabular}{m{3cm}<{\centering}|m{2.5cm}<{\centering}m{4cm}<{\centering}}
-              \begin{tabular}{crr}
-              \hline
-              $\bm{t_{sim}}$ \textbf{after fault (s)}& \textbf{Calculation time (s)}& \textbf{Error} $|\bm{u_{sample}-u_{cal}}|$ \textbf{(pu)} \\
-                \hline
-                \hline
-				0.3 & 1.43 & $42 \times 10^{-3}$ \\
-				1 & 3.52 & $19.8 \times 10^{-3}$ \\
-				2 & 6.81 & $6.5 \times 10^{-3}$ \\
-				3 & 10.07 & $1.6 \times 10^{-3}$ \\
-				4 & 13.14 & $<0.1 \times 10^{-3}$ \\
-				\hline
-                \rowcolor[gray]{0.8} Proposed method & 0.085 & $6.17 \times 10^{-11}$ \\
-                \hline
-			\end{tabular}
-            \label{tab:comparex}
-	\end{table}	
+Reactive power compensated by a shunt reactor is $Q_l = {Y}_{sh}\cdot U_{AC-N}^2$.
+\begin{equation}
+    {Y}_{sh} = \frac{1}{j\omega L}
+\end{equation}
+where $L$ is the inductance of the shunt reactor, $\omega$ the angular frequency and $U_{AC-N}^2$ the nominal transmission voltage.
+\begin{figure}
+  \centering
+  
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \scalebox{0.7}{
+      \begin{circuitikz}
+        \draw (0,0) to [generic, l=$\underline{y}_{sh}$] (0,-3) node[ground]{};
+      \end{circuitikz}
+    }
+    \caption{Shunt reactor model.}
+    \label{fig:shunt_reactor_model}
+  \end{minipage}
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{imatges/poss_position.png}
+    \caption{Possible locations for the shunt reactors [\textit{check memory for citation}].}
+    \label{fig:compensation_effect}
+  \end{minipage}\hfill
+\end{figure}
 
 \end{frame}
+\subsection{Elements Modelling}
 
-% \subsection{Algebraic limits}
-% \begin{frame}{Algebraic limits}
-% \begin{itemize}
-%     \item Up to this point, the states of converters are predetermined. 
-%     \item Converters are initially assumed to be unsaturated. If no solution is obtained, they are saturated following some heuristics.
-%     \item Finding a solution is not guaranteed, and multiple solutions can coexist.
-%     \item Since each of the $n$ converters can operate in 4 different states (USS, PSS, FSS and DIS), there are $4^n$ possible combinations. Solving systems with many converters is a computational challenge.
-% \end{itemize}
-% For all these reasons, it may be a good idea to include the current limits of the converters in an algebraic manner. The system of equations could be solved at one go. 
-% \end{frame}
+\begin{frame}{Transmission system design}
+  %Then the full transmission system looks like:
 
-% \begin{frame}{Formulation of the Lagrangian}
-% \begin{figure}[!htb]\centering\footnotesize
-%   \begin{circuitikz}[european]
-%     \draw[line width=0.1cm] (0,0) to [short] (0,-0.8);
-%     \draw (0,-0.4) to [/tikz/circuitikz/bipoles/length=25pt, R] (2,-0.4);
-%     \draw (0,-0.2) to [/tikz/circuitikz/bipoles/length=25pt, R, l=${g}_{ij}$] (2,0.6);
-%     \draw (0,-0.6) to [/tikz/circuitikz/bipoles/length=25pt, R] (2,-1.4);
-%     \draw (-0.5,-0.6) to [short] (-0.0,-0.6);
-%     % \draw (-0.2,-0.6) to [/tikz/circuitikz/bipoles/length=25pt, R, l_=$\underline{Y}_{sh,i}$] (-0.2,-2.5);
-%   \draw (-0.5,-1) to [short, i=${I}_i$] (-0.5,-0.6);
-%     \draw (-0.5,-2.5) to [american current source] (-0.5,-1.0);
-%     \draw (-0.7,-2.5) to [short] (-0.3,-2.5);
-%     % \draw (-2.2,-0.4) to [sdcac] (-1.2,-0.4);
-%     % \draw (0,0) to [twoportsplit, t1={$=$}, t2={$=$}] ++(3,0);
+  \begin{figure}[h]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tikzpicture}[scale=1]
+        \draw (0,0) rectangle (1.5,1.5);
+        % Draw the dots
+        \foreach \x in {0.3,0.6,0.9,1.2}
+            \foreach \y in {0.3,0.6,0.9,1.2}
+                \fill (\x,\y) circle (0.07);
+        
+        \draw (1.5,0.75) -- (3.5,0.75);
+        \node at (3,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{1}$]{};
+        \draw (3.5,0.75) to [generic, l=$\underline{Z}_{tr}$] (5,0.75);
+        \draw (3,0.75) to [generic, l=$\underline{Y}_{tr}$] (3,-2) node[ground]{};
+        \draw (3,0.4) -- (2,0.4);
+        \draw (2,0.4) to [generic, l_=$\underline{Y}_{sh1}$] (2,-2)node[ground]{};
+        \draw (5,0.75) -- (6,0.75);
+        \node at (5.75,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{2}$]{};
+        \draw (6,0.75) to [generic, l=$\underline{Z}_{\pi1}$] (7.5,0.75);
+        \draw (5.75,0.75) to [generic, l=$\underline{Y}_{\pi1}$] (5.75,-2) node[ground]{};
+        \draw (5.75,0.4) -- (5,0.4);
+        \draw (5,0.4) to [generic, l_=$\underline{Y}_{sh2}$] (5,-2)node[ground]{};
+        \draw (7.5,0.75) -- (10,0.75);
+        \node at (9,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{3}$]{};
+        \draw (8,0.75) to [generic, l_=$\underline{Y}_{\pi1}$] (8,-2) node[ground]{};
+        \draw (9,0.75) to [generic, l^=$\underline{Y}_{sh3}$] (9,-2) node[ground]{};
+        \draw (10,0.75) to [generic, l=$\underline{Y}_{\pi2}$] (10,-2)node[ground]{};
+        \draw (10,0.75) to [generic, l=$\underline{Z}_{\pi2}$] (12.5,0.75);
+        \draw (12.5,0.75) to [generic, l=$\underline{Y}_{\pi2}$] (12.5,-2) node[ground]{};
+        \draw (12.5,0.4) -- (11.5,0.4);
+        \node at (12.5,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{4}$]{};
+        \draw (11.5,0.4) to [generic, l=$\underline{Y}_{sh4}$] (11.5,-2)node[ground]{};
+        \draw (12.5,0.75) to [generic, l=$\underline{Z}_{tr}$] (15,0.75);
+        \draw (15,0.75) to [generic, l=$\underline{Y}_{tr}$] (15,-2) node[ground]{};
+        \node at (15,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{5}$]{};
+        \draw (15,0.4) -- (14,0.4);
+        \draw (14,0.4) to [generic, l=$\underline{Y}_{sh5}$] (14,-2) node[ground]{};
+        \draw (15,0.75) to [generic, l=$\underline{Z}_{g}$](17,0.75);
+        \draw (17,0.75) to[sV, l=$\underline{U}_{g}$] (17,-2) to (17,-2) node[ground]{};
+        \node at (17,0.75) [circle, draw=black, fill=black, inner sep=1pt, thick, label=above:$\textbf{6}$]{};
+    
 
-%     \draw (0.4,-1) to [/tikz/circuitikz/bipoles/length=25pt, R, l=$g_{sh,i}$] (0.4,-2.4);
-%     \draw (0.4, -2.4) to [short] (0.4,-2.5);
-%     \draw (0.2,-2.5) to [short] (0.6,-2.5);
-%     \draw (0.4,-1) to [short] (0,-0.6);
+    \end{tikzpicture}
+    }
+    \caption{Transmission system model and buses.}
+    \label{fig:fullgrid}
+    \end{figure}
 
-%     \draw (-2.2,-0.9) to [short] (-1.2,-0.9);
-%     \draw (-1.2,0.1) to [short] (-2.2,0.1);
-%     \draw (-2.2,-0.9) to [short] (-2.2,0.1);
-%     \draw (-1.2,-0.9) to [short] (-1.2,0.1);
-%     \draw (-2.2,0.1) to [short] (-1.2,-0.9);
+    \begin{figure}[h]
+      \begin{minipage}{0.45\textwidth}
+        \centering
+        \caption{Bus types.}
+        \scalebox{0.7}{% Adjust the scale as needed
+          \begin{tabular}{c|c}
+            \hline
+            \textbf{Bus Number} & \textbf{Bus Type} \\
+            \hline
+            1 & PQ \\
+            2 & PQ \\
+            3 & PQ \\
+            4 & PQ \\
+            5 & PQ \\
+            6 & Slack \\
+            \hline
+          \end{tabular}
+        }
+        \label{tab:bus_types}
+      \end{minipage}
+      \begin{minipage}{0.45\textwidth}
+        \centering
+        \caption{Elements in the transmission system.}
+        \scalebox{0.7}{% Adjust the scale as needed
+          \begin{tabular}{c}
+            \hline
+            \textbf{Elements}\\
+            \hline
+            XPLE Cables \\
+            Transformers \\
+            Shunt reactors \\
+            Switchgears \\
+            Main Grid (given) \\
+            Substation (cost dependent on OWPP) \\
+            
+            \hline
+          \end{tabular}
+        }
+      \end{minipage}
+    \end{figure}
 
-%     \draw (-1.5, -0.1) to [short] (-1.3, -0.1);
-%     \draw (-1.5, 0.0) to [short] (-1.3, 0.0);
-
-%     \draw (-2.1, -0.8) to [short] (-1.9, -0.8);
-%     \draw (-2.1, -0.7) to [short] (-1.9, -0.7);
-
-%     \draw (-1.2,-0.4) to [short, i=${P}_{i}$] (-0.0, -0.4);
-%     \node[] at (0,0.2) {${V}_i$};
-
-%     \draw[line width=0.1cm] (2,0.6) to [short] (2.1,0.37);
-%     \draw[line width=0.1cm] (2,0.6) to [short] (1.9,0.83);
-
-%     \draw[line width=0.1cm] (2,-1.4) to [short] (2.1,-1.17);
-%     \draw[line width=0.1cm] (2,-1.4) to [short] (1.9,-1.63);
-
-%     \draw[line width=0.1cm] (2,-0.4) to [short] (2,-0.65);
-%     \draw[line width=0.1cm] (2,-0.4) to [short] (2,-0.15);
-
-%     \node[] at (2,1.0) {$j$};
-%     \node[] at (2,0.0) {$j+1$};
-%     \node[] at (2,-1) {$j+2$};
-
-%   \end{circuitikz}
-%   \caption{Scheme of a DC bus with a converter.}
-%   \label{fig:rep1}
-% \end{figure}
-
-% The current balance and the associated Lagrangian are:
-% \begin{equation}
-%   \mathcal{F} = \sum_j g_{ij}(V_i - V_j) + V_i g_{sh,i} - \frac{P_i}{V_i} - I_i = 0,
-% \end{equation}
-% \begin{equation}
-%   \mathcal{L} = \int \mathcal{F} d\{V_i\} = \frac{1}{2}\sum_i \sum_{j<i} g_{ij}(V_i - V_j)^2 + \frac{1}{2}\sum_i V_i^2 g_{sh,i} - \sum_i P_i \ln V_i - \sum_i I_iV_i.
-% \end{equation}
-% \end{frame}
-
-% \begin{frame}{Formulation of the Lagrangian}
-% The minimization problem is:
-% \begin{equation}
-% \begin{aligned}
-%   \min_{\{V_i\}} \quad & \frac{1}{2}\sum_i \sum_{j<i} g_{ij}(V_i - V_j)^2 + \frac{1}{2}\sum_i V_i^2 g_{sh,i} - \sum_i P_i \ln V_i - \sum_i I_iV_i, \\
-%   \textrm{s.t.} \quad & V_i^{sp} - V_i = 0, \\
-%                       & I_i^\text{min} \leq I_i \leq I_i^\text{max}. \\
-% \end{aligned}
-% \end{equation}
-
-% The dual problem with barrier functions becomes:
-% \begin{equation}
-% \begin{aligned}
-%   \begin{split}
-%     \max_{\{I_i\}} \quad & \frac{1}{2}\sum_i \sum_{j<i} g_{ij}(V_i - V_j)^2 + \frac{1}{2}\sum_i V_i^2 g_{sh,i} - \sum_i P_i \ln V_k - \sum_i I_i(V_i - V_i^{sp}) \\
-%                        &+ \mu_1 \ln{(I_i^\text{max} - I_i)} + \mu_2 \ln{(I_i - I_i^\text{min})}.
-%   \end{split}
-% \end{aligned}
-% \label{eq:iffinal}
-% \end{equation}
-% Deriving it with respect to $I_i$ yields the equation of interest:
-% \begin{equation}
-%   -(V_i - V_i^{sp})(I_i^\text{max} - I_i)(I_i - I_i^\text{min}) - \mu(I_i - I_i^\text{min}) + \mu(I_i^\text{max} - I_i) = 0.
-%   \label{eq:iok}
-% \end{equation}
-
-% \end{frame}
+\end{frame}
 
 
-% \begin{frame}{Results for a simple DC system}
-% The initial results are:
-% \begin{table}[!htb]\centering\footnotesize
-%   \caption{Results for the DC power flow base case.}
-%   \begin{tabular}{cc}
-%     \hline
-%     \textbf{Magnitude} & \textbf{Value}\\
-%     \hline
-%     \hline
-%     $V_1$ & 1.0100 \\
-%     $P_1$ & 0.4703 \\
-%     $V_2$ & 0.9867 \\
-%     $P_3$ & 0.0406 \\
-%     \hline
-%   \end{tabular}
-%   \label{tab:r1}
-% \end{table}
-% And the results obtained by thightening the current limits turn out to be:
-% \begin{table}[!htb]\centering\footnotesize
-%   \caption{DC power flow results considering current limits of $\pm 0.4$.}
-%   \begin{tabular}{cc}
-%     \hline
-%     \textbf{Magnitude} & \textbf{Value}\\
-%     \hline
-%     \hline
-%     $V_1$ & 1.0012 \\
-%     $I_1$ & 0.4000 \\
-%     $V_2$ & 0.9812 \\
-%     $P_3$ & 0.1084 \\
-%     \hline
-%   \end{tabular}
-%   \label{tab:r3}
-% \end{table}
-% \end{frame}
+
+
+
+
+
+
+
+
+
+
+

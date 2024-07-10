@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.6.24)  25 JUN 2024 16:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.6.24)  25 JUN 2024 17:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1499,13 +1499,13 @@ Package rerunfilecheck Info: File `TFG_offshoreWindParkOptimization.out' has not
 Here is how much of TeX's memory you used:
  52117 strings out of 474424
  1220101 string characters out of 5741739
- 2001678 words of memory out of 5000000
+ 2001677 words of memory out of 5000000
  73502 multiletter control sequences out of 15000+600000
  612041 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  110i,17n,117p,1355b,964s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/eurosym/feybr10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/eurosym/feymr10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplb.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplr.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qplri.pfb><C:/Users/garri/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on TFG_offshoreWindParkOptimization.pdf (64 pages, 1921489 bytes).
+Output written on TFG_offshoreWindParkOptimization.pdf (64 pages, 1921487 bytes).
 PDF statistics:
  1130 PDF objects out of 1200 (max. 8388607)
  247 named destinations out of 1000 (max. 500000)
